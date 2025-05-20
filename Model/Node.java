@@ -2,20 +2,20 @@ package Model;
 
 public class Node {
     /* Atribut */
-    private int data;
+    private Transaksi data;
     private Node next;
 
     /* Constructor */
-    public Node(int data) {
+    public Node(Transaksi data) {
         this.data = data;
         this.next = null;
     }
     /* Getter & Setter */
-    public void setData (int data) {
+    public void setData (Transaksi data) {
         this.data = data;
     }
 
-    public int getData() {
+    public Transaksi getData() {
         return data;
     }
 

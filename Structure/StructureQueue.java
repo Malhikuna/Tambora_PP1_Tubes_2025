@@ -1,28 +1,29 @@
 package Structure;
 
 import Model.Node;
+import Model.Transaksi;
 
 public class StructureQueue {
-    Node rear;
-    Node front;
+    Node REAR;
+    Node FRONT;
 
-    public void enqueue(int data) {
+    public void enqueue(Transaksi data) {
         Node newNode = new Node(data);
         if (isEmpty()) {
-            front = newNode;
-            rear = newNode;
+            FRONT = newNode;
+            REAR = newNode;
         } else {
-            rear.setNext(newNode);
-            rear = newNode;
+            REAR.setNext(newNode);
+            REAR = newNode;
         }
     }
     public boolean isEmpty() {
-        return front == null;
+        return FRONT == null;
     }
 
     public int size() {
         int size = 0;
-        Node curNode = front;
+        Node curNode = FRONT;
         while (curNode != null) {
             size++;
             curNode = curNode.getNext();
@@ -30,39 +31,44 @@ public class StructureQueue {
         return size;
     }
 
-    public int front() {
-        return front != null ? front.getData() : -1;
+    public Transaksi front() {
+        return FRONT != null ? FRONT.getData() : null;
     }
 
-    public void dequeue() {
-        if (isEmpty()) {
-            System.out.println("Queue is empty");
+    public void dispose(Node temp) {
+        temp.setNext(null);
+    }
+
+    public Transaksi dequeue() {
+    if (FRONT != null) {
+        Transaksi data = FRONT.getData();
+
+        if (FRONT == REAR) {
+            // Jika hanya ada 1 elemen
+            FRONT = null;
+            REAR = null;
         } else {
-            front = front.getNext();
-            if (front == null) {
-                rear = null;
-            }
+            Node temp = FRONT;
+            FRONT = FRONT.getNext();
+            dispose(temp);
+        }
+
+        return data;
+        } else {
+            System.out.println("Queue kosong, tidak bisa dequeue.");
+            return null;
         }
     }
 
     public void displayElement() {
-        if (isEmpty()) {
-            System.out.println("Size :" + size());
-            System.out.println("Isempty: " + isEmpty());
-            System.out.println("Elemen Queue: Queue Kosong");
-        } else {
-            Node curNode = front;
-            System.out.println("Size :" + size());
-            System.out.println("Isempty: " + isEmpty());
-            System.out.print("Elemen Queue : ");
-            while (curNode != null) {
-                size();
-                System.out.print(curNode.getData() + " ");
-                curNode = curNode.getNext();
+    if (isEmpty()) {
+        System.out.println("List Kosong");
+    } else {
+        Node curNode = FRONT;
+        while (curNode != null) {
+            System.out.print(curNode.getData() + " ");
+            curNode = curNode.getNext();
             }
-            System.out.println(" ");
-            System.out.println("Front: " + front());
         }
     }
-
 }
