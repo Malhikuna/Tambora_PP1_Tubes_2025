@@ -2,7 +2,7 @@ package Service;
 
 public class TransaksiService {
     /* Atribut */
-
+    
     /* Prosedur & Fungsi */
 
     // Prosedur untuk menambahkan transaksi baru ke queue
