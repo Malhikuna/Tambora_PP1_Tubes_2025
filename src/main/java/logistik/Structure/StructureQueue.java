@@ -1,7 +1,7 @@
-package Structure;
+package logistik.Structure;
 
-import Model.Node;
-import Model.Transaksi;
+import logistik.Model.Node;
+import logistik.Model.Transaksi;
 
 public class StructureQueue {
     Node REAR;

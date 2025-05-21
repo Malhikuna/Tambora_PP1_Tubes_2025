@@ -1,4 +1,4 @@
-package Model;
+package logistik.Model;
 
 public class Node {
     /* Atribut */

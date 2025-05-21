@@ -1,4 +1,4 @@
-package Model;
+package logistik.Model;
 
 public class Barang {
     /* Atribut */

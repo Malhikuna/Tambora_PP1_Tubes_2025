@@ -1,4 +1,4 @@
-package Model;
+package logistik.Model;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package Service;
+package logistik.Service;
 
 public class AuthService {
 }
