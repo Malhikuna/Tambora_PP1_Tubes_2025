@@ -1,6 +1,7 @@
-import Model.Barang;
-import Service.BarangService;
-import Structure.StructureQueue;
+package logistik;
+
+import logistik.Model.Barang;
+import logistik.Service.BarangService;
 
 public class MainApp {
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
-package Service;
+package logistik.Service;
 
-import Model.Barang;
+import logistik.Model.Barang;
 
 import java.util.ArrayList;
 

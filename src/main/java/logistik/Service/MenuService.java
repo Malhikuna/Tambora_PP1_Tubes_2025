@@ -1,6 +1,4 @@
-package Service;
-
-import java.util.Scanner;
+package logistik.Service;
 
 public class MenuService {
     // Prosedur untuk menampilkan menu utama
