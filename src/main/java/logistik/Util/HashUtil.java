@@ -1,4 +1,15 @@
 package logistik.Util;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class HashUtil {
+    // Hash password
+    public static String hashPassword(String plainPassword) {
+        return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+    }
+
+    // Verifikasi password (compare input password dengan hash di database)
+    public static boolean checkPassword(String plainPassword, String hashedPassword) {
+        return BCrypt.checkpw(plainPassword, hashedPassword);
+    }
 }

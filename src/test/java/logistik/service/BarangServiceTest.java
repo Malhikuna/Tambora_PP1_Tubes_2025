@@ -1,4 +1,4 @@
-package service;
+package logistik.service;
 
 import logistik.Model.Barang;
 import logistik.Service.BarangService;
