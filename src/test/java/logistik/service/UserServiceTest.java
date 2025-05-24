@@ -49,7 +49,7 @@ public class UserServiceTest {
 
     @Test
     void testCreateUser() {
-        User user = new User("Malhikuna", "rahasia", "Hikmal Maulana", "Admin");
+        User user = new User("Admin", "123", "Admin", "Admin");
 
         userService.createUser(user);
 
@@ -57,7 +57,7 @@ public class UserServiceTest {
         System.out.println("Password: " + user.getPassword());
         System.out.println("Nama: " + user.getName());
         System.out.println("Admin: " + user.getRole());
-        assertEquals("Malhikuna", user.getUsername());
+        assertEquals("Admin", user.getUsername());
     }
 
     /*
@@ -77,7 +77,7 @@ public class UserServiceTest {
 
         System.out.println("New Password: " + updatedUser.getPassword());
     }
-     */
+    */
 
     /*
     @Test
