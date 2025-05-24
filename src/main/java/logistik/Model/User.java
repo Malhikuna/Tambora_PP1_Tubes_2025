@@ -1,11 +1,66 @@
 package logistik.Model;
 
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 public class User {
-    private String name;
+
+    private UUID id;
+
+    private String username;
+
     private String password;
 
-    public User(String name, String password) {
+    private String name;
+
+    private String role;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = createdAt;
+    }
+
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+    public User() {
+    }
+
+    public User(String username, String password, String name, String role) {
+        this.username = username;
+        this.password = password;
         this.name = name;
+        this.role = role;
+        this.id = UUID.randomUUID();
+    }
+
+    // getter & setter
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -17,11 +72,20 @@ public class User {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getRole() {
+        return role;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
+
