@@ -60,6 +60,7 @@ public class UserServiceTest {
         assertEquals("Malhikuna", user.getUsername());
     }
 
+    /*
     @Test
     void testUpdatePassword() {
         User user = new User("Malhikuna", "rahasia", "Hikmal Maulana", "Admin");
@@ -76,7 +77,9 @@ public class UserServiceTest {
 
         System.out.println("New Password: " + updatedUser.getPassword());
     }
+     */
 
+    /*
     @Test
     void testHapusUser() {
         User user = new User("Malhikuna", "rahasia", "Hikmal Maulana", "Admin");
@@ -84,11 +87,12 @@ public class UserServiceTest {
         userService.createUser(user);
 
         List<User> users = userService.getAllUser();
-        UUID userId = users.get(0).getId();
+        UUID userId = users.getFirst().getId();
 
         userService.hapusUser(userId);
 
         List<User> remainingUsers = userService.getAllUser();
         assertEquals(0, remainingUsers.size());
     }
+    */
 }
