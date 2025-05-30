@@ -1,3 +1,7 @@
+package logistik.Model;
+
+import java.time.LocalDateTime;
+
 public class StokBarang {
     private String kodeBarang;
     private int jumlah;
@@ -6,7 +10,7 @@ public class StokBarang {
     public StokBarang(String kodeBarang, int jumlah, LocalDateTime tanggalMasuk){
     this.kodeBarang = kodeBarang;
     this.jumlah = jumlah;
-    this.tanggalMasuk = tanggalMasuk
+    this.tanggalMasuk = tanggalMasuk;
     }
 
     //setter dan getter untuk kodebarang
@@ -41,6 +45,6 @@ public class StokBarang {
     System.out.println("Kode Barang : " + kodeBarang);
     System.out.println("Jumlah      : " + jumlah);
     System.out.println("Tanggal Masuk: " + tanggalMasuk);
-    }
-    //main method untuk testing
     }
+    //main method untuk testing
+}
