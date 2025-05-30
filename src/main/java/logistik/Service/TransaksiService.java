@@ -2,7 +2,6 @@ package logistik.Service;
 
 import logistik.Config.DatabaseConnection;
 import logistik.Model.Transaksi;
-import logistik.Structure.StructureQueue;
 
 import java.sql.Connection;
 
