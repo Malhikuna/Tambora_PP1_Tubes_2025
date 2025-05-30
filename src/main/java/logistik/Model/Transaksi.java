@@ -6,25 +6,18 @@ import java.util.UUID;
 public class Transaksi {
     /* Atribut */
     private UUID id;
-    private String barangId;
-    private String tipe;
+    private String kodeBarang;
+    private String jenis;
     private int jumlah;
-    private String supplierId;
-    private String penerimaId;
-    private String userId;
-    private LocalDateTime waktu;
+    private LocalDateTime tanggal;
 
     /* Constructor */
-    public Transaksi(UUID id, String barangId, String tipe, int jumlah, String supplierId, String penerimaId,
-                     String userId) {
+    public Transaksi(String kodeBarang, String jenis, int jumlah) {
         this.id = UUID.randomUUID(); // Generate a random UUID if not provided
-        this.barangId = barangId;
-        this.tipe = tipe;
+        this.kodeBarang = kodeBarang;
+        this.jenis = jenis;
         this.jumlah = jumlah;
-        this.supplierId = supplierId;
-        this.penerimaId = penerimaId;
-        this.userId = userId;
-        this.waktu = LocalDateTime.now();
+        this.tanggal = LocalDateTime.now();
     }
 
     /* Getter & Setter */
@@ -36,59 +29,35 @@ public class Transaksi {
         this.id = id;
     }
 
-    public String getBarangId() {
-        return barangId;
-    }
+   public String getKodeBarang() {
+        return kodeBarang;
+   }
 
-    public void setBarangId(String barangId) {
-        this.barangId = barangId;
-    }
+   public void setKodeBarang(String kodeBarang) {
+        this.kodeBarang = kodeBarang;
+   }
 
-    public String getTipe() {
-        return tipe;
-    }
+   public String getJenis() {
+        return jenis;
+   }
 
-    public void setTipe(String tipe) {
-        this.tipe = tipe;
-    }
+   public void setJenis(String jenis) {
+        this.jenis = jenis;
+   }
 
-    public int getJumlah() {
+   public int getJumlah() {
         return jumlah;
-    }
+   }
 
-    public void setJumlah(int jumlah) {
+   public void setJumlah(int jumlah) {
         this.jumlah = jumlah;
-    }
+   }
 
-    public String getSupplierId() {
-        return supplierId;
-    }
+   public LocalDateTime getTanggal() {
+        return tanggal;
+   }
 
-    public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
-    }
-
-    public String getPenerimaId() {
-        return penerimaId;
-    }
-
-    public void setPenerimaId(String penerimaId) {
-        this.penerimaId = penerimaId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public LocalDateTime getWaktu() {
-        return waktu;
-    }
-
-    public void setWaktu(LocalDateTime waktu) {
-        this.waktu = waktu;
-    }
+   public void setTanggal(LocalDateTime tanggal) {
+        this.tanggal = tanggal;
+   }
 }
