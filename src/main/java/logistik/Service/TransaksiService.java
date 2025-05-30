@@ -18,11 +18,12 @@ public class TransaksiService {
     // Constructor
     public TransaksiService() {
         conn = DatabaseConnection.getConnection();
+        stokQueue = new StokQueue(100);
     }
 
     // Prosedur untuk menambahkan transaksi baru ke queue
     public void tambahTransaksi(Transaksi transaksi) {
-        String sql = "INSERT INTO transaksi (id, kode_barang, jenis, jumlah, tanggal) VALUES (?,?,?,?,?,)";
+        String sql = "INSERT INTO transaksi (id, kode_barang, jenis, jumlah, tanggal) VALUES (?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, transaksi.getId().toString());
             stmt.setString(2, transaksi.getKodeBarang());
