@@ -50,7 +50,7 @@ public class BarangServiceTest {
 
     @Test
     public void testTambahBarang() {
-        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000, 50);
+        Barang barang = new Barang("B001","Indomie" , 1, "Pcs", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -58,12 +58,12 @@ public class BarangServiceTest {
 
         Barang result = barangService.cariBarang(barang.getKode());
 
-        assertEquals("Beras", result.getNama());
+        assertEquals("Indomie", result.getNama());
     }
 
     @Test
     public void testUpdateBarang() {
-        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000, 50);
+        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -83,7 +83,7 @@ public class BarangServiceTest {
 
     @Test
     public void testHapusBarang() {
-        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000, 50);
+        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -98,7 +98,7 @@ public class BarangServiceTest {
 
     @Test
     public void testCariBarang() {
-        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000, 50);
+        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -109,8 +109,8 @@ public class BarangServiceTest {
 
     @Test
     public void testTampilkanSemuaBarang() {
-        Barang barang1 = new Barang("B001","Beras" , 1, "Kg", 10000, 12000, 50);
-        Barang barang2 = new Barang("B002","Minyak" , 1, "Kg", 10000, 12000, 50);
+        Barang barang1 = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
+        Barang barang2 = new Barang("B002","Minyak" , 1, "Kg", 10000, 12000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang1);
         barangService.tambahBarang(barang2);

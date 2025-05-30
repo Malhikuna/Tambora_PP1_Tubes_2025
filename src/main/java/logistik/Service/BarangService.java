@@ -18,17 +18,14 @@ public class BarangService {
 
     // Prosedur untuk menambahkan barang
     public void tambahBarang(Barang barang) {
-       String sql = "INSERT INTO barang (id, kode_barang, nama_barang, kategori_id, stok, satuan, harga_beli, harga_jual) VALUES (?,?,?,?,?,?,?,?)";
-       barang.setId(UUID.randomUUID());
+       String sql = "INSERT INTO barang (kode_barang, nama_barang, kategori_id, satuan, harga_beli, harga_jual) VALUES (?,?,?,?,?,?)";
        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-           stmt.setString(1, barang.getId().toString());
-           stmt.setString(2, barang.getKode());
-           stmt.setString(3, barang.getNama());
-           stmt.setInt(4, barang.getKategori());
-           stmt.setInt(5, barang.getStok());
-           stmt.setString(6, barang.getSatuan());
-           stmt.setDouble(7, barang.getHarga_beli());
-           stmt.setDouble(8, barang.getHarga_jual());
+           stmt.setString(1, barang.getKode());
+           stmt.setString(2, barang.getNama());
+           stmt.setInt(3, barang.getKategori());
+           stmt.setString(4, barang.getSatuan());
+           stmt.setDouble(5, barang.getHarga_beli());
+           stmt.setDouble(6, barang.getHarga_jual());
            stmt.executeUpdate();
        } catch (SQLException e) {
            e.printStackTrace();
@@ -36,14 +33,13 @@ public class BarangService {
     }
 
     public void updateBarang(Barang barang) {
-        String sql = "UPDATE barang SET nama_barang = ?, kategori_id = ?, stok = ?, satuan = ?, harga_beli = ? WHERE kode_barang = ?";
+        String sql = "UPDATE barang SET nama_barang = ?, kategori_id = ?, satuan = ?, harga_beli = ? WHERE kode_barang = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, barang.getNama());
             stmt.setInt(2, barang.getKategori());
-            stmt.setInt(3, barang.getStok());
-            stmt.setString(4, barang.getSatuan());
-            stmt.setDouble(5, barang.getHarga_beli());
-            stmt.setString(6, barang.getKode());
+            stmt.setString(3, barang.getSatuan());
+            stmt.setDouble(4, barang.getHarga_beli());
+            stmt.setString(5, barang.getKode());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,9 +59,8 @@ public class BarangService {
                     rs.getInt("kategori_id"),
                     rs.getString("satuan"),
                     rs.getDouble("harga_beli"),
-                    rs.getDouble("harga_jual"),
-                    rs.getInt("stok"));
-                barang.setId(UUID.fromString(rs.getString("id")));
+                    rs.getDouble("harga_jual"));
+                //barang.setId(UUID.fromString(rs.getString("id")));
                 return barang;
             }
         } catch (SQLException e) {
@@ -87,9 +82,8 @@ public class BarangService {
                         rs.getInt("kategori_id"),
                         rs.getString("satuan"),
                         rs.getDouble("harga_beli"),
-                        rs.getDouble("harga_jual"),
-                        rs.getInt("stok"));
-                b.setId(UUID.fromString(rs.getString("id")));
+                        rs.getDouble("harga_jual"));
+                //b.setId(UUID.fromString(rs.getString("id")));
                 barang.add(b);
             }
         } catch (SQLException e) {
