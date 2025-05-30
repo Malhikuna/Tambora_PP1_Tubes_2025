@@ -5,35 +5,24 @@ import java.util.UUID;
 
 public class Barang {
     /* Atribut */
-    private UUID id;
     private String kode;
     private String nama;
     private int kategori;
     private String satuan;
-    private double harga_beli;
-    private double harga_jual;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private int stok;
+    private double hargaBeli;
+    private double hargaJual;
 
     /* Constructor */
-    public Barang(String kode, String nama, int kategori, String satuan, double harga_beli, double harga_jual,
-                  int stok) {
-        this.id = UUID.randomUUID();
+    public Barang(String kode, String nama, int kategori, String satuan, double hargaBeli, double hargaJual) {
         this.kode = kode;
         this.nama = nama;
         this.kategori = kategori;
         this.satuan = satuan;
-        this.harga_beli = harga_beli;
-        this.harga_jual = harga_jual;
-        this.stok = stok;
+        this.hargaBeli = hargaBeli;
+        this.hargaJual = hargaJual;
     }
 
     /* Getter & Setter */
-    public UUID getId() {
-        return id;
-    }
-
     public String getKode() {
         return kode;
     }
@@ -52,27 +41,11 @@ public class Barang {
     }
 
     public double getHarga_beli() {
-        return harga_beli;
+        return hargaBeli;
     }
 
     public double getHarga_jual() {
-        return harga_jual;
-    }
-
-    public int getStok() {
-        return stok;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+        return hargaJual;
     }
 
     public void setKode(String kode) {
@@ -93,34 +66,20 @@ public class Barang {
     }
 
     public void setHarga_beli(double harga_beli) {
-        this.harga_beli = harga_beli;
+        this.hargaBeli = harga_beli;
     }
 
     public void setHarga_jual(double harga_jual) {
-        this.harga_jual = harga_jual;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setStok(int stok) {
-        this.stok = stok;
+        this.hargaJual = harga_jual;
     }
 
     // Menampilkan kode, nama, dan stok barang
     public void tampilBarang() {
-        System.out.println(this.id);
         System.out.println("Kode Barang : " +kode);
         System.out.println("Nama Barang : " +nama);
         System.out.println("Kategori Barang : " +kategori);
         System.out.println("Satuan Barang : " +satuan);
-        System.out.println("Harga Beli Barang : " +harga_beli);
-        System.out.println("Harga Jual Barang : " +harga_jual);
-        System.out.println("Stok Barang : " +stok);
+        System.out.println("Harga Beli Barang : " +hargaBeli);
+        System.out.println("Harga Jual Barang : " +hargaJual);
     }
 }
