@@ -1,7 +1,7 @@
-package logistik.Service;
+package logistik.service;
 
-import logistik.Config.DatabaseConnection;
-import logistik.Model.StokBarang;
+import logistik.config.DatabaseConnection;
+import logistik.model.StokBarang;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package logistik.Menu;
+package logistik.view;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -8,8 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import logistik.Model.User;
-import logistik.Service.AuthService;
+import logistik.model.User;
+import logistik.service.AuthService;
 
 public class Menu extends Application {
     private Stage primaryStage;

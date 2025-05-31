@@ -1,4 +1,4 @@
-package logistik.Util;
+package logistik.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 

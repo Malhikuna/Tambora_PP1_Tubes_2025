@@ -1,13 +1,10 @@
-package logistik.Service;
+package logistik.service;
 
-import logistik.Config.DatabaseConnection;
-import logistik.Model.Barang;
-import logistik.Model.StokBarang;
-import logistik.Model.Transaksi;
+import logistik.config.DatabaseConnection;
+import logistik.model.StokBarang;
+import logistik.model.Transaksi;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TransaksiService {
     /* Atribut */

@@ -1,7 +1,7 @@
 package logistik;
 
-import logistik.Model.User;
-import logistik.Service.UserService;
+import logistik.model.User;
+import logistik.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

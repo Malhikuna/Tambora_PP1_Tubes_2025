@@ -1,4 +1,4 @@
-package logistik.Config;
+package logistik.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
