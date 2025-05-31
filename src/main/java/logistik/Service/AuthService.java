@@ -1,13 +1,7 @@
-package logistik.Service;
+package logistik.service;
 
-import logistik.Model.User;
-import logistik.Util.HashUtil;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.UUID;
+import logistik.model.User;
+import logistik.util.HashUtil;
 
 public class AuthService {
     public User login(String username, String password) {

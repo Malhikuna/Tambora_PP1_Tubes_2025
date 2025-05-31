@@ -1,15 +1,11 @@
 package logistik.service;
 
-import logistik.Config.DatabaseConnection;
-import logistik.Model.User;
-import logistik.Service.AuthService;
-import logistik.Service.UserService;
+import logistik.config.DatabaseConnection;
+import logistik.model.User;
 import org.junit.jupiter.api.*;
 
 import java.sql.Connection;
 import java.sql.Statement;
-import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,10 +1,10 @@
 
 
-package logistik.Service;
+package logistik.service;
 
-import logistik.Config.DatabaseConnection;
-import logistik.Model.User;
-import logistik.Util.HashUtil;
+import logistik.config.DatabaseConnection;
+import logistik.model.User;
+import logistik.util.HashUtil;
 
 import java.sql.*;
 import java.util.ArrayList;

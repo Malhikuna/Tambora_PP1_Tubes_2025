@@ -1,12 +1,11 @@
-package logistik.Service;
+package logistik.service;
 
-import logistik.Model.Barang;
-import logistik.Config.DatabaseConnection;
+import logistik.model.Barang;
+import logistik.config.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class BarangService {
     /* Atribut */

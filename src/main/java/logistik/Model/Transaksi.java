@@ -1,4 +1,4 @@
-package logistik.Model;
+package logistik.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

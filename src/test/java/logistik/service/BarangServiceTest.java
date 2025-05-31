@@ -1,9 +1,6 @@
 package logistik.service;
 
-import logistik.Model.Barang;
-import logistik.Service.AuthService;
-import logistik.Service.BarangService;
-import logistik.Service.UserService;
+import logistik.model.Barang;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +19,7 @@ public class BarangServiceTest {
 
     @BeforeAll
     static void setupDatabase() {
-        conn = logistik.Config.DatabaseConnection.getConnection();
+        conn = logistik.config.DatabaseConnection.getConnection();
     }
 
     @BeforeEach

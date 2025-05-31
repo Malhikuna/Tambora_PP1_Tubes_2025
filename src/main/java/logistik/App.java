@@ -1,7 +1,7 @@
 package logistik;
 
 import javafx.application.Application;
-import logistik.Menu.Menu;
+import logistik.view.Menu;
 
 public class App {
     public static void main(String[] args) {

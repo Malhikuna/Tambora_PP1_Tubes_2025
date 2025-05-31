@@ -1,7 +1,4 @@
-package logistik.Model;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
+package logistik.model;
 
 public class Barang {
     /* Atribut */
