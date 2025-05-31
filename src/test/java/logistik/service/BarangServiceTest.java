@@ -14,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BarangServiceTest {
     private static Connection conn;
-    private UserService userService;
-    private AuthService authService;
 
     @BeforeAll
     static void setupDatabase() {
@@ -24,8 +22,6 @@ public class BarangServiceTest {
 
     @BeforeEach
     void setUp() {
-        userService = new UserService();
-        authService = new AuthService();
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("DELETE FROM barang");
