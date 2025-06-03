@@ -1,19 +1,13 @@
 package logistik.service;
 
-import logistik.Model.Barang;
-import logistik.Model.Transaksi;
-import logistik.Service.AuthService;
-import logistik.Service.BarangService;
-import logistik.Service.TransaksiService;
-import logistik.Service.UserService;
+import logistik.model.Barang;
+import logistik.model.Transaksi;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.sql.Connection;
 import java.sql.Statement;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,7 +16,7 @@ public class TransaksiServiceTest {
 
     @BeforeAll
     static void setupDatabase() {
-        conn = logistik.Config.DatabaseConnection.getConnection();
+        conn = logistik.config.DatabaseConnection.getConnection();
     }
 
     @BeforeEach
