@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane stylesheets="@/logistik/style/main.css" xmlns:fx="http://javafx.com/fxml" prefWidth="800" prefHeight="600">
+    <children>
+        <HBox prefWidth="800" prefHeight="600">
+
+            <!-- Sidebar -->
+            <VBox fx:id="sidebar" prefWidth="200" styleClass="sidebar">
+                <children>
+                    <Label text="Menu" styleClass="sidebar-title" />
+
+                    <TitledPane text="Barang" expanded="false">
+                        <content>
+                            <VBox>
+                                <children>
+                                    <Button text="Lihat Data Barang" styleClass="sidebar-button" />
+                                    <Button text="Tambah Barang" styleClass="sidebar-button" />
+                                    <Button text="Edit Barang" styleClass="sidebar-button" />
+                                    <Button text="Hapus Barang" styleClass="sidebar-button" />
+                                </children>
+                            </VBox>
+                        </content>
+                    </TitledPane>
+
+                    <TitledPane text="Stok Barang" expanded="false">
+                        <content>
+                            <VBox>
+                                <children>
+                                    <Button text="Barang Masuk" styleClass="sidebar-button" />
+                                    <Button text="Barang Keluar" styleClass="sidebar-button" />
+                                    <Button text="Riwayat Stok" styleClass="sidebar-button" />
+                                </children>
+                            </VBox>
+                        </content>
+                    </TitledPane>
+
+                    <TitledPane text="Transaksi" expanded="false">
+                        <content>
+                            <VBox>
+                                <children>
+                                    <Button text="Lihat Riwayat Transaksi" styleClass="sidebar-button" />
+                                    <Button text="Cetak Laporan" styleClass="sidebar-button" />
+                                </children>
+                            </VBox>
+                        </content>
+                    </TitledPane>
+
+                    <TitledPane text="Pengguna" expanded="false">
+                        <content>
+                            <VBox>
+                                <children>
+                                    <Button text="Ubah Username" styleClass="sidebar-button" />
+                                    <Button text="Ubah Password" styleClass="sidebar-button" />
+                                </children>
+                            </VBox>
+                        </content>
+                    </TitledPane>
+
+                    <Button text="Logout" styleClass="sidebar-button logout-button" />
+                </children>
+            </VBox>
+
+            <!-- Konten Utama -->
+            <AnchorPane fx:id="contentPane" prefWidth="600" prefHeight="600" styleClass="content-area"/>
+
+        </HBox>
+    </children>
+</AnchorPane>
