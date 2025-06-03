@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,12 +20,12 @@ public class AuthServiceTest {
     private AuthService authService;
 
     @BeforeAll
-    static void setupDatabase() {
+    static void setupDatabase() throws SQLException {
         conn = DatabaseConnection.getConnection();
     }
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         userService = new UserService();
         authService = new AuthService();
         try {
@@ -47,7 +48,7 @@ public class AuthServiceTest {
     }
 
     @Test
-    void testLogin() {
+    void testLogin() throws SQLException {
         User user = new User("Malhikuna", "rahasia", "Hikmal Maulana", "Admin");
 
         userService.createUser(user);

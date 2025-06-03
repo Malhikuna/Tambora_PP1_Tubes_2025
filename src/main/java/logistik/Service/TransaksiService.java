@@ -13,9 +13,9 @@ public class TransaksiService {
     private StokBarang stokBarang;
 
     // Constructor
-    public TransaksiService() {
+    public TransaksiService() throws SQLException {
         conn = DatabaseConnection.getConnection();
-        stokQueue = new StokQueue(100);
+        stokQueue = new StokQueue();
     }
 
     // Prosedur untuk menambahkan transaksi baru ke queue

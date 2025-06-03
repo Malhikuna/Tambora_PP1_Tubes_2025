@@ -3,8 +3,10 @@ package logistik.service;
 import logistik.model.User;
 import logistik.util.HashUtil;
 
+import java.sql.SQLException;
+
 public class AuthService {
-    public User login(String username, String password) {
+    public User login(String username, String password) throws SQLException {
         UserService userService = new UserService();
         User user = userService.findUserByUsername(username);
 
