@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="logistik.controller.barang.BarangTableController"
+      alignment="CENTER" spacing="10.0" styleClass="table-container">
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Cari:"/>
+        <TextField fx:id="searchField" promptText="Cari nama barang..." />
+        <Button fx:id="simpanButton" mnemonicParsing="false" text="Cari" styleClass="button-primary"/>
+    </HBox>
+
+    <TableView fx:id="barangTableView" prefWidth="800.0" prefHeight="400.0">
+        <columns>
+            <TableColumn fx:id="kodeColumn" text="Kode" prefWidth="100.0"/>
+            <TableColumn fx:id="namaColumn" text="Nama" prefWidth="150.0"/>
+            <TableColumn fx:id="kategoriColumn" text="Kategori" prefWidth="100.0"/>
+            <TableColumn fx:id="satuanColumn" text="Satuan" prefWidth="100.0"/>
+            <TableColumn fx:id="hargaJualColumn" text="Harga Jual" prefWidth="150.0"/>
+            <TableColumn fx:id="hargaBeliColumn" text="Harga Beli" prefWidth="150.0"/>
+        </columns>
+    </TableView>
+
+</VBox>

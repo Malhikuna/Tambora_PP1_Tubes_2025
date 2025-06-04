@@ -36,3 +36,30 @@
     -fx-background-color: #fefefe;
     -fx-padding: 20;
 }
+
+/* Di main.css atau form-barang.css */
+.form-container {
+    -fx-background-color: #f4f4f4; /* Contoh warna background */
+}
+
+.form-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Contoh warna teks */
+}
+
+/* Style untuk button bisa kamu definisikan juga */
+.button-success {
+    -fx-background-color: #4CAF50; /* Hijau */
+    -fx-text-fill: white;
+}
+
+.button-primary {
+    -fx-background-color: #4300FF; /* Biru */
+    -fx-text-fill: white;
+}
+
+.button-danger {
+    -fx-background-color: #f44336; /* Merah */
+    -fx-text-fill: white;
+}
