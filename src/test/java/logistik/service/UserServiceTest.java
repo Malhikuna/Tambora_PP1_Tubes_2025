@@ -5,6 +5,7 @@ import logistik.model.User;
 import org.junit.jupiter.api.*;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,12 +17,12 @@ public class UserServiceTest {
     private AuthService authService;
 
     @BeforeAll
-    static void setupDatabase() {
+    static void setupDatabase() throws SQLException {
         conn = DatabaseConnection.getConnection();
     }
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         userService = new UserService();
         authService = new AuthService();
         try {

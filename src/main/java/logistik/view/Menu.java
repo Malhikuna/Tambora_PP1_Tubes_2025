@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import logistik.model.User;
 import logistik.service.AuthService;
 
+import java.sql.SQLException;
+
 public class Menu extends Application {
     private Stage primaryStage;
     private AuthService authService = new AuthService();
@@ -79,7 +81,13 @@ public class Menu extends Application {
                         "-fx-font-weight: bold;"
         );
 
-        loginButton.setOnAction(e -> login(usernameField.getText(), passwordField.getText()));
+        loginButton.setOnAction(e -> {
+            try {
+                login(usernameField.getText(), passwordField.getText());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         layout.getChildren().addAll(logo, title, usernameField, passwordField, options, loginButton);
         layout.setSpacing(15);
@@ -89,7 +97,7 @@ public class Menu extends Application {
         primaryStage.setScene(scene);
     }
 
-    private void login(String username, String password) {
+    private void login(String username, String password) throws SQLException {
         User user = authService.login(username, password);
         if (user != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Login berhasil. Selamat datang, " + user.getUsername() + "!");

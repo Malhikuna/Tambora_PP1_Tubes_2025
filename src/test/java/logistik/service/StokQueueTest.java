@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 
@@ -18,7 +19,7 @@ public class StokQueueTest {
     private static StokQueue stokQueue;
 
     @BeforeAll
-    static void setupDatabase() {
+    static void setupDatabase() throws SQLException {
         conn = logistik.config.DatabaseConnection.getConnection();
     }
 
@@ -27,6 +28,7 @@ public class StokQueueTest {
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate("DELETE FROM stok_barang");
+            stmt.executeUpdate("DELETE FROM barang");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +46,7 @@ public class StokQueueTest {
     }
 
     @Test
-    public void testEnqueue() {
+    public void testEnqueue() throws SQLException {
         Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -52,7 +54,7 @@ public class StokQueueTest {
         StokBarang stokBarang = new StokBarang(barang.getKode(), 10, LocalDateTime.now());
 
         try {
-            stokQueue = new StokQueue(200);
+            stokQueue = new StokQueue();
             stokQueue.enqueue(stokBarang);
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,7 +62,7 @@ public class StokQueueTest {
     }
 
     @Test
-    public void testDequeue() {
+    public void testDequeue() throws SQLException {
         Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -69,20 +71,16 @@ public class StokQueueTest {
         StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20, LocalDateTime.now().plusHours(1));
         StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
 
-        try {
-            stokQueue = new StokQueue(200);
-            stokQueue.enqueue(stokBarang1);
-            stokQueue.enqueue(stokBarang2);
-            stokQueue.enqueue(stokBarang3);
+        stokQueue = new StokQueue();
+        stokQueue.enqueue(stokBarang1);
+        stokQueue.enqueue(stokBarang2);
+        stokQueue.enqueue(stokBarang3);
 
-            stokQueue.dequeue(barang.getKode(), 11);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        stokQueue.dequeue(barang.getKode(), 11);
     }
 
     @Test
-    public void testPeek() {
+    public void testPeek() throws SQLException {
         Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -93,7 +91,7 @@ public class StokQueueTest {
         StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
 
         try {
-            stokQueue = new StokQueue(200);
+            stokQueue = new StokQueue();
             stokQueue.enqueue(stokBarang1);
             stokQueue.enqueue(stokBarang2);
             stokQueue.enqueue(stokBarang3);
@@ -105,7 +103,7 @@ public class StokQueueTest {
     }
 
     @Test
-    public void getAllStok() {
+    public void getAllStok() throws SQLException {
         Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -116,7 +114,7 @@ public class StokQueueTest {
         StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
 
         try {
-            stokQueue = new StokQueue(200);
+            stokQueue = new StokQueue();
             stokQueue.enqueue(stokBarang1);
             stokQueue.enqueue(stokBarang2);
             stokQueue.enqueue(stokBarang3);
@@ -128,7 +126,7 @@ public class StokQueueTest {
     }
 
     @Test
-    public void size() {
+    public void size() throws SQLException {
         Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -139,19 +137,19 @@ public class StokQueueTest {
         StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
 
         try {
-            stokQueue = new StokQueue(200);
+            stokQueue = new StokQueue();
             stokQueue.enqueue(stokBarang1);
             stokQueue.enqueue(stokBarang2);
             stokQueue.enqueue(stokBarang3);
 
-            stokQueue.size(barang.getKode());
+            stokQueue.getStokCount(barang.getKode());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void clear() {
+    public void clear() throws SQLException {
         Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -162,7 +160,7 @@ public class StokQueueTest {
         StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
 
         try {
-            stokQueue = new StokQueue(200);
+            stokQueue = new StokQueue();
             stokQueue.enqueue(stokBarang1);
             stokQueue.enqueue(stokBarang2);
             stokQueue.enqueue(stokBarang3);
