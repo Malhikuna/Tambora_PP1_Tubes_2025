@@ -14,7 +14,7 @@ import java.util.UUID;
 public class UserService {
     private Connection conn;
 
-    public UserService() {
+    public UserService() throws SQLException {
         conn = DatabaseConnection.getConnection();
     }
 

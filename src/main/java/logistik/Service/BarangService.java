@@ -11,7 +11,7 @@ public class BarangService {
     /* Atribut */
     private Connection conn;
 
-    public BarangService() {
+    public BarangService() throws SQLException {
         conn = DatabaseConnection.getConnection();
     }
 

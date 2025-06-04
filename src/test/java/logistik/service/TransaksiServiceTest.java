@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +16,7 @@ public class TransaksiServiceTest {
     private static Connection conn;
 
     @BeforeAll
-    static void setupDatabase() {
+    static void setupDatabase() throws SQLException {
         conn = logistik.config.DatabaseConnection.getConnection();
     }
 
@@ -44,7 +45,7 @@ public class TransaksiServiceTest {
     }
 
     @Test
-    public void testTambahTransaksi() {
+    public void testTambahTransaksi() throws SQLException {
         Barang barang = new Barang("B001","Indomie" , 1, "Pcs", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);

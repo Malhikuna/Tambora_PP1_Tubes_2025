@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class BarangServiceTest {
     private static Connection conn;
 
     @BeforeAll
-    static void setupDatabase() {
+    static void setupDatabase() throws SQLException {
         conn = logistik.config.DatabaseConnection.getConnection();
     }
 
@@ -42,7 +43,7 @@ public class BarangServiceTest {
     }
 
     @Test
-    public void testTambahBarang() {
+    public void testTambahBarang() throws SQLException {
         Barang barang = new Barang("B001","Indomie" , 1, "Pcs", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -55,7 +56,7 @@ public class BarangServiceTest {
     }
 
     @Test
-    public void testUpdateBarang() {
+    public void testUpdateBarang() throws SQLException {
         Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -75,7 +76,7 @@ public class BarangServiceTest {
     }
 
     @Test
-    public void testHapusBarang() {
+    public void testHapusBarang() throws SQLException {
         Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -90,7 +91,7 @@ public class BarangServiceTest {
     }
 
     @Test
-    public void testCariBarang() {
+    public void testCariBarang() throws SQLException {
         Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
@@ -101,7 +102,7 @@ public class BarangServiceTest {
     }
 
     @Test
-    public void testTampilkanSemuaBarang() {
+    public void testTampilkanSemuaBarang() throws SQLException {
         Barang barang1 = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
         Barang barang2 = new Barang("B002","Minyak" , 1, "Kg", 10000, 12000);
         BarangService barangService = new BarangService();

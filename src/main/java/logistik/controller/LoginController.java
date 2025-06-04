@@ -17,6 +17,8 @@ import logistik.model.User;
 import logistik.service.AuthService;
 import logistik.util.SceneSwitcher;
 
+import java.sql.SQLException;
+
 public class LoginController {
 
     @FXML
@@ -31,7 +33,7 @@ public class LoginController {
     private final AuthService authService = new AuthService();
 
     @FXML
-    private void handleLogin() {
+    private void handleLogin() throws SQLException {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
