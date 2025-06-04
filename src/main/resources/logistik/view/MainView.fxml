@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane stylesheets="@/logistik/style/main.css" xmlns:fx="http://javafx.com/fxml" prefWidth="800" prefHeight="600">
+<AnchorPane stylesheets="@/logistik/style/main.css" xmlns:fx="http://javafx.com/fxml" zprefWidth="800" prefHeight="600">
     <children>
         <HBox prefWidth="800" prefHeight="600">
 
