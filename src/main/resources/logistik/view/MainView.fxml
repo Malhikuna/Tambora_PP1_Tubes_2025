@@ -3,12 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane stylesheets="@/logistik/style/main.css" xmlns:fx="http://javafx.com/fxml" zprefWidth="800" prefHeight="600">
+<StackPane stylesheets="@/logistik/style/main.css"
+            xmlns:fx="http://javafx.com/fxml"
+            prefWidth="600" prefHeight="600"
+            styleClass="content-area"
+            HBox.hgrow="ALWAYS"
+            fx:controller="logistik.controller.MainController">
     <children>
-        <HBox prefWidth="800" prefHeight="600">
+        <HBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 
             <!-- Sidebar -->
-            <VBox fx:id="sidebar" prefWidth="200" styleClass="sidebar">
+            <VBox fx:id="sidebar" prefWidth="200" styleClass="sidebar" VBox.vgrow="ALWAYS">
                 <children>
                     <Label text="Menu" styleClass="sidebar-title" />
 
@@ -16,10 +21,9 @@
                         <content>
                             <VBox>
                                 <children>
-                                    <Button text="Lihat Data Barang" styleClass="sidebar-button" />
-                                    <Button text="Tambah Barang" styleClass="sidebar-button" />
-                                    <Button text="Edit Barang" styleClass="sidebar-button" />
-                                    <Button text="Hapus Barang" styleClass="sidebar-button" />
+                                    <Button text="Lihat Data Barang" styleClass="sidebar-button" onAction="#handleLihatDataBarang" />
+                                    <Button text="Tambah Barang" styleClass="sidebar-button" onAction="#handleTambahBarang" />
+                                    <Button text="Edit Barang" styleClass="sidebar-button" onAction="#handleEditBarang"/>
                                 </children>
                             </VBox>
                         </content>
@@ -29,9 +33,9 @@
                         <content>
                             <VBox>
                                 <children>
-                                    <Button text="Barang Masuk" styleClass="sidebar-button" />
-                                    <Button text="Barang Keluar" styleClass="sidebar-button" />
-                                    <Button text="Riwayat Stok" styleClass="sidebar-button" />
+                                    <Button text="Barang Masuk" styleClass="sidebar-button" onAction="#handleBarangMasuk"/>
+                                    <Button text="Barang Keluar" styleClass="sidebar-button" onAction="#handleBarangKeluar" />
+                                    <Button text="Stok Saat Ini" styleClass="sidebar-button" onAction="#handleStokSaatIni"/>
                                 </children>
                             </VBox>
                         </content>
@@ -41,8 +45,8 @@
                         <content>
                             <VBox>
                                 <children>
-                                    <Button text="Lihat Riwayat Transaksi" styleClass="sidebar-button" />
-                                    <Button text="Cetak Laporan" styleClass="sidebar-button" />
+                                    <Button text="Riwayat Transaksi" styleClass="sidebar-button" onAction="#handleRiwayatTransaksi" />
+                                    <Button text="Cetak Laporan" styleClass="sidebar-button" onAction="#handleCetakLaporan"/>
                                 </children>
                             </VBox>
                         </content>
@@ -52,8 +56,8 @@
                         <content>
                             <VBox>
                                 <children>
-                                    <Button text="Ubah Username" styleClass="sidebar-button" />
-                                    <Button text="Ubah Password" styleClass="sidebar-button" />
+                                    <Button text="Ubah Username" styleClass="sidebar-button" onAction="#handleUbahUsername" />
+                                    <Button text="Ubah Password" styleClass="sidebar-button" onAction="#handleUbahPassword"/>
                                 </children>
                             </VBox>
                         </content>
@@ -64,8 +68,8 @@
             </VBox>
 
             <!-- Konten Utama -->
-            <AnchorPane fx:id="contentPane" prefWidth="600" prefHeight="600" styleClass="content-area"/>
+            <StackPane fx:id="contentPane" styleClass="content-area" HBox.hgrow="ALWAYS" />
 
         </HBox>
     </children>
-</AnchorPane>
+</StackPane>
