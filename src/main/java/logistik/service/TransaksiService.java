@@ -46,12 +46,20 @@ public class TransaksiService {
             String sql = "SELECT * FROM Transaksi";
             try (Statement stmt = conn.createStatement()) {
                 ResultSet rs = stmt.executeQuery(sql);
+                int count = 1;
+                boolean addData = false;
                 while (rs.next()) {
-                    System.out.println("Kode Barang" + rs.getString("kode_barang"));
-                    System.out.println("Jenis" + rs.getString("jenis"));
-                    System.out.println("Jumlah" + rs.getInt("jumlah"));
-                    System.out.println("Tanggal" + rs.getString("tanggal"));
+                    addData = true;
+                    System.out.println((count++) + ". " + rs.getString("kode_barang") +
+                            " - " + rs.getString("jenis") + " - " +
+                            rs.getInt("jumlah") + " - " +
+                            rs.getString("tanggal"));
                 }
+                if (!addData) {
+                    System.out.println("Tidak ada data transaksi yang ditemukan.");
+                }
+
+                System.out.println("===================");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
