@@ -4,20 +4,24 @@ public class Barang {
     /* Atribut */
     private String kode;
     private String nama;
-    private int kategori;
+    private int kategoriId;
     private String satuan;
+    private String namaKategori;
     private double hargaBeli;
     private double hargaJual;
 
     /* Constructor */
-    public Barang(String kode, String nama, int kategori, String satuan, double hargaBeli, double hargaJual) {
+    public Barang(String kode, String nama, int kategoriId, String satuan, String namaKategori ,double hargaBeli, double hargaJual) {
         this.kode = kode;
         this.nama = nama;
-        this.kategori = kategori;
+        this.kategoriId = kategoriId;
         this.satuan = satuan;
+        this.namaKategori = namaKategori;
         this.hargaBeli = hargaBeli;
         this.hargaJual = hargaJual;
     }
+
+
 
     /* Getter & Setter */
     public String getKode() {
@@ -29,19 +33,23 @@ public class Barang {
     }
 
 
-    public int getKategori() {
-        return kategori;
+    public int getkategoriId() {
+        return kategoriId;
     }
 
     public String getSatuan() {
         return satuan;
     }
 
-    public double getHarga_beli() {
+    public String getnamaKategori() {
+        return namaKategori;
+    }
+
+    public double gethargaBeli() {
         return hargaBeli;
     }
 
-    public double getHarga_jual() {
+    public double gethargaJual() {
         return hargaJual;
     }
 
@@ -54,19 +62,23 @@ public class Barang {
         this.nama = nama;
     }
 
-    public void setKategori(int kategori) {
-        this.kategori = kategori;
+    public void setkategoriId (int kategoriId) {
+        this.kategoriId = kategoriId;
     }
 
     public void setSatuan(String satuan) {
         this.satuan = satuan;
     }
 
-    public void setHarga_beli(double harga_beli) {
+    public void setnamaKategori (String namaKategori) {
+        this.namaKategori = namaKategori;
+    }
+
+    public void sethargaBeli(double harga_beli) {
         this.hargaBeli = harga_beli;
     }
 
-    public void setHarga_jual(double harga_jual) {
+    public void sethargaJual(double harga_jual) {
         this.hargaJual = harga_jual;
     }
 
@@ -74,7 +86,7 @@ public class Barang {
     public void tampilBarang() {
         System.out.println("Kode Barang : " +kode);
         System.out.println("Nama Barang : " +nama);
-        System.out.println("Kategori Barang : " +kategori);
+        System.out.println("Kategori Barang : " +kategoriId);
         System.out.println("Satuan Barang : " +satuan);
         System.out.println("Harga Beli Barang : " +hargaBeli);
         System.out.println("Harga Jual Barang : " +hargaJual);

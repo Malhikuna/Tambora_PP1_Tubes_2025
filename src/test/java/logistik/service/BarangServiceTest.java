@@ -1,5 +1,6 @@
 package logistik.service;
 
+import logistik.service.BarangService;
 import logistik.model.Barang;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -44,7 +45,7 @@ public class BarangServiceTest {
 
     @Test
     public void testTambahBarang() throws SQLException {
-        Barang barang = new Barang("B001","Indomie" , 1, "Pcs", 1000, 2000);
+        Barang barang = new Barang("B001","Indomie" , 1, "Pcs", "Makanan", 10000, 4000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -57,7 +58,7 @@ public class BarangServiceTest {
 
     @Test
     public void testUpdateBarang() throws SQLException {
-        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
+        Barang barang = new Barang("B001","Beras" , 1, "Kg", "Makanan", 10000, 4000 );
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -77,7 +78,7 @@ public class BarangServiceTest {
 
     @Test
     public void testHapusBarang() throws SQLException {
-        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
+        Barang barang = new Barang("B001","Beras" , 1, "Kg", "Makanan", 10000, 4000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -92,7 +93,7 @@ public class BarangServiceTest {
 
     @Test
     public void testCariBarang() throws SQLException {
-        Barang barang = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
+        Barang barang = new Barang("B001","Beras" , 1, "Kg", "Makanan", 12000, 4000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -103,8 +104,8 @@ public class BarangServiceTest {
 
     @Test
     public void testTampilkanSemuaBarang() throws SQLException {
-        Barang barang1 = new Barang("B001","Beras" , 1, "Kg", 10000, 12000);
-        Barang barang2 = new Barang("B002","Minyak" , 1, "Kg", 10000, 12000);
+        Barang barang1 = new Barang("B001","Beras" , 1, "Kg", "Makanan", 10000, 4000);
+        Barang barang2 = new Barang("B002","Minyak" , 1, "Kg", "Makanan", 10000, 4000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang1);
         barangService.tambahBarang(barang2);
