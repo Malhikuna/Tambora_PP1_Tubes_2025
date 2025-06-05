@@ -21,10 +21,10 @@ public class BarangService {
        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
            stmt.setString(1, barang.getKode());
            stmt.setString(2, barang.getNama());
-           stmt.setInt(3, barang.getKategori());
+           stmt.setInt(3, barang.getkategoriId());
            stmt.setString(4, barang.getSatuan());
-           stmt.setDouble(5, barang.getHarga_beli());
-           stmt.setDouble(6, barang.getHarga_jual());
+           stmt.setDouble(5, barang.gethargaBeli());
+           stmt.setDouble(6, barang.gethargaBeli());
            stmt.executeUpdate();
        } catch (SQLException e) {
            e.printStackTrace();
@@ -35,9 +35,9 @@ public class BarangService {
         String sql = "UPDATE barang SET nama_barang = ?, kategori_id = ?, satuan = ?, harga_beli = ? WHERE kode_barang = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, barang.getNama());
-            stmt.setInt(2, barang.getKategori());
+            stmt.setInt(2, barang.getkategoriId());
             stmt.setString(3, barang.getSatuan());
-            stmt.setDouble(4, barang.getHarga_beli());
+            stmt.setDouble(4, barang.gethargaBeli());
             stmt.setString(5, barang.getKode());
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -57,6 +57,7 @@ public class BarangService {
                     rs.getString("nama_barang"),
                     rs.getInt("kategori_id"),
                     rs.getString("satuan"),
+                    rs.getString("nama_kategori"),
                     rs.getDouble("harga_beli"),
                     rs.getDouble("harga_jual"));
                 //barang.setId(UUID.fromString(rs.getString("id")));
@@ -71,7 +72,8 @@ public class BarangService {
     // Prosedur untuk menampilkan semua barang
     public List<Barang> tampilkanSemuaBarang () {
         List<Barang> barang = new ArrayList<>();
-        String sql = "SELECT * FROM barang";
+        String sql = "SELECT b.*, k.nama_kategori" +
+                "FROM barang b\n" + "JOIN kategori k ON b.kategori_id = k.id\n";
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -80,6 +82,7 @@ public class BarangService {
                         rs.getString("nama_barang"),
                         rs.getInt("kategori_id"),
                         rs.getString("satuan"),
+                        rs.getString("nama_kategori"),
                         rs.getDouble("harga_beli"),
                         rs.getDouble("harga_jual"));
                 //b.setId(UUID.fromString(rs.getString("id")));
