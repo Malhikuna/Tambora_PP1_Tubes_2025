@@ -10,9 +10,10 @@ import logistik.util.HashUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
+
 
 public class StokMain {
     static Scanner scanner = new Scanner(System.in);
@@ -219,6 +220,37 @@ public class StokMain {
                                     if (isAdmin) {
                                         System.out.println(">>> Aksi: Tambah Pengguna Baru");
                                         // TODO: Implementasi Tambah Pengguna Baru | Ikhsan
+                                        Scanner scanner = new Scanner(System.in);
+                                        System.out.print("Masukkan Username: ");
+                                        String username = scanner.nextLine();
+
+                                        System.out.print("Masukkan Password: ");
+                                        String password = scanner.nextLine();
+
+                                        System.out.print("Masukkan Nama Lengkap: ");
+                                        String name = scanner.nextLine();
+
+                                        String role = "";
+                                        while (true) {
+                                            System.out.print("Masukkan Role (admin/staf): ");
+                                            role = scanner.nextLine().trim().toLowerCase();
+
+                                            if (role.equals("admin") || role.equals("staf")) {
+                                                break;
+                                            } else {
+                                                System.out.println("Role tidak valid. Hanya boleh 'admin' atau 'staf'.");
+                                            }
+                                        }
+
+                                        // Buat objek User baru
+                                        User newUser = new User(username, password, name, role);
+
+                                        // Set waktu pembuatan
+                                        newUser.setId(UUID.randomUUID());
+                                        newUser.setCreatedAt(LocalDateTime.now());
+
+                                        //Untuk menyimpan ke database
+                                        userService.createUser(newUser);
                                     } else {
                                         // // Kembali ke Menu Utama
                                         menuPenggunaAktif = false;
@@ -241,10 +273,11 @@ public class StokMain {
                                         boolean addData = false;
                                         for (User us : users) {
                                             addData = true;
-                                            System.out.println((count++) + ". " + us.getUsername() + " - " + us.getName());
+                                            System.out.println((count++) + ". " + us.getUsername() + " - "
+                                                    + us.getName() + " - " + us.getRole());
                                         }
 
-                                        if(!addData) {
+                                        if (!addData) {
                                             System.out.println("Tidak ada daftar pengguna yang ditemukan.");
                                         }
 
