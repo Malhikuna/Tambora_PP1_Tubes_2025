@@ -33,7 +33,7 @@ public class Barang {
     }
 
 
-    public int getkategoriId() {
+    public int getKategoriId() {
         return kategoriId;
     }
 
@@ -41,15 +41,15 @@ public class Barang {
         return satuan;
     }
 
-    public String getnamaKategori() {
+    public String getNamaKategori() {
         return namaKategori;
     }
 
-    public double gethargaBeli() {
+    public double getHargaBeli() {
         return hargaBeli;
     }
 
-    public double gethargaJual() {
+    public double getHargaJual() {
         return hargaJual;
     }
 

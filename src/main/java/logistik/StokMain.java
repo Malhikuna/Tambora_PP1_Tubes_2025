@@ -1,5 +1,6 @@
 package logistik;
 
+import logistik.model.Barang;
 import logistik.model.StokBarang;
 import logistik.model.Transaksi;
 import logistik.model.User;
@@ -78,6 +79,17 @@ public class StokMain {
                                 case 1:
                                     System.out.println(">>> Aksi: Lihat Semua Barang");
                                     // TODO: Implementasi Lihat Semua Barang | Murod
+                                    List<Barang> barang = barangService.tampilkanSemuaBarang();
+
+                                    int count = 1;
+                                    boolean addData = false;
+                                    for (Barang b : barang) {
+                                        addData = true;
+                                        System.out.println((count++) + ". " + b.getKode() + " - " + b.getNama() + " - " + b.getKategoriId() + " - " + b.getSatuan() + " - " + b.getNamaKategori() + " - " + b.getHargaBeli() + " - " + b.getHargaJual());
+                                    }
+                                    if (!addData) {
+                                        System.out.println("Tidak ada data barang yang ditemukan.");
+                                    }
                                     break;
                                 case 2:
                                     System.out.println(">>> Aksi: Cari Barang");
