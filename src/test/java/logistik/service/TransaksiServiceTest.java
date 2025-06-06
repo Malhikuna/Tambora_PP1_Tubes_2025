@@ -46,7 +46,7 @@ public class TransaksiServiceTest {
 
     @Test
     public void testTambahTransaksi() throws SQLException {
-        Barang barang = new Barang("B001","Indomie" , 1, "Pcs", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 

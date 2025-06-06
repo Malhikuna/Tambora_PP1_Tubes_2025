@@ -47,7 +47,7 @@ public class StokQueueTest {
 
     @Test
     public void testEnqueue() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -63,7 +63,7 @@ public class StokQueueTest {
 
     @Test
     public void testDequeue() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -81,7 +81,7 @@ public class StokQueueTest {
 
     @Test
     public void testPeek() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -104,7 +104,7 @@ public class StokQueueTest {
 
     @Test
     public void getAllStok() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -127,7 +127,7 @@ public class StokQueueTest {
 
     @Test
     public void size() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
@@ -150,7 +150,7 @@ public class StokQueueTest {
 
     @Test
     public void clear() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 

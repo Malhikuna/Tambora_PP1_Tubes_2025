@@ -33,8 +33,8 @@ public class BarangTableController {
 
         // Tambahkan data contoh (bisa diambil dari database nantinya)
         dataBarang.addAll(
-                new Barang("B001", "Pulpen", 1, "Pcs", 2500.0, 1500.0),
-                new Barang("B002", "Kertas HVS", 2, "Rim", 35000.0, 28000.0)
+                new Barang("B001", "Pulpen", 1, "Pcs", "Makanan", 2500.0, 1500.0),
+                new Barang("B002", "Kertas HVS", 2, "Rim", "Makanan", 35000.0, 28000.0)
         );
 
         // Tampilkan ke tabel
