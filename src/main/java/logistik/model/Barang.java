@@ -14,8 +14,8 @@ public class Barang {
     public Barang(String kode, String nama, int kategoriId, String satuan, String namaKategori ,double hargaBeli, double hargaJual) {
         this.kode = kode;
         this.nama = nama;
-        this.kategoriId = kategoriId;
         this.satuan = satuan;
+        this.kategoriId = kategoriId;
         this.namaKategori = namaKategori;
         this.hargaBeli = hargaBeli;
         this.hargaJual = hargaJual;

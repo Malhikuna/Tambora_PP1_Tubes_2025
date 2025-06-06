@@ -46,15 +46,25 @@ public class UserServiceTest {
 
     @Test
     void testCreateUser() {
-        User user = new User("Admin", "123", "Admin", "Admin");
+        User admin = new User("Admin", "123", "Hikmal Maulana", "Admin");
+        User staf = new User("Staf", "123", "Ikhsan", "Staf");
 
-        userService.createUser(user);
+        userService.createUser(admin);
+        userService.createUser(staf);
 
-        System.out.println("Username: " + user.getUsername());
-        System.out.println("Password: " + user.getPassword());
-        System.out.println("Nama: " + user.getName());
-        System.out.println("Admin: " + user.getRole());
-        assertEquals("Admin", user.getUsername());
+        System.out.println("=== Admin / Owner ===");
+        System.out.println("Username: " + admin.getUsername());
+        System.out.println("Password: " + admin.getPassword());
+        System.out.println("Nama: " + admin.getName());
+        System.out.println("Admin: " + admin.getRole());
+        assertEquals("Admin", admin.getUsername());
+
+        System.out.println("=== Staf ===");
+        System.out.println("Username: " + staf.getUsername());
+        System.out.println("Password: " + staf.getPassword());
+        System.out.println("Nama: " + staf.getName());
+        System.out.println("Admin: " + staf.getRole());
+        assertEquals("Staf", staf.getUsername());
     }
 
     /*
