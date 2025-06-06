@@ -16,38 +16,35 @@ public class BarangService {
     }
 
     // Prosedur untuk menambahkan barang
-    public void tambahBarang(Barang barang) {
+    public void tambahBarang(Barang barang) throws SQLException {
        String sql = "INSERT INTO barang (kode_barang, nama_barang, kategori_id, satuan, harga_beli, harga_jual) VALUES (?,?,?,?,?,?)";
        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
            stmt.setString(1, barang.getKode());
            stmt.setString(2, barang.getNama());
-           stmt.setInt(3, barang.getkategoriId());
+           stmt.setInt(3, barang.getKategoriId());
            stmt.setString(4, barang.getSatuan());
-           stmt.setDouble(5, barang.gethargaBeli());
-           stmt.setDouble(6, barang.gethargaBeli());
+           stmt.setDouble(5, barang.getHargaBeli());
+           stmt.setDouble(6, barang.getHargaBeli());
            stmt.executeUpdate();
-       } catch (SQLException e) {
-           e.printStackTrace();
        }
     }
 
-    public void updateBarang(Barang barang) {
+    public void updateBarang(Barang barang) throws SQLException {
         String sql = "UPDATE barang SET nama_barang = ?, kategori_id = ?, satuan = ?, harga_beli = ? WHERE kode_barang = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, barang.getNama());
-            stmt.setInt(2, barang.getkategoriId());
+            stmt.setInt(2, barang.getKategoriId());
             stmt.setString(3, barang.getSatuan());
-            stmt.setDouble(4, barang.gethargaBeli());
+            stmt.setDouble(4, barang.getHargaBeli());
             stmt.setString(5, barang.getKode());
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     // Fungsi untuk mencari barang berdasarkan kode
-    public Barang cariBarang(String kode) {
-        String sql = "SELECT * FROM barang WHERE kode_barang = ?";
+    public Barang cariBarang(String kode) throws SQLException {
+        String sql = "SELECT b.*, k.nama_kategori " +
+                "FROM barang b\n" + "JOIN kategori_barang k ON b.kategori_id = k.id\n" + " WHERE kode_barang = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, kode);
             ResultSet rs = stmt.executeQuery();
@@ -60,20 +57,17 @@ public class BarangService {
                     rs.getString("nama_kategori"),
                     rs.getDouble("harga_beli"),
                     rs.getDouble("harga_jual"));
-                //barang.setId(UUID.fromString(rs.getString("id")));
                 return barang;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
 
     // Prosedur untuk menampilkan semua barang
-    public List<Barang> tampilkanSemuaBarang () {
+    public List<Barang> tampilkanSemuaBarang () throws SQLException {
         List<Barang> barang = new ArrayList<>();
-        String sql = "SELECT b.*, k.nama_kategori" +
-                "FROM barang b\n" + "JOIN kategori k ON b.kategori_id = k.id\n";
+        String sql = "SELECT b.*, k.nama_kategori " +
+                "FROM barang b\n" + "JOIN kategori_barang k ON b.kategori_id = k.id\n";
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -85,23 +79,18 @@ public class BarangService {
                         rs.getString("nama_kategori"),
                         rs.getDouble("harga_beli"),
                         rs.getDouble("harga_jual"));
-                //b.setId(UUID.fromString(rs.getString("id")));
                 barang.add(b);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return barang;
     }
 
     // Prosedur untuk menghapus barang
-    public void hapusBarang(String kode) {
+    public void hapusBarang(String kode) throws SQLException {
         String sql = "DELETE FROM barang WHERE kode_barang = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, kode);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 }
