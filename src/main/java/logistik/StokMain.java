@@ -89,11 +89,55 @@ public class StokMain {
                                 case 2:
                                     System.out.println(">>> Aksi: Cari Barang");
                                     // TODO: Implementasi Cari Barang | Murod
+                                    String kodeBarang = InputUtil.inputString("Masukkan Kode Barang");
+                                    Barang barangYangDicari = barangService.cariBarang(kodeBarang);
+                                    if (barangYangDicari != null) {
+                                        System.out.println(barangYangDicari.getKode() + " - " + barangYangDicari.getNama() + " - " + barangYangDicari.getKategoriId() + " - " + barangYangDicari.getSatuan() + " - " + barangYangDicari.getNamaKategori() + " - " + barangYangDicari.getHargaBeli() + " - " + barangYangDicari.getHargaJual());
+                                    } else {
+                                        System.out.println("Tidak ada data barang yang ditemukan.");
+                                    }
                                     break;
                                 case 3:
                                     if (isAdmin) {
                                         System.out.println(">>> Aksi: Tambah Barang");
                                         // TODO: Implementasi Tambah Barang | Murod
+                                        String kode = InputUtil.inputString("Masukkan Kode Barang");
+                                        String nama = InputUtil.inputString("Masukkan Nama Barang");
+                                        String namaKategori = "";
+                                        int kategoriId = -1;
+
+                                        System.out.println("1. Makanan");
+                                        System.out.println("2. Minuman");
+                                        System.out.println("0. Batal");
+
+                                        int aksi = InputUtil.inputInt("Pilih aksi");
+                                        switch (aksi) {
+                                            case 1:
+                                                kategoriId = 1;
+                                                namaKategori = "Makanan";
+                                                break;
+                                            case 2:
+                                                kategoriId = 2;
+                                                namaKategori = "Minuman";
+                                                break;
+                                            case 0:
+                                                System.out.println("Aksi dibatalkan.");
+                                                return; // keluar dari method
+                                            default:
+                                                System.out.println("Pilihan aksi tidak valid.");
+                                                return; // keluar dari method
+                                        }
+
+                                        String satuan = InputUtil.inputString("Masukkan Satuan Barang");
+                                        Double hargaBeli = InputUtil.inputDouble("Masukkan Harga beli Barang");
+                                        Double hargaJual = InputUtil.inputDouble("Masukkan Harga Jual Barang");
+
+                                        Barang b = new Barang(kode, nama, kategoriId, satuan, namaKategori, hargaBeli, hargaJual);
+                                        barangService.tambahBarang(b);
+                                        System.out.println("Barang berhasil ditambahkan: " +
+                                                b.getKode() + " - " + b.getNama() + " - " + b.getKategoriId() + " - " +
+                                                b.getSatuan() + " - " + b.getNamaKategori() + " - " + b.getHargaBeli() + " - " +
+                                                b.getHargaJual());
                                     } else {
                                         // Kembali ke Menu Utama
                                         menuBarangAktif = false;
