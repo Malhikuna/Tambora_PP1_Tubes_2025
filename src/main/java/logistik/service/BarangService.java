@@ -24,7 +24,7 @@ public class BarangService {
            stmt.setInt(3, barang.getKategoriId());
            stmt.setString(4, barang.getSatuan());
            stmt.setDouble(5, barang.getHargaBeli());
-           stmt.setDouble(6, barang.getHargaBeli());
+           stmt.setDouble(6, barang.getHargaJual());
            stmt.executeUpdate();
        }
     }
