@@ -2,7 +2,6 @@ package logistik;
 
 import logistik.model.Barang;
 import logistik.model.StokBarang;
-import logistik.model.Transaksi;
 import logistik.model.User;
 import logistik.service.*;
 import logistik.util.InputUtil;
@@ -11,13 +10,10 @@ import logistik.util.HashUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class StokMain {
-    static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) throws SQLException {
         System.out.println("================================================");
         System.out.println(" SISTEM LOGISTIK PENCATATAN KELUAR MASUK BARANG ");
@@ -275,6 +271,40 @@ public class StokMain {
                                     if (isAdmin) {
                                         System.out.println(">>> Aksi: Tambah Pengguna Baru");
                                         // TODO: Implementasi Tambah Pengguna Baru | Ikhsan
+
+                                        String username = "";
+                                        while (true) {
+                                            username = InputUtil.inputString("Masukkan Username");
+                                            try {
+                                                if (userService.findUserByUsername(username) != null) {
+                                                    System.out.println("Username sudah digunakan. Silakan pilih username lain.");
+                                                } else {
+                                                    break;
+                                                }
+                                            } catch (Exception e) {
+                                                System.out.println("Terjadi kesalahan saat mengecek username.");
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        String password = InputUtil.inputString("Masukkan Password");
+                                        String namaLengkap = InputUtil.inputString("Masukkan Nama Lengkap");
+
+                                        String role = "";
+                                        while (true) {
+                                            role = InputUtil.inputString("Masukkan Role (admin/staf)").trim().toLowerCase();
+                                            if (role.equals("admin") || role.equals("staf")) {
+                                                break;
+                                            } else {
+                                                System.out.println("Role tidak valid. Hanya boleh 'admin' atau 'staf'.");
+                                            }
+                                        }
+                                        User newUser = new User(username, password, namaLengkap, role);
+                                        userService.createUser(newUser);
+
+                                        System.out.println("User Berhasil Ditambahkan: " + newUser.getUsername() + " - "
+                                                + newUser.getPassword() + " - " + newUser.getName() + " - " + newUser.getRole());
+
                                     } else {
                                         // // Kembali ke Menu Utama
                                         menuPenggunaAktif = false;
@@ -293,23 +323,16 @@ public class StokMain {
 
                                         // Tampilkan semua user
                                         System.out.println("Daftar Pengguna:");
-                                        int count = 1;
-                                        boolean addData = false;
-                                        for (User us : users) {
-                                            addData = true;
-                                            System.out.println((count++) + ". " + us.getUsername() + " - " + us.getName());
+                                        for (int i = 0; i < users.size(); i++) {
+                                            User us = users.get(i);
+                                            System.out.println((i + 1) + ". " + us.getUsername() + " - " + us.getName() + " - " + us.getRole());
                                         }
 
-                                        if(!addData) {
-                                            System.out.println("Tidak ada daftar pengguna yang ditemukan.");
-                                        }
 
-                                        System.out.print("Pilih nomor user untuk Edit/Hapus (0 untuk batal): ");
-                                        int pilihUser = scanner.nextInt();
-                                        scanner.nextLine(); // buang newline
+                                        int pilihUser = InputUtil.inputInt("Pilih nomor user untuk Edit/Hapus Pengguna (0 untuk batal:) ");
 
-                                        if (pilihUser == 0 || pilihUser > users.size()) {
-                                            System.out.println("Batal atau pilihan tidak valid.");
+                                        if (pilihUser < 1 || pilihUser > users.size()) {
+                                            System.out.println("Pilihan tidak valid.");
                                             break;
                                         }
 
@@ -319,20 +342,15 @@ public class StokMain {
                                         System.out.println("2. Hapus User");
                                         System.out.println("0. Batal");
 
-                                        System.out.print("Pilih aksi: ");
-                                        int aksi = scanner.nextInt();
-                                        scanner.nextLine(); // buang newline
-
+                                        int aksi = InputUtil.inputInt("Pilih Aksi: ");
                                         switch (aksi) {
                                             case 1:
-                                                System.out.print("Masukkan password baru: ");
-                                                String newPassword = scanner.nextLine();
+                                                String newPassword = InputUtil.inputString("Masukkan Password Baru");
                                                 String hashed = HashUtil.hashPassword(newPassword);
                                                 userService.updatePassword(selectedUser.getId(), hashed);
                                                 break;
                                             case 2:
-                                                System.out.print("Yakin ingin hapus user ini? (y/n): ");
-                                                String konfirmasi = scanner.nextLine();
+                                                String konfirmasi = InputUtil.inputString("Yakin ingin hapus user ini? (y/n)");
                                                 if (konfirmasi.equalsIgnoreCase("y")) {
                                                     userService.hapusUser(selectedUser.getId());
                                                 } else {
@@ -346,7 +364,7 @@ public class StokMain {
                                                 System.out.println("Pilihan aksi tidak valid.");
                                         }
                                     } else {
-                                        System.out.println("Pilihan tidak valid, coba lagi bro.");
+                                        System.out.println("Pilihan tidak valid, coba lagi");
                                     }
                                     break;
                                 case 6:

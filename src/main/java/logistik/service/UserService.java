@@ -34,7 +34,6 @@ public class UserService {
             stmt.setString(4, user.getName());
             stmt.setString(5, user.getRole());
             stmt.executeUpdate();
-            System.out.println("User berhasil ditambahkan.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
