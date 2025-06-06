@@ -12,12 +12,12 @@ public class Transaksi {
     private LocalDateTime tanggal;
 
     /* Constructor */
-    public Transaksi(String kodeBarang, String jenis, int jumlah) {
+    public Transaksi(String kodeBarang, String jenis, int jumlah, LocalDateTime tanggal) {
         this.id = UUID.randomUUID(); // Generate a random UUID if not provided
         this.kodeBarang = kodeBarang;
         this.jenis = jenis;
         this.jumlah = jumlah;
-        this.tanggal = LocalDateTime.now();
+        this.tanggal = tanggal;
     }
 
     /* Getter & Setter */
