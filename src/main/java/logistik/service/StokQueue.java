@@ -27,13 +27,9 @@ public class StokQueue {
     }
 
     // Enqueue: Menambahkan batch stok baru ke database.
-    public void enqueue(StokBarang stok) throws SQLException {
-        if (stok == null || stok.getKodeBarang() == null || stok.getKodeBarang().trim().isEmpty() || stok.getJumlah() <= 0) {
-            throw new IllegalArgumentException("Data stok tidak valid atau jumlah tidak positif.");
-        }
+    public void enqueue(Connection conn, StokBarang stok) throws SQLException {
         String sql = "INSERT INTO stok_barang (kode_barang, jumlah, tanggal_masuk) VALUES (?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, stok.getKodeBarang());
             stmt.setInt(2, stok.getJumlah());
             stmt.setTimestamp(3, Timestamp.valueOf(stok.getTanggalMasuk()));
@@ -42,79 +38,31 @@ public class StokQueue {
     }
 
     // Dequeue: Mengeluarkan sejumlah stok barang berdasarkan prinsip FIFO (First-In, First-Out).
-    public boolean dequeue(String kodeBarang, int jumlahKeluar) throws SQLException {
-        if(isEmpty(kodeBarang)) {
-            System.out.println("Stok barang kosong");
-            return false;
-        }
-
-        if (jumlahKeluar <= 0) {
-            throw new IllegalArgumentException("Jumlah keluar harus lebih besar dari 0.");
-        }
-
-        int totalStokSaatIni = getStokCount(kodeBarang);
-        if (totalStokSaatIni < jumlahKeluar) {
-            System.err.println("Stok barang " + kodeBarang + " tidak mencukupi. Diminta: " + jumlahKeluar + ", Tersedia: " + totalStokSaatIni);
-            return false;
-        }
-
-        Connection conn = null;
-        boolean originalAutoCommit = true;
+    public void dequeue(Connection conn, String kodeBarang, int jumlahKeluar) throws SQLException {
 
         String selectSql = "SELECT * FROM stok_barang WHERE kode_barang = ? AND jumlah > 0 ORDER BY tanggal_masuk ASC";
-        try {
-            conn = DatabaseConnection.getConnection();
-            originalAutoCommit = conn.getAutoCommit();
-            conn.setAutoCommit(false);
 
-            try (PreparedStatement selectStmt = conn.prepareStatement(selectSql,ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
-                selectStmt.setString(1, kodeBarang);
-                ResultSet rs = selectStmt.executeQuery();
+        try (PreparedStatement selectStmt = conn.prepareStatement(selectSql,ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+            selectStmt.setString(1, kodeBarang);
+            ResultSet rs = selectStmt.executeQuery();
 
-                int remainingToDequeue  = jumlahKeluar;
+            int remainingToDequeue  = jumlahKeluar;
 
-                while (rs.next() && remainingToDequeue  > 0) {
-                    int jumlahTersediaDiBatch = rs.getInt("jumlah");;
-                    int akanDikeluarkanDariBatch = Math.min(jumlahTersediaDiBatch, remainingToDequeue );
+            while (rs.next() && remainingToDequeue  > 0) {
+                int jumlahTersediaDiBatch = rs.getInt("jumlah");;
+                int akanDikeluarkanDariBatch = Math.min(jumlahTersediaDiBatch, remainingToDequeue );
 
-                    if (jumlahTersediaDiBatch - akanDikeluarkanDariBatch > 0) {
-                        rs.updateInt("jumlah", jumlahTersediaDiBatch - akanDikeluarkanDariBatch);
-                        rs.updateRow(); // update jumlah di DB
-                    } else {
-                        rs.deleteRow(); // hapus jika stok habis
-                    }
-                    remainingToDequeue -= akanDikeluarkanDariBatch;
+                if (jumlahTersediaDiBatch - akanDikeluarkanDariBatch > 0) {
+                    rs.updateInt("jumlah", jumlahTersediaDiBatch - akanDikeluarkanDariBatch);
+                    rs.updateRow(); // update jumlah di DB
+                } else {
+                    rs.deleteRow(); // hapus jika stok habis
                 }
-
-                if (remainingToDequeue > 0) {
-                    // Jika ini terjadi, berarti pengecekan stok awal gagal atau ada kondisi balapan.
-                    // Rollback untuk menjaga konsistensi.
-                    conn.rollback();
-                    System.err.println("Error internal: Stok tidak mencukupi saat proses dequeue, rollback dilakukan. Sisa: " + remainingToDequeue);
-                    return false; // Gagal dequeue sepenuhnya
-                }
+                remainingToDequeue -= akanDikeluarkanDariBatch;
             }
 
-            conn.commit();
-            return true;
-
-        } catch (SQLException e) {
-            if (conn != null) {
-                try {
-                    conn.rollback();
-                } catch (SQLException exRollback) {
-                    System.err.println("Error saat melakukan rollback: " + exRollback.getMessage());
-                }
-            }
-            throw new SQLException("Gagal melakukan dequeue untuk barang " + kodeBarang + ": " + e.getMessage(), e);
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.setAutoCommit(originalAutoCommit); // Kembalikan status autocommit
-                    conn.close(); // Tutup koneksi
-                } catch (SQLException exClose) {
-                    System.err.println("Error saat menutup koneksi atau mengembalikan autocommit: " + exClose.getMessage());
-                }
+            if (remainingToDequeue > 0) {
+                throw new SQLException("Error internal: Stok tidak mencukupi saat proses dequeue, rollback dilakukan. Sisa: " + remainingToDequeue);
             }
         }
     }

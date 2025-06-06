@@ -1,10 +1,15 @@
 package logistik;
 
+import logistik.model.StokBarang;
+import logistik.model.Transaksi;
 import logistik.model.User;
 import logistik.service.*;
 import logistik.util.InputUtil;
 import logistik.view.MenuView;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StokMain {
     public static void main(String[] args) throws SQLException {
@@ -14,6 +19,13 @@ public class StokMain {
         System.out.println("================================================");
 
         while (true) {
+            TransaksiService transaksiService = new TransaksiService();
+            StokQueue stokQueue = new StokQueue();
+            AuthService authService = new AuthService();
+            BarangService barangService = new BarangService();
+            UserService userService = new UserService();
+            StokService stokService = new StokService();
+
             User userYangLogin = null;
             while (userYangLogin == null) {
                 int pilihan = MenuView.displayLogin();
@@ -23,7 +35,6 @@ public class StokMain {
                         String username = InputUtil.inputString("Masukkan Username");
                         String password = InputUtil.inputString("Masukkan Password");
 
-                        AuthService authService = new AuthService();
                         userYangLogin = authService.login(username, password);
 
                         if (userYangLogin != null) {
@@ -113,6 +124,22 @@ public class StokMain {
                                     System.out.println(">>> Aksi: Catat Barang Masuk");
                                     // TODO: Implementasi Catat Barang Masuk | Hikmal
 
+                                    try {
+                                        // 1. Ambil input dari user
+                                        String kodeBarang = InputUtil.inputString("Masukkan Kode Barang");
+                                        int jumlah = InputUtil.inputInt("Masukkan Jumlah");
+                                        LocalDateTime tanggalMasuk = InputUtil.inputLocalDateTime("Masukkan Tanggal & Waktu");
+
+                                        stokService.catatBarang(kodeBarang, jumlah, "Masuk", tanggalMasuk);
+
+                                        // 3. Beri feedback sukses ke user
+                                        System.out.println("\n[SUKSES] Barang masuk untuk kode " + kodeBarang + " berhasil dicatat.");
+
+                                    } catch (IllegalArgumentException | SQLException e) {
+                                        // 4. Beri feedback gagal ke user jika ada error
+                                        System.out.println("\n[GAGAL] " + e.getMessage());
+                                    }
+
                                     break;
                                 case 2:
                                     System.out.println(">>> Aksi: Catat Barang Keluar");
@@ -122,6 +149,21 @@ public class StokMain {
                                 case 3:
                                     System.out.println(">>> Aksi: Stok Saat Ini");
                                     // TODO: Implementasi Stok Saat Ini | Hikmal
+
+                                    String kodeBarang = InputUtil.inputString("Masukkan Kode Barang");
+
+                                    List<StokBarang> list = stokQueue.getAllStok(kodeBarang);
+
+                                    int count = 1;
+                                    boolean addData = false;
+                                    for (StokBarang stokBarang : list) {
+                                        addData = true;
+                                        System.out.println((count++) + ". " + stokBarang.getKodeBarang() + " - " + stokBarang.getJumlah() + " - " + stokBarang.getTanggalMasuk().toLocalDate());
+                                    }
+                                    if (!addData) {
+                                        System.out.println("Tidak ada data stok yang ditemukan.");
+                                    }
+
                                     break;
                                 case 4: // Kembali ke Menu Utama
                                     menuStokAktif = false;
