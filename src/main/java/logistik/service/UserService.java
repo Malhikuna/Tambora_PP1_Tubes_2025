@@ -52,6 +52,8 @@ public class UserService {
                 user.setId(UUID.fromString(rs.getString("id")));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setRole(rs.getString("role"));
                 userList.add(user);
             }
         } catch (SQLException e) {
