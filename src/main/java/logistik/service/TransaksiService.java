@@ -19,7 +19,7 @@ public class TransaksiService {
     }
 
     // Prosedur untuk menambahkan transaksi baru ke queue
-    public void tambahTransaksi(Transaksi transaksi) {
+    public void tambahTransaksi(Connection conn, Transaksi transaksi) throws SQLException {
         String sql = "INSERT INTO transaksi (id, kode_barang, jenis, jumlah, tanggal) VALUES (?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, transaksi.getId().toString());
@@ -28,21 +28,11 @@ public class TransaksiService {
             stmt.setInt(4, transaksi.getJumlah());
             stmt.setTimestamp(5, Timestamp.valueOf(transaksi.getTanggal()));
             stmt.executeUpdate();
-            stokBarang = new StokBarang(transaksi.getKodeBarang(), transaksi.getJumlah(), transaksi.getTanggal());
-
-            if(transaksi.getJenis().equalsIgnoreCase("Masuk")) {
-                stokQueue.enqueue(stokBarang);
-            } else {
-                stokQueue.dequeue(transaksi.getKodeBarang(), transaksi.getJumlah());
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     // Prosedur untuk menampilkan semua transaksi dalam queue
-        public void tampilkanSemuaTransakasi () {
+        public void tampilkanSemuaTransakasi () throws SQLException {
             String sql = "SELECT * FROM Transaksi";
             try (Statement stmt = conn.createStatement()) {
                 ResultSet rs = stmt.executeQuery(sql);
@@ -60,8 +50,6 @@ public class TransaksiService {
                 }
 
                 System.out.println("===================");
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
 }

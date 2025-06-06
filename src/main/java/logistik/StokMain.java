@@ -6,12 +6,17 @@ import logistik.model.User;
 import logistik.service.*;
 import logistik.util.InputUtil;
 import logistik.view.MenuView;
+import logistik.util.HashUtil;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class StokMain {
+    static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) throws SQLException {
         System.out.println("================================================");
         System.out.println(" SISTEM LOGISTIK PENCATATAN KELUAR MASUK BARANG ");
@@ -223,6 +228,67 @@ public class StokMain {
                                     if (isAdmin) {
                                         System.out.println(">>> Aksi: Lihat/Edit/Hapus Pengguna");
                                         // TODO: Implementasi Lihat/Edit/Hapus Pengguna | Ikhsan
+                                        List<User> users = userService.getAllUser();
+
+                                        if (users.isEmpty()) {
+                                            System.out.println("Tidak ada pengguna yang terdaftar.");
+                                            break;
+                                        }
+
+                                        // Tampilkan semua user
+                                        System.out.println("Daftar Pengguna:");
+                                        int count = 1;
+                                        boolean addData = false;
+                                        for (User us : users) {
+                                            addData = true;
+                                            System.out.println((count++) + ". " + us.getUsername() + " - " + us.getName());
+                                        }
+
+                                        if(!addData) {
+                                            System.out.println("Tidak ada daftar pengguna yang ditemukan.");
+                                        }
+
+                                        System.out.print("Pilih nomor user untuk Edit/Hapus (0 untuk batal): ");
+                                        int pilihUser = scanner.nextInt();
+                                        scanner.nextLine(); // buang newline
+
+                                        if (pilihUser == 0 || pilihUser > users.size()) {
+                                            System.out.println("Batal atau pilihan tidak valid.");
+                                            break;
+                                        }
+
+                                        User selectedUser = users.get(pilihUser - 1);
+
+                                        System.out.println("1. Ubah Password");
+                                        System.out.println("2. Hapus User");
+                                        System.out.println("0. Batal");
+
+                                        System.out.print("Pilih aksi: ");
+                                        int aksi = scanner.nextInt();
+                                        scanner.nextLine(); // buang newline
+
+                                        switch (aksi) {
+                                            case 1:
+                                                System.out.print("Masukkan password baru: ");
+                                                String newPassword = scanner.nextLine();
+                                                String hashed = HashUtil.hashPassword(newPassword);
+                                                userService.updatePassword(selectedUser.getId(), hashed);
+                                                break;
+                                            case 2:
+                                                System.out.print("Yakin ingin hapus user ini? (y/n): ");
+                                                String konfirmasi = scanner.nextLine();
+                                                if (konfirmasi.equalsIgnoreCase("y")) {
+                                                    userService.hapusUser(selectedUser.getId());
+                                                } else {
+                                                    System.out.println("Penghapusan dibatalkan.");
+                                                }
+                                                break;
+                                            case 0:
+                                                System.out.println("Aksi dibatalkan.");
+                                                break;
+                                            default:
+                                                System.out.println("Pilihan aksi tidak valid.");
+                                        }
                                     } else {
                                         System.out.println("Pilihan tidak valid, coba lagi bro.");
                                     }
@@ -241,7 +307,7 @@ public class StokMain {
                         }
                         break;
                     case 5: // Logout
-                        sesiAktif  = false;
+                        sesiAktif = false;
                         System.out.println("Logout berhasil. Sampai jumpa!");
                         break;
                     default:
