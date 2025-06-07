@@ -1,5 +1,6 @@
 package logistik.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -106,6 +107,15 @@ public class MainController {
             // Tampilkan pesan error ke pengguna atau log
             System.err.println("Gagal memuat view: " + fxmlPath);
         }
+    }
+
+    public void handleProfilSaya(ActionEvent actionEvent) {
+        loadView("/logistik/view/pengguna/ProfilSayaView.fxml");
+    }
+
+    public void handleKelolaSemuaPengguna(ActionEvent actionEvent) {
+        loadView("/logistik/view/pengguna/KelolaPenggunaView.fxml");
+
     }
 
     // Tambahkan metode lain untuk menu lain nanti...

@@ -55,8 +55,8 @@
                         <content>
                             <VBox>
                                 <children>
-                                    <Button text="Ubah Username" styleClass="sidebar-button" onAction="#handleUbahUsername" />
-                                    <Button text="Ubah Password" styleClass="sidebar-button" onAction="#handleUbahPassword"/>
+                                    <Button text="Profil Saya" styleClass="sidebar-button" onAction="#handleProfilSaya" />
+                                    <Button text="Kelola Semua Pengguna" styleClass="sidebar-button" onAction="#handleKelolaSemuaPengguna"/>
                                 </children>
                             </VBox>
                         </content>
