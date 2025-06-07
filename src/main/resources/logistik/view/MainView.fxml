@@ -56,7 +56,8 @@
                             <VBox>
                                 <children>
                                     <Button text="Profil Saya" styleClass="sidebar-button" onAction="#handleProfilSaya" />
-                                    <Button text="Kelola Semua Pengguna" styleClass="sidebar-button" onAction="#handleKelolaSemuaPengguna"/>
+
+                                    <Button fx:id="KelolaSemuaPengguna" text="Kelola Pengguna" styleClass="sidebar-button" onAction="#handleKelolaSemuaPengguna" visible="false" managed="false"/>
                                 </children>
                             </VBox>
                         </content>
