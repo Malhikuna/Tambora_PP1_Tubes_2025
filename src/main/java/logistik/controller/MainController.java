@@ -43,7 +43,7 @@ public class MainController {
     // --- Handler untuk Menu Transaksi ---
     @FXML
     private void handleRiwayatTransaksi() {
-        System.out.println("Tombol Riwayat Transaksi diklik");
+        loadView("/logistik/view/transaksi/TransaksiTableView.fxml");
     }
 
     @FXML
