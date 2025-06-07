@@ -2,6 +2,7 @@ package logistik;
 
 import logistik.model.Barang;
 import logistik.model.StokBarang;
+import logistik.model.Transaksi;
 import logistik.model.User;
 import logistik.service.*;
 import logistik.util.InputUtil;
@@ -238,8 +239,22 @@ public class StokMain {
                                 case 1:
                                     System.out.println(">>> Aksi: Lihat Transaksi");
                                     // TODO: Implementasi Lihat Transaksi | Ikhsan
-                                    TransaksiService trn = new TransaksiService();
-                                    trn.tampilkanSemuaTransakasi();
+                                    List<Transaksi> transaksi = transaksiService.tampilkanSemuaTransakasi();
+
+                                    int count = 1;
+                                    boolean addData = false;
+                                    for (Transaksi t : transaksi) {
+                                        addData = true;
+                                        System.out.println((count++) + ". " + t.getKodeBarang() +
+                                                " - " + t.getJenis() + " - " +
+                                                t.getJumlah() + " - " +
+                                                t.getTanggal());
+                                    }
+                                    if (!addData) {
+                                        System.out.println("Tidak ada data transaksi yang ditemukan.");
+                                    }
+
+                                    System.out.println("===================");
                                     break;
                                 case 2: // Kembali ke Menu Utama
                                     menuTransaksiAktif = false;
