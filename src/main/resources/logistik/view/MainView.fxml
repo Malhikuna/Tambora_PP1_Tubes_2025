@@ -62,7 +62,7 @@
                         </content>
                     </TitledPane>
 
-                    <Button text="Logout" styleClass="sidebar-button logout-button" />
+                    <Button text="Logout" styleClass="logout-button" />
                 </children>
             </VBox>
 

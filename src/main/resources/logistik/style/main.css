@@ -1,8 +1,36 @@
+/* Mengatur tampilan dasar TitledPane */
+.titled-pane {
+    -fx-text-fill: white;
+}
+
+/* Mengatur header dari TitledPane (bagian yang diklik) */
+.titled-pane > .title {
+    -fx-background-color: #7551e0;
+    -fx-background-radius: 5px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+}
+
+/* Mengubah warna latar header saat TitledPane terbuka (expanded) */
+.titled-pane:expanded > .title {
+    -fx-background-color: #7551e0;
+}
+
+/* Mengubah warna panah dropdown menjadi putih agar terlihat */
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+/* Menghilangkan padding di area konten TitledPane agar tombol rapat */
+.titled-pane > .content {
+    -fx-padding:5px 0 0 0;
+}
+
 .sidebar {
     -fx-background-color: #ffffff;
     -fx-padding: 20;
     -fx-spacing: 10;
-    -fx-border-color: #cfd8dc;
+    -fx-border-color: #e2e8ea;
     -fx-border-width: 0 1 0 0;
 }
 
@@ -33,7 +61,7 @@
 }
 
 .content-area {
-    -fx-background-color: #fefefe;
+    -fx-background-color: #f6f8fc;
     -fx-padding: 20;
 }
 
@@ -59,7 +87,71 @@
     -fx-text-fill: white;
 }
 
-.button-danger {
-    -fx-background-color: #f44336; /* Merah */
+/*Button Log Out*/
+.logout-button {
+    -fx-background-color: #7551e0;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-padding: 6px 14px;
+}
+
+.logout-button:hover {
+    -fx-background-color: #8258ff;
+}
+
+/* Button Edit barang */
+.button-warning {
+    -fx-background-color: #FFD43B;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-padding: 6px 14px;
+}
+
+.button-warning:hover {
+    -fx-background-color: #fcbd00;
+}
+
+/* Button Simpan */
+.button-success {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-padding: 6px 14px;
+}
+.button-success:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Button Hapus barang */
+.button-danger {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-padding: 6px 14px;
+}
+
+.button-danger:hover {
+    -fx-background-color: #d32f2f;
+}
+
+/* Button refresh barang */
+.button-info {
+    -fx-background-color: #19a2b8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-padding: 6px 14px;
+}
+
+.button-info:hover {
+    -fx-background-color: #00dcff;
 }
