@@ -1,10 +1,13 @@
 package logistik.service;
 
 import logistik.config.DatabaseConnection;
+import logistik.model.Barang;
 import logistik.model.StokBarang;
 import logistik.model.Transaksi;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransaksiService {
     /* Atribut */
@@ -32,24 +35,20 @@ public class TransaksiService {
     }
 
     // Prosedur untuk menampilkan semua transaksi dalam queue
-        public void tampilkanSemuaTransakasi () throws SQLException {
+        public List<Transaksi> tampilkanSemuaTransakasi () throws SQLException {
+            List<Transaksi> transaksi = new ArrayList<>();
             String sql = "SELECT * FROM Transaksi";
             try (Statement stmt = conn.createStatement()) {
                 ResultSet rs = stmt.executeQuery(sql);
-                int count = 1;
-                boolean addData = false;
                 while (rs.next()) {
-                    addData = true;
-                    System.out.println((count++) + ". " + rs.getString("kode_barang") +
-                            " - " + rs.getString("jenis") + " - " +
-                            rs.getInt("jumlah") + " - " +
-                            rs.getString("tanggal"));
+                    Transaksi t = new Transaksi(
+                            rs.getString("kode_barang"),
+                            rs.getString("jenis"),
+                            rs.getInt("jumlah"),
+                            rs.getTimestamp("tanggal").toLocalDateTime());
+                    transaksi.add(t);
                 }
-                if (!addData) {
-                    System.out.println("Tidak ada data transaksi yang ditemukan.");
-                }
-
-                System.out.println("===================");
             }
+            return transaksi;
         }
 }
