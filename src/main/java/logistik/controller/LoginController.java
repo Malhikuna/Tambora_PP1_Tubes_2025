@@ -52,7 +52,7 @@ public class LoginController {
 
                 Stage currentStage = (Stage) usernameField.getScene().getWindow();
 
-                SceneSwitcher.switchScene(currentStage, "/logistik/view/MainView.fxml", user);
+                SceneSwitcher.switchSceneToMain(currentStage, "/logistik/view/MainView.fxml", user);
 
             } else {
                 errorLabel.setText("Username atau password salah.");

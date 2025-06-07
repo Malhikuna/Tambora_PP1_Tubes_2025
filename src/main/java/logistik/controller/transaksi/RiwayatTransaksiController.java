@@ -55,10 +55,6 @@ public class RiwayatTransaksiController {
     @FXML
     private TableColumn<Transaksi, Integer> jumlahColumn;
 
-    // Jika kamu memutuskan untuk menambahkan kolom user, aktifkan ini
-    // @FXML
-    // private TableColumn<Transaksi, String> userColumn;
-
     @FXML
     private Button cetakLaporanButton;
 
@@ -79,13 +75,10 @@ public class RiwayatTransaksiController {
     @FXML
     public void initialize() {
         // 1. Setup kolom tabel untuk mapping ke properti di model Transaksi
-        // Pastikan nama properti di "" cocok dengan getter di Transaksi.java
         tanggalColumn.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
         kodeBarangColumn.setCellValueFactory(new PropertyValueFactory<>("kodeBarang"));
-        namaBarangColumn.setCellValueFactory(new PropertyValueFactory<>("namaBarang")); // Mengambil dari field tambahan
         jenisColumn.setCellValueFactory(new PropertyValueFactory<>("jenis"));
         jumlahColumn.setCellValueFactory(new PropertyValueFactory<>("jumlah"));
-        // userColumn.setCellValueFactory(new PropertyValueFactory<>("namaPengguna")); // Jika ada
 
         // 2. Siapkan FilteredList untuk filter data
         filteredDataTransaksi = new FilteredList<>(masterDataTransaksi, p -> true);
@@ -104,7 +97,7 @@ public class RiwayatTransaksiController {
             return;
         }
         try {
-            masterDataTransaksi.setAll(transaksiService.tampilkanSemuaTransakasi()); // Ganti nama metode jika perlu
+            masterDataTransaksi.setAll(transaksiService.tampilkanSemuaTransakasi());
             // Reset filter ke kondisi default saat data dimuat ulang
             handleFilterAction(null);
         } catch (SQLException e) {
@@ -124,11 +117,9 @@ public class RiwayatTransaksiController {
             boolean cocokKeyword = true;
 
             // --- Filter Tanggal ---
-            // Ambil tanggal dari objek Transaksi (yang tipenya LocalDateTime)
             LocalDate tanggalTransaksi = transaksi.getTanggal().toLocalDate();
 
             if (dariTanggal != null && sampaiTanggal != null) {
-                // Jika kedua tanggal diisi, cek apakah tanggal transaksi ada di dalam rentang
                 cocokTanggal = !tanggalTransaksi.isBefore(dariTanggal) && !tanggalTransaksi.isAfter(sampaiTanggal);
             } else if (dariTanggal != null) {
                 // Jika hanya tanggal awal diisi
@@ -141,11 +132,9 @@ public class RiwayatTransaksiController {
             // --- Filter Keyword ---
             if (keyword != null && !keyword.trim().isEmpty()) {
                 String lowerCaseKeyword = keyword.toLowerCase();
-                // Cek apakah keyword ada di kode barang ATAU nama barang
                 cocokKeyword = transaksi.getKodeBarang().toLowerCase().contains(lowerCaseKeyword);
             }
 
-            // Gabungkan hasil filter: harus cocok tanggal DAN cocok keyword
             return cocokTanggal && cocokKeyword;
         });
     }
@@ -165,10 +154,8 @@ public class RiwayatTransaksiController {
     void handleCetakLaporanAction(ActionEvent event) {
         System.out.println("Tombol Cetak Laporan diklik.");
         // TODO: Implementasi logika untuk mencetak atau ekspor data.
-        // Data yang akan dicetak bisa diambil dari `filteredDataTransaksi`
-        // agar sesuai dengan apa yang sedang ditampilkan di tabel.
 
-        ObservableList<Transaksi> dataUntukDicetak = transaksiTableView.getItems(); // Ambil data yang sedang tampil
+        ObservableList<Transaksi> dataUntukDicetak = transaksiTableView.getItems();
 
         if (dataUntukDicetak.isEmpty()) {
             showAlert(Alert.AlertType.INFORMATION, "Info", "Tidak ada data untuk dicetak.");
@@ -176,8 +163,6 @@ public class RiwayatTransaksiController {
         }
 
         System.out.println("Mencetak " + dataUntukDicetak.size() + " baris data...");
-        // Di sini nanti kamu bisa panggil library report seperti JasperReports
-        // atau tulis ke file CSV/PDF secara manual.
 
         showAlert(Alert.AlertType.INFORMATION, "Fitur Dalam Pengembangan", "Fitur cetak laporan sedang dalam tahap pengembangan!");
     }

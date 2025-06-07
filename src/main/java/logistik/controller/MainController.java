@@ -4,13 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import logistik.App;
 import logistik.model.User;
+import logistik.util.SceneSwitcher;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class MainController {
     @FXML
@@ -66,14 +71,26 @@ public class MainController {
     // --- Handler untuk Logout ---
     @FXML
     private void handleLogout() {
-        System.out.println("Tombol Logout diklik");
-        // Logika untuk kembali ke halaman Login
-        // Misalnya:
-        // try {
-        //     App.getInstance().showLoginScene(); // Asumsi ada metode ini di kelas App utama kamu
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Konfirmasi Logout");
+        confirmAlert.setHeaderText("Anda yakin ingin logout?");
+        if (contentPane.getScene() != null && contentPane.getScene().getWindow() != null) {
+            confirmAlert.initOwner(contentPane.getScene().getWindow());
+        }
+
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                // 1. Dapatkan Stage saat ini dari komponen mana pun (misal, contentPane)
+                Stage currentStage = (Stage) contentPane.getScene().getWindow();
+
+                // 2. Panggil SceneSwitcher yang simpel
+                SceneSwitcher.switchScene(currentStage, "/logistik/view/LoginView.fxml");
+            } catch (IOException e) {
+                System.err.println("Gagal kembali ke halaman login.");
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
