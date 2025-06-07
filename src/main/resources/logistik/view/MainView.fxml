@@ -23,7 +23,6 @@
                                 <children>
                                     <Button text="Lihat Data Barang" styleClass="sidebar-button" onAction="#handleLihatDataBarang" />
                                     <Button text="Tambah Barang" styleClass="sidebar-button" onAction="#handleTambahBarang" />
-                                    <Button text="Edit Barang" styleClass="sidebar-button" onAction="#handleEditBarang"/>
                                 </children>
                             </VBox>
                         </content>

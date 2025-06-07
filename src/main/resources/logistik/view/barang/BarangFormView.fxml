@@ -12,13 +12,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="formBarangPane" alignment="TOP_CENTER" spacing="20.0" styleClass="form-container"
+<VBox fx:id="formBarangPane"
+      alignment="TOP_CENTER"
+      spacing="20.0"
+      styleClass="form-container"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="logistik.controller.barang.BarangFormController"
-        stylesheets="@/logistik/style/barang/barang-form.css">
+      stylesheets="@/logistik/style/barang/barang-form.css">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
+
     <children>
         <Label fx:id="judulFormLabel" text="Tambah Data Barang Baru" styleClass="form-title">
             <font>
@@ -28,7 +32,9 @@
 
         <GridPane hgap="10.0" vgap="10.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0"/> <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="750.0"/> </columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="750.0"/>
+            </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -63,6 +69,7 @@
                 <Button fx:id="simpanButton" mnemonicParsing="false" onAction="#handleSimpanButtonAction" text="Simpan" styleClass="button-success"/>
                 <Button fx:id="batalButton" mnemonicParsing="false" onAction="#handleBatalButtonAction" text="Batal" styleClass="button-danger"/>
             </children>
+
             <VBox.margin>
                 <Insets top="20.0"/>
             </VBox.margin>

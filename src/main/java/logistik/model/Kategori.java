@@ -27,4 +27,8 @@ public class Kategori {
         this.nama = nama;
     }
 
+    @Override
+    public String toString() {
+        return this.nama;
+    }
 }
