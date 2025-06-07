@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<AnchorPane stylesheets="@/logistik/style/main.css"
+            xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="logistik.controller.LoginController"
             prefHeight="400.0" prefWidth="600.0"
