@@ -6,6 +6,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import logistik.App;
 import logistik.model.Barang;
 import logistik.service.BarangService;
@@ -34,8 +36,7 @@ public class BarangTableController {
     @FXML private TableColumn<Barang, Double> hargaBeliColumn;
     @FXML private Button editButton;
     @FXML private Button hapusButton;
-    @FXML
-    private Button refreshButton;
+    @FXML private Button refreshButton;
 
     private BarangService barangService;
 
@@ -109,12 +110,6 @@ public class BarangTableController {
     }
 
     @FXML
-    private void handleTambahBarangAction() {
-        System.out.println("Tombol Tambah Barang diklik");
-        showBarangFormDialog(null); // null menandakan mode tambah baru
-    }
-
-    @FXML
     private void handleEditBarangAction() {
         Barang barangTerpilih = barangTableView.getSelectionModel().getSelectedItem();
         if (barangTerpilih != null) {
@@ -174,9 +169,17 @@ public class BarangTableController {
             // Set owner stage
             if (App.getPrimaryStage() != null) {
                 dialogStage.initOwner(App.getPrimaryStage());
-            } else if (barangTableView.getScene() != null && barangTableView.getScene().getWindow() != null) {
-                dialogStage.initOwner(barangTableView.getScene().getWindow());
             }
+
+            dialogStage.setResizable(false);
+            dialogStage.initStyle(StageStyle.UTILITY);
+
+            dialogStage.setScene(new Scene(formRoot));
+
+            // 5. KIRIM DATA KE FORM CONTROLLER <--- LANGKAH PENTING #2
+            formController.initData(barangToEdit);
+            dialogStage.showAndWait();
+            loadDataBarang();
 
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Error UI", "Gagal memuat form data barang: " + e.getMessage());

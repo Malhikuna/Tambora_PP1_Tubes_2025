@@ -21,7 +21,7 @@ public class KategoriService {
 
     public List<Kategori> tampilkanSemuaKategori() throws SQLException {
         List<Kategori> kategori = new ArrayList<>();
-        String sql = "SELECT * FROM kategori";
+        String sql = "SELECT * FROM kategori_barang";
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {

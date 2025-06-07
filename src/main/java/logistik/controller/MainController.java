@@ -26,17 +26,6 @@ public class MainController {
     }
 
     @FXML
-    private void handleEditBarang() {
-        loadView("/logistik/view/barang/BarangFormView.fxml");
-    }
-
-    @FXML
-    private void handleHapusBarang() {
-        System.out.println("Tombol Hapus Barang diklik - biasanya aksi ini ada di tabel barang.");
-        loadViewIntoContentPane("/logistik/view/barang/BarangTableView.fxml");
-    }
-
-    @FXML
     private void handleBarangMasuk() {
         System.out.println("Tombol Barang Masuk diklik");
     }

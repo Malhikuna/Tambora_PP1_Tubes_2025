@@ -30,7 +30,7 @@ public class BarangService {
     }
 
     public void updateBarang(Barang barang) throws SQLException {
-        String sql = "UPDATE barang SET nama_barang = ?, kategori_id = ?, satuan = ?, harga_beli = ? WHERE kode_barang = ?";
+        String sql = "UPDATE barang SET nama_barang = ?, kategori_id = ?, satuan = ?, harga_beli = ?, harga_jual = ? WHERE kode_barang = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, barang.getNama());
             stmt.setInt(2, barang.getKategoriId());

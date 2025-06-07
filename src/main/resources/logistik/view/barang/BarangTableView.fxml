@@ -42,7 +42,6 @@
         <padding>
             <Insets top="10.0"/>
         </padding>
-        <Button fx:id="tambahButton" text="➕ Tambah Barang" styleClass="button-success" onAction="#handleTambahBarangAction"/>
         <Button fx:id="editButton" text="✏️ Edit Barang" styleClass="button-warning" onAction="#handleEditBarangAction"/>
         <Button fx:id="hapusButton" text="🗑️ Hapus Barang" styleClass="button-danger" onAction="#handleHapusBarangAction"/>
         <Button fx:id="refreshButton" text="🔄 Refresh" styleClass="button-info" onAction="#handleRefreshAction"/>
