@@ -7,6 +7,7 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <VBox xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="logistik.controller.transaksi.RiwayatTransaksiController"
       spacing="15.0"
       styleClass="table-container">
 
@@ -26,8 +27,8 @@
         <Label text="Sampai Tanggal:"/>
         <DatePicker fx:id="sampaiTanggalPicker" />
         <TextField fx:id="searchField" promptText="Cari Kode atau Nama Barang..." HBox.hgrow="ALWAYS"/>
-        <Button fx:id="filterButton" text="Filter" styleClass="button-primary"/>
-        <Button fx:id="resetButton" text="Reset"/>
+        <Button fx:id="filterButton" text="Filter" styleClass="button-primary" onAction="#handleFilterAction"/>
+        <Button fx:id="resetButton" text="Reset" styleClass="button-danger" onAction="#handleResetAction"/>
     </HBox>
 
     <TableView fx:id="transaksiTableView" VBox.vgrow="ALWAYS">
@@ -46,7 +47,7 @@
     </TableView>
 
     <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="action-buttons-box">
-        <Button fx:id="cetakLaporanButton" text=" Cetak Laporan" styleClass="button-info">
+        <Button fx:id="cetakLaporanButton" text=" Cetak Laporan" styleClass="button-info" onAction="#handleCetakLaporanAction">
             <graphic>
                 <FontIcon iconLiteral="fa-print" iconSize="22" iconColor="#F5F5F5"/>
             </graphic>
