@@ -26,6 +26,8 @@ public class BarangServiceTest {
     void setUp() {
         try {
             Statement stmt = conn.createStatement();
+            stmt.executeUpdate("DELETE FROM transaksi");
+            stmt.executeUpdate("DELETE FROM stok_barang");
             stmt.executeUpdate("DELETE FROM barang");
         } catch (Exception e) {
             e.printStackTrace();
