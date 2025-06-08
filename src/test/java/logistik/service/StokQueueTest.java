@@ -55,7 +55,7 @@ public class StokQueueTest {
 
         try {
             stokQueue = new StokQueue();
-            stokQueue.enqueue(stokBarang);
+            stokQueue.enqueue(conn, stokBarang);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,11 +72,11 @@ public class StokQueueTest {
         StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
 
         stokQueue = new StokQueue();
-        stokQueue.enqueue(stokBarang1);
-        stokQueue.enqueue(stokBarang2);
-        stokQueue.enqueue(stokBarang3);
+        stokQueue.enqueue(conn, stokBarang1);
+        stokQueue.enqueue(conn, stokBarang2);
+        stokQueue.enqueue(conn, stokBarang3);
 
-        stokQueue.dequeue(barang.getKode(), 11);
+        stokQueue.dequeue(conn, barang.getKode(), 11);
     }
 
     @Test
@@ -92,9 +92,9 @@ public class StokQueueTest {
 
         try {
             stokQueue = new StokQueue();
-            stokQueue.enqueue(stokBarang1);
-            stokQueue.enqueue(stokBarang2);
-            stokQueue.enqueue(stokBarang3);
+            stokQueue.enqueue(conn, stokBarang1);
+            stokQueue.enqueue(conn, stokBarang2);
+            stokQueue.enqueue(conn, stokBarang3);
 
             stokQueue.peek(barang.getKode());
         } catch (Exception e) {
@@ -115,9 +115,9 @@ public class StokQueueTest {
 
         try {
             stokQueue = new StokQueue();
-            stokQueue.enqueue(stokBarang1);
-            stokQueue.enqueue(stokBarang2);
-            stokQueue.enqueue(stokBarang3);
+            stokQueue.enqueue(conn, stokBarang1);
+            stokQueue.enqueue(conn, stokBarang2);
+            stokQueue.enqueue(conn, stokBarang3);
 
             stokQueue.getAllStok(barang.getKode());
         } catch (Exception e) {
@@ -138,9 +138,9 @@ public class StokQueueTest {
 
         try {
             stokQueue = new StokQueue();
-            stokQueue.enqueue(stokBarang1);
-            stokQueue.enqueue(stokBarang2);
-            stokQueue.enqueue(stokBarang3);
+            stokQueue.enqueue(conn, stokBarang1);
+            stokQueue.enqueue(conn, stokBarang2);
+            stokQueue.enqueue(conn, stokBarang3);
 
             stokQueue.getStokCount(barang.getKode());
         } catch (Exception e) {
@@ -161,9 +161,9 @@ public class StokQueueTest {
 
         try {
             stokQueue = new StokQueue();
-            stokQueue.enqueue(stokBarang1);
-            stokQueue.enqueue(stokBarang2);
-            stokQueue.enqueue(stokBarang3);
+            stokQueue.enqueue(conn, stokBarang1);
+            stokQueue.enqueue(conn, stokBarang2);
+            stokQueue.enqueue(conn, stokBarang3);
 
             stokQueue.clear(barang.getKode());
         } catch (Exception e) {
