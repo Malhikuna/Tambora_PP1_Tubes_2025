@@ -1,20 +1,11 @@
 package logistik.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import logistik.model.User;
-import logistik.service.UserService;
-import logistik.service.AuthService;
-import logistik.util.SceneSwitcher;
-
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import logistik.model.User;
 import logistik.service.AuthService;
+import logistik.util.ManajemenSesi;
 import logistik.util.SceneSwitcher;
 
 import java.io.IOException;
@@ -48,6 +39,8 @@ public class LoginController {
             if (user != null) {
                 errorLabel.setText("");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Login berhasil. Selamat datang, " + user.getName() + "!");
+                ManajemenSesi.setUserYangLogin(user);
+
                 alert.showAndWait();
 
                 Stage currentStage = (Stage) usernameField.getScene().getWindow();

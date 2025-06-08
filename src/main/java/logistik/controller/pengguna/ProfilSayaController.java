@@ -9,6 +9,8 @@ import logistik.App;
 import logistik.model.User;
 import logistik.service.AuthService; // Dibutuhkan untuk verifikasi & hash password
 import logistik.service.UserService;
+import logistik.util.ManajemenSesi;
+
 import java.sql.SQLException;
 //import logistik.util.SessionManager;
 
@@ -51,7 +53,8 @@ public class ProfilSayaController {
 
     @FXML
     public void initialize() {
-//        this.userSaatIni = SessionManager.getLoggedInUser();
+        this.userSaatIni = ManajemenSesi.getUserYangLogin();
+
 
         if (this.userSaatIni != null) {
             namaField.setText(userSaatIni.getName());
