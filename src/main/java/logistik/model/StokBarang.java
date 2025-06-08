@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class StokBarang {
     private String kodeBarang;
     private int jumlah;
+    private String namaBarang;
     private LocalDateTime tanggalMasuk;
 
     public StokBarang(String kodeBarang, int jumlah, LocalDateTime tanggalMasuk){
@@ -27,6 +28,14 @@ public class StokBarang {
     return jumlah;
     }
 
+    public String getNamaBarang() {
+        return namaBarang;
+    }
+
+    public void setNamaBarang(String namaBarang) {
+        this.namaBarang = namaBarang;
+    }
+
     public void setJumlah(int jumlah) {
     this.jumlah = jumlah;
     }
@@ -46,5 +55,4 @@ public class StokBarang {
     System.out.println("Jumlah      : " + jumlah);
     System.out.println("Tanggal Masuk: " + tanggalMasuk);
     }
-    //main method untuk testing
 }

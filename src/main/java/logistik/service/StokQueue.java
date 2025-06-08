@@ -1,6 +1,7 @@
 package logistik.service;
 
 import logistik.config.DatabaseConnection;
+import logistik.model.Barang;
 import logistik.model.StokBarang;
 
 import java.sql.*;
@@ -135,5 +136,24 @@ public class StokQueue {
             return stmt.executeUpdate();
             //System.out.println("Berhasil menghapus " + rows + " baris stok untuk " + kodeBarang);
         }
+    }
+
+    public List<StokBarang> dapatkanSemuaStok() throws SQLException {
+        Connection conn = DatabaseConnection.getConnection();
+        List<StokBarang> stok = new ArrayList<>();
+        String sql = "SELECT s.*, b.nama_barang " +
+                "FROM stok_barang s\n" + "JOIN barang b ON s.kode_barang = b.kode_barang\n";
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                StokBarang s = new StokBarang(
+                        rs.getString("kode_barang"),
+                        rs.getInt("jumlah"),
+                        rs.getTimestamp("tanggal_masuk").toLocalDateTime());
+                s.setNamaBarang(rs.getString("nama_barang"));
+                stok.add(s);
+            }
+        }
+        return stok;
     }
 }

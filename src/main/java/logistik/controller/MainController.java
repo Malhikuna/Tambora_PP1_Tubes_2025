@@ -37,7 +37,7 @@ public class MainController {
 
     @FXML
     private void handleBarangKeluar() {
-        System.out.println("Tombol Barang Keluar diklik");
+        loadView("/logistik/view/stok/BarangKeluarView.fxml");
     }
 
     @FXML

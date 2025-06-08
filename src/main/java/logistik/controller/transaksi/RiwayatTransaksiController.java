@@ -77,6 +77,7 @@ public class RiwayatTransaksiController {
         // 1. Setup kolom tabel untuk mapping ke properti di model Transaksi
         tanggalColumn.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
         kodeBarangColumn.setCellValueFactory(new PropertyValueFactory<>("kodeBarang"));
+        namaBarangColumn.setCellValueFactory(new PropertyValueFactory<>("namaBarang"));
         jenisColumn.setCellValueFactory(new PropertyValueFactory<>("jenis"));
         jumlahColumn.setCellValueFactory(new PropertyValueFactory<>("jumlah"));
 

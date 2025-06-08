@@ -23,14 +23,13 @@ public class TransaksiService {
 
     // Prosedur untuk menambahkan transaksi baru ke queue
     public void tambahTransaksi(Connection conn, Transaksi transaksi) throws SQLException {
-        String sql = "INSERT INTO transaksi (id, kode_barang, nama_barang , jenis, jumlah, tanggal) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO transaksi (id, kode_barang, jenis, jumlah, tanggal) VALUES (?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, transaksi.getId().toString());
             stmt.setString(2, transaksi.getKodeBarang());
-            stmt.setString(3, transaksi.getNamaBarang());
-            stmt.setString(4, transaksi.getJenis());
-            stmt.setInt(5, transaksi.getJumlah());
-            stmt.setTimestamp(6, Timestamp.valueOf(transaksi.getTanggal()));
+            stmt.setString(3, transaksi.getJenis());
+            stmt.setInt(4, transaksi.getJumlah());
+            stmt.setTimestamp(5, Timestamp.valueOf(transaksi.getTanggal()));
             stmt.executeUpdate();
         }
     }

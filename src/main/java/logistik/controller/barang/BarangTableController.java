@@ -143,7 +143,6 @@ public class BarangTableController {
                 }
             }
         } else {
-            // Seharusnya tidak akan terpanggil
             showAlert(Alert.AlertType.WARNING, "Tidak Ada Pilihan", "Silakan pilih barang yang ingin dihapus.");
         }
     }
