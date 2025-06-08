@@ -26,7 +26,7 @@ public class MenuView {
         System.out.println("1. Lihat Barang");
         System.out.println("2. Cari Barang");
 
-        if ("Admin".equalsIgnoreCase(role)) {
+        if ("owner".equalsIgnoreCase(role)) {
             System.out.println("3. Tambah Barang Baru");
             System.out.println("4. Edit Data Barang");
             System.out.println("5. Hapus Barang");
@@ -61,7 +61,7 @@ public class MenuView {
         System.out.println("2. Ubah Password Saya");
         System.out.println("3. Ubah Nama Akun Saya");
 
-        if ("Admin".equalsIgnoreCase(role)) {
+        if ("owner".equalsIgnoreCase(role)) {
             System.out.println("---------------------------------");
             System.out.println("4. Tambah Pengguna Baru");
             System.out.println("5. Lihat/Edit/Hapus Pengguna");
