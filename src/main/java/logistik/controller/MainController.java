@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Separator;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import logistik.App;
@@ -33,7 +32,7 @@ public class MainController {
 
     @FXML
     private void handleBarangMasuk() {
-        System.out.println("Tombol Barang Masuk diklik");
+        loadView("/logistik/view/stok/BarangMasukView.fxml");
     }
 
     @FXML
@@ -43,7 +42,7 @@ public class MainController {
 
     @FXML
     private void handleStokSaatIni() {
-        System.out.println("Tombol Stok Saat Ini diklik");
+        loadView("/logistik/view/stok/StokSaatIniView.fxml");
     }
 
     // --- Handler untuk Menu Transaksi ---
@@ -124,7 +123,7 @@ public class MainController {
             return;
         }
 
-        if ("Admin".equalsIgnoreCase(userSaatIni.getRole())) {
+        if ("owner".equalsIgnoreCase(userSaatIni.getRole())) {
             KelolaSemuaPengguna.setVisible(true);
             KelolaSemuaPengguna.setManaged(true);
         }
