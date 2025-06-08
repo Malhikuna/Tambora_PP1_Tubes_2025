@@ -6,12 +6,15 @@ import logistik.model.Transaksi;
 import logistik.model.User;
 import logistik.service.*;
 import logistik.util.InputUtil;
+import logistik.util.ManajemenSesi;
 import logistik.view.MenuView;
 import logistik.util.HashUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 
 public class StokMain {
@@ -60,7 +63,9 @@ public class StokMain {
             System.out.println(" Peran Anda Adalah " + userYangLogin.getRole());
             System.out.println("================================================");
 
-            boolean isAdmin = "Admin".equalsIgnoreCase(userYangLogin.getRole());
+            boolean isOwner = "owner".equalsIgnoreCase(userYangLogin.getRole());
+
+            System.out.println("Cek" + isOwner);
 
             while (sesiAktif) {
                 int pilihanUtama = MenuView.displayMenuUtama();
@@ -99,7 +104,7 @@ public class StokMain {
                                     }
                                     break;
                                 case 3:
-                                    if (isAdmin) {
+                                    if (isOwner) {
                                         System.out.println(">>> Aksi: Tambah Barang");
                                         // TODO: Implementasi Tambah Barang | Murod
                                         String kode = InputUtil.inputString("Masukkan Kode Barang");
@@ -145,7 +150,7 @@ public class StokMain {
                                     }
                                     break;
                                 case 4:
-                                    if (isAdmin) {
+                                    if (isOwner) {
                                         System.out.println(">>> Aksi: Edit Barang");
                                         // TODO: Implementasi Edit Barang | Dzaki
                                         String kode = InputUtil.inputString("Masukkan Kode Barang");
@@ -225,7 +230,7 @@ public class StokMain {
                                     }
                                     break;
                                 case 5:
-                                    if (isAdmin) {
+                                    if (isOwner) {
                                         System.out.println(">>> Aksi: Hapus Barang");
                                         // TODO: Implementasi Hapus Barang | Dzaki
                                         String kode = InputUtil.inputString("Masukkan Kode Barang Yang Ingin Dihapus");
@@ -247,7 +252,7 @@ public class StokMain {
                                     }
                                     break;
                                 case 6:
-                                    if (isAdmin) {
+                                    if (isOwner) {
                                         // Kembali ke Menu Utama
                                         menuBarangAktif = false;
                                     } else {
@@ -338,16 +343,20 @@ public class StokMain {
                                 case 1:
                                     System.out.println(">>> Aksi: Lihat Transaksi");
                                     // TODO: Implementasi Lihat Transaksi | Ikhsan
+                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                                     List<Transaksi> transaksi = transaksiService.tampilkanSemuaTransakasi();
 
                                     int count = 1;
                                     boolean addData = false;
                                     for (Transaksi t : transaksi) {
                                         addData = true;
+                                        java.time.LocalDateTime tanggalRaw = t.getTanggal();
+                                        String tanggalFormatted = tanggalRaw.format(formatter);
                                         System.out.println((count++) + ". " + t.getKodeBarang() +
-                                                " - " + t.getJenis() + " - " +
-                                                t.getJumlah() + " - " +
-                                                t.getTanggal());
+                                                " - " + t.getNamaBarang()
+                                                + " - "+ t.getJenis()
+                                                + " - " + t.getJumlah()
+                                                + " - " + tanggalFormatted);
                                     }
                                     if (!addData) {
                                         System.out.println("Tidak ada data transaksi yang ditemukan.");
@@ -375,14 +384,46 @@ public class StokMain {
                                     break;
                                 case 2:
                                     System.out.println(">>> Aksi: Ubah Password Saya");
-                                    // TODO: Implementasi Ubah Password Saya | Haidar
+                                    // TODO: Implementasi Ubah Password Saya | Ikhsan
+                                    String passwordBaru = InputUtil.inputString("Masukkan Password Baru");
+                                    String konformasiPsBaru = InputUtil.inputString("Masukkan Ulang Password Baru");
+
+                                    String hashedPassword = HashUtil.hashPassword(passwordBaru);
+
+                                    if (!passwordBaru.equals(konformasiPsBaru)) {
+                                        System.out.println("Password baru dan konfirmasi password tidak cocok!");
+                                        break;
+                                    }
+
+                                    // Validasi sederhana: password tidak boleh kosong
+                                    if (passwordBaru.trim().isEmpty()) {
+                                        System.out.println("Password baru tidak boleh kosong!");
+                                        break;
+                                    }
+
+                                    // Memanggil method updatePassword dari UserService
+                                    if (userYangLogin == null || userYangLogin.getId() == null) {
+                                        System.out.println("Kesalahan: Data pengguna yang login tidak ditemukan atau ID tidak valid. Tidak dapat mengubah password.");
+                                        break;
+                                    }
+
+                                    UUID userSaatIni = userYangLogin.getId();
+
+                                    try {
+                                        userService.updatePassword(userSaatIni, hashedPassword);
+                                        System.out.println("Proses ubah password selesai.");
+                                    } catch (SQLException e) {
+                                        System.err.println("Terjadi kesalahan database saat mengubah password: " + e.getMessage());
+                                        e.printStackTrace();
+                                    }
+
                                     break;
                                 case 3:
                                     System.out.println(">>> Aksi: Ubah Nama Akun Saya");
                                     // TODO: Implementasi Ubah Nama Akun Saya | Haidar
                                     break;
                                 case 4:
-                                    if (isAdmin) {
+                                    if (isOwner) {
                                         System.out.println(">>> Aksi: Tambah Pengguna Baru");
                                         // TODO: Implementasi Tambah Pengguna Baru | Ikhsan
 
@@ -406,11 +447,11 @@ public class StokMain {
 
                                         String role = "";
                                         while (true) {
-                                            role = InputUtil.inputString("Masukkan Role (admin/staf)").trim().toLowerCase();
-                                            if (role.equals("admin") || role.equals("staf")) {
+                                            role = InputUtil.inputString("Masukkan Role (owner/staf)").trim().toLowerCase();
+                                            if (role.equals("owner") || role.equals("staf")) {
                                                 break;
                                             } else {
-                                                System.out.println("Role tidak valid. Hanya boleh 'admin' atau 'staf'.");
+                                                System.out.println("Role tidak valid. Hanya boleh 'owner' atau 'staf'.");
                                             }
                                         }
                                         User newUser = new User(username, password, namaLengkap, role);
@@ -425,7 +466,7 @@ public class StokMain {
                                     }
                                     break;
                                 case 5:
-                                    if (isAdmin) {
+                                    if (isOwner) {
                                         System.out.println(">>> Aksi: Lihat/Edit/Hapus Pengguna");
                                         // TODO: Implementasi Lihat/Edit/Hapus Pengguna | Ikhsan
                                         List<User> users = userService.getAllUser();
@@ -482,7 +523,7 @@ public class StokMain {
                                     }
                                     break;
                                 case 6:
-                                    if (isAdmin) {
+                                    if (isOwner) {
                                         // // Kembali ke Menu Utama
                                         menuPenggunaAktif = false;
                                     } else {

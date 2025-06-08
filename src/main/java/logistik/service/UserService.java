@@ -42,7 +42,7 @@ public class UserService {
     // Read
     public List<User> getAllUser() {
         List<User> userList = new ArrayList<>();
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users WHERE role = 'staf'";
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -100,7 +100,6 @@ public class UserService {
                 user.setRole(rs.getString("role"));
                 return user;
             } else {
-                System.out.println("User tidak ditemukan.");
                 return null;
             }
         } catch (SQLException e) {
@@ -112,7 +111,7 @@ public class UserService {
     // Update
     public void updatePassword(UUID id, String newPassword) throws SQLException {
 
-        String sql = "UPDATE users SET SET password = ? WHERE id = ?";
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, newPassword);
             stmt.setString(2, id.toString());
