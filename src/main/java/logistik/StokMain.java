@@ -11,6 +11,7 @@ import logistik.util.HashUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -239,16 +240,20 @@ public class StokMain {
                                 case 1:
                                     System.out.println(">>> Aksi: Lihat Transaksi");
                                     // TODO: Implementasi Lihat Transaksi | Ikhsan
+                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                                     List<Transaksi> transaksi = transaksiService.tampilkanSemuaTransakasi();
 
                                     int count = 1;
                                     boolean addData = false;
                                     for (Transaksi t : transaksi) {
                                         addData = true;
+                                        java.time.LocalDateTime tanggalRaw = t.getTanggal();
+                                        String tanggalFormatted = tanggalRaw.format(formatter);
                                         System.out.println((count++) + ". " + t.getKodeBarang() +
-                                                " - " + t.getJenis() + " - " +
-                                                t.getJumlah() + " - " +
-                                                t.getTanggal());
+                                                " - " + t.getNamaBarang()
+                                                + " - "+ t.getJenis()
+                                                + " - " + t.getJumlah()
+                                                + " - " + tanggalFormatted);
                                     }
                                     if (!addData) {
                                         System.out.println("Tidak ada data transaksi yang ditemukan.");

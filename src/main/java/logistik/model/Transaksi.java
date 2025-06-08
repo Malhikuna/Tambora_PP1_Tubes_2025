@@ -7,6 +7,7 @@ public class Transaksi {
     /* Atribut */
     private UUID id;
     private String kodeBarang;
+    private String namaBarang;
     private String jenis;
     private int jumlah;
     private LocalDateTime tanggal;
@@ -35,6 +36,14 @@ public class Transaksi {
 
    public void setKodeBarang(String kodeBarang) {
         this.kodeBarang = kodeBarang;
+   }
+
+   public String getNamaBarang() {
+        return namaBarang;
+   }
+
+   public void setNamaBarang(String namaBarang) {
+        this.namaBarang = namaBarang;
    }
 
    public String getJenis() {
