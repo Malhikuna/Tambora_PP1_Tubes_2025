@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import logistik.App;
 import logistik.controller.MainController;
+import logistik.controller.pengguna.ProfilSayaController;
 import logistik.model.User;
 
 import java.io.IOException;
@@ -14,9 +15,9 @@ public class SceneSwitcher {
 
     public static void switchScene(Stage stage, String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
-        Parent root = loader.load(); // Cukup load FXML-nya
+        Parent root = loader.load();
         stage.setScene(new Scene(root));
-        stage.setTitle("Sistem Logistik"); // Set judul generik atau yang sesuai
+        stage.setTitle("Sistem Logistik");
     }
 
 
