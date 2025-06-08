@@ -1,15 +1,18 @@
 package logistik;
 
+import logistik.model.Barang;
 import logistik.model.StokBarang;
 import logistik.model.Transaksi;
 import logistik.model.User;
 import logistik.service.*;
 import logistik.util.InputUtil;
 import logistik.view.MenuView;
+import logistik.util.HashUtil;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+
 
 public class StokMain {
     public static void main(String[] args) throws SQLException {
@@ -72,15 +75,70 @@ public class StokMain {
                                 case 1:
                                     System.out.println(">>> Aksi: Lihat Semua Barang");
                                     // TODO: Implementasi Lihat Semua Barang | Murod
+                                    List<Barang> barang = barangService.tampilkanSemuaBarang();
+
+                                    int count = 1;
+                                    boolean addData = false;
+                                    for (Barang b : barang) {
+                                        addData = true;
+                                        System.out.println((count++) + ". " + b.getKode() + " - " + b.getNama() + " - " + b.getKategoriId() + " - " + b.getSatuan() + " - " + b.getNamaKategori() + " - " + b.getHargaBeli() + " - " + b.getHargaJual());
+                                    }
+                                    if (!addData) {
+                                        System.out.println("Tidak ada data barang yang ditemukan.");
+                                    }
                                     break;
                                 case 2:
                                     System.out.println(">>> Aksi: Cari Barang");
                                     // TODO: Implementasi Cari Barang | Murod
+                                    String kodeBarang = InputUtil.inputString("Masukkan Kode Barang");
+                                    Barang barangYangDicari = barangService.cariBarang(kodeBarang);
+                                    if (barangYangDicari != null) {
+                                        System.out.println(barangYangDicari.getKode() + " - " + barangYangDicari.getNama() + " - " + barangYangDicari.getKategoriId() + " - " + barangYangDicari.getSatuan() + " - " + barangYangDicari.getNamaKategori() + " - " + barangYangDicari.getHargaBeli() + " - " + barangYangDicari.getHargaJual());
+                                    } else {
+                                        System.out.println("Tidak ada data barang yang ditemukan.");
+                                    }
                                     break;
                                 case 3:
                                     if (isAdmin) {
                                         System.out.println(">>> Aksi: Tambah Barang");
                                         // TODO: Implementasi Tambah Barang | Murod
+                                        String kode = InputUtil.inputString("Masukkan Kode Barang");
+                                        String nama = InputUtil.inputString("Masukkan Nama Barang");
+                                        String namaKategori = "";
+                                        int kategoriId = -1;
+
+                                        System.out.println("1. Makanan");
+                                        System.out.println("2. Minuman");
+                                        System.out.println("0. Batal");
+
+                                        int aksi = InputUtil.inputInt("Pilih aksi");
+                                        switch (aksi) {
+                                            case 1:
+                                                kategoriId = 1;
+                                                namaKategori = "Makanan";
+                                                break;
+                                            case 2:
+                                                kategoriId = 2;
+                                                namaKategori = "Minuman";
+                                                break;
+                                            case 0:
+                                                System.out.println("Aksi dibatalkan.");
+                                                return; // keluar dari method
+                                            default:
+                                                System.out.println("Pilihan aksi tidak valid.");
+                                                return; // keluar dari method
+                                        }
+
+                                        String satuan = InputUtil.inputString("Masukkan Satuan Barang");
+                                        Double hargaBeli = InputUtil.inputDouble("Masukkan Harga beli Barang");
+                                        Double hargaJual = InputUtil.inputDouble("Masukkan Harga Jual Barang");
+
+                                        Barang b = new Barang(kode, nama, kategoriId, satuan, namaKategori, hargaBeli, hargaJual);
+                                        barangService.tambahBarang(b);
+                                        System.out.println("Barang berhasil ditambahkan: " +
+                                                b.getKode() + " - " + b.getNama() + " - " + b.getKategoriId() + " - " +
+                                                b.getSatuan() + " - " + b.getNamaKategori() + " - " + b.getHargaBeli() + " - " +
+                                                b.getHargaJual());
                                     } else {
                                         // Kembali ke Menu Utama
                                         menuBarangAktif = false;
@@ -181,8 +239,22 @@ public class StokMain {
                                 case 1:
                                     System.out.println(">>> Aksi: Lihat Transaksi");
                                     // TODO: Implementasi Lihat Transaksi | Ikhsan
-                                    TransaksiService trn = new TransaksiService();
-                                    trn.tampilkanSemuaTransakasi();
+                                    List<Transaksi> transaksi = transaksiService.tampilkanSemuaTransakasi();
+
+                                    int count = 1;
+                                    boolean addData = false;
+                                    for (Transaksi t : transaksi) {
+                                        addData = true;
+                                        System.out.println((count++) + ". " + t.getKodeBarang() +
+                                                " - " + t.getJenis() + " - " +
+                                                t.getJumlah() + " - " +
+                                                t.getTanggal());
+                                    }
+                                    if (!addData) {
+                                        System.out.println("Tidak ada data transaksi yang ditemukan.");
+                                    }
+
+                                    System.out.println("===================");
                                     break;
                                 case 2: // Kembali ke Menu Utama
                                     menuTransaksiAktif = false;
@@ -214,6 +286,40 @@ public class StokMain {
                                     if (isAdmin) {
                                         System.out.println(">>> Aksi: Tambah Pengguna Baru");
                                         // TODO: Implementasi Tambah Pengguna Baru | Ikhsan
+
+                                        String username = "";
+                                        while (true) {
+                                            username = InputUtil.inputString("Masukkan Username");
+                                            try {
+                                                if (userService.findUserByUsername(username) != null) {
+                                                    System.out.println("Username sudah digunakan. Silakan pilih username lain.");
+                                                } else {
+                                                    break;
+                                                }
+                                            } catch (Exception e) {
+                                                System.out.println("Terjadi kesalahan saat mengecek username.");
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        String password = InputUtil.inputString("Masukkan Password");
+                                        String namaLengkap = InputUtil.inputString("Masukkan Nama Lengkap");
+
+                                        String role = "";
+                                        while (true) {
+                                            role = InputUtil.inputString("Masukkan Role (admin/staf)").trim().toLowerCase();
+                                            if (role.equals("admin") || role.equals("staf")) {
+                                                break;
+                                            } else {
+                                                System.out.println("Role tidak valid. Hanya boleh 'admin' atau 'staf'.");
+                                            }
+                                        }
+                                        User newUser = new User(username, password, namaLengkap, role);
+                                        userService.createUser(newUser);
+
+                                        System.out.println("User Berhasil Ditambahkan: " + newUser.getUsername() + " - "
+                                                + newUser.getPassword() + " - " + newUser.getName() + " - " + newUser.getRole());
+
                                     } else {
                                         // // Kembali ke Menu Utama
                                         menuPenggunaAktif = false;
@@ -223,8 +329,57 @@ public class StokMain {
                                     if (isAdmin) {
                                         System.out.println(">>> Aksi: Lihat/Edit/Hapus Pengguna");
                                         // TODO: Implementasi Lihat/Edit/Hapus Pengguna | Ikhsan
+                                        List<User> users = userService.getAllUser();
+
+                                        if (users.isEmpty()) {
+                                            System.out.println("Tidak ada pengguna yang terdaftar.");
+                                            break;
+                                        }
+
+                                        // Tampilkan semua user
+                                        System.out.println("Daftar Pengguna:");
+                                        for (int i = 0; i < users.size(); i++) {
+                                            User us = users.get(i);
+                                            System.out.println((i + 1) + ". " + us.getUsername() + " - " + us.getName() + " - " + us.getRole());
+                                        }
+
+
+                                        int pilihUser = InputUtil.inputInt("Pilih nomor user untuk Edit/Hapus Pengguna (0 untuk batal:) ");
+
+                                        if (pilihUser < 1 || pilihUser > users.size()) {
+                                            System.out.println("Pilihan tidak valid.");
+                                            break;
+                                        }
+
+                                        User selectedUser = users.get(pilihUser - 1);
+
+                                        System.out.println("1. Ubah Password");
+                                        System.out.println("2. Hapus User");
+                                        System.out.println("0. Batal");
+
+                                        int aksi = InputUtil.inputInt("Pilih Aksi: ");
+                                        switch (aksi) {
+                                            case 1:
+                                                String newPassword = InputUtil.inputString("Masukkan Password Baru");
+                                                String hashed = HashUtil.hashPassword(newPassword);
+                                                userService.updatePassword(selectedUser.getId(), hashed);
+                                                break;
+                                            case 2:
+                                                String konfirmasi = InputUtil.inputString("Yakin ingin hapus user ini? (y/n)");
+                                                if (konfirmasi.equalsIgnoreCase("y")) {
+                                                    userService.hapusUser(selectedUser.getId());
+                                                } else {
+                                                    System.out.println("Penghapusan dibatalkan.");
+                                                }
+                                                break;
+                                            case 0:
+                                                System.out.println("Aksi dibatalkan.");
+                                                break;
+                                            default:
+                                                System.out.println("Pilihan aksi tidak valid.");
+                                        }
                                     } else {
-                                        System.out.println("Pilihan tidak valid, coba lagi bro.");
+                                        System.out.println("Pilihan tidak valid, coba lagi");
                                     }
                                     break;
                                 case 6:
@@ -241,7 +396,7 @@ public class StokMain {
                         }
                         break;
                     case 5: // Logout
-                        sesiAktif  = false;
+                        sesiAktif = false;
                         System.out.println("Logout berhasil. Sampai jumpa!");
                         break;
                     default:

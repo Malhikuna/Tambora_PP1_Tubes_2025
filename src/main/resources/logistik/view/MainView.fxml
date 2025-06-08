@@ -23,7 +23,6 @@
                                 <children>
                                     <Button text="Lihat Data Barang" styleClass="sidebar-button" onAction="#handleLihatDataBarang" />
                                     <Button text="Tambah Barang" styleClass="sidebar-button" onAction="#handleTambahBarang" />
-                                    <Button text="Edit Barang" styleClass="sidebar-button" onAction="#handleEditBarang"/>
                                 </children>
                             </VBox>
                         </content>
@@ -56,14 +55,15 @@
                         <content>
                             <VBox>
                                 <children>
-                                    <Button text="Ubah Username" styleClass="sidebar-button" onAction="#handleUbahUsername" />
-                                    <Button text="Ubah Password" styleClass="sidebar-button" onAction="#handleUbahPassword"/>
+                                    <Button text="Profil Saya" styleClass="sidebar-button" onAction="#handleProfilSaya" />
+
+                                    <Button fx:id="KelolaSemuaPengguna" text="Kelola Pengguna" styleClass="sidebar-button" onAction="#handleKelolaSemuaPengguna" visible="false" managed="false"/>
                                 </children>
                             </VBox>
                         </content>
                     </TitledPane>
 
-                    <Button text="Logout" styleClass="sidebar-button logout-button" />
+                    <Button text="Logout" styleClass="logout-button" onAction="#handleLogout"/>
                 </children>
             </VBox>
 

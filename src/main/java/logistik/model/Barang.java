@@ -33,7 +33,7 @@ public class Barang {
     }
 
 
-    public int getkategoriId() {
+    public int getKategoriId() {
         return kategoriId;
     }
 
@@ -41,15 +41,15 @@ public class Barang {
         return satuan;
     }
 
-    public String getnamaKategori() {
+    public String getNamaKategori() {
         return namaKategori;
     }
 
-    public double gethargaBeli() {
+    public double getHargaBeli() {
         return hargaBeli;
     }
 
-    public double gethargaJual() {
+    public double getHargaJual() {
         return hargaJual;
     }
 
@@ -62,7 +62,7 @@ public class Barang {
         this.nama = nama;
     }
 
-    public void setkategoriId (int kategoriId) {
+    public void setKategoriId (int kategoriId) {
         this.kategoriId = kategoriId;
     }
 
@@ -70,15 +70,16 @@ public class Barang {
         this.satuan = satuan;
     }
 
-    public void setnamaKategori (String namaKategori) {
+    public void setNamaKategori (String namaKategori) {
         this.namaKategori = namaKategori;
     }
 
-    public void sethargaBeli(double harga_beli) {
+    public void setHargaBeli(double harga_beli) {
         this.hargaBeli = harga_beli;
     }
 
-    public void sethargaJual(double harga_jual) {
+    public void setHargaJual(double harga_jual) {
+        System.out.println(harga_jual + "Ko");
         this.hargaJual = harga_jual;
     }
 

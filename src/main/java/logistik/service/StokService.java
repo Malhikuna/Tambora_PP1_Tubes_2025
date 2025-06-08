@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class StokService {
     private Connection conn;
     private StokQueue stokQueue;
-    private StokBarang stokBarang;
     private BarangService barangService;
     private TransaksiService transaksiService;
 
@@ -20,6 +19,8 @@ public class StokService {
     public StokService() throws SQLException {
         conn = DatabaseConnection.getConnection();
         stokQueue = new StokQueue();
+        barangService = new BarangService();
+        transaksiService = new TransaksiService();
     }
 
     public void catatBarang(String kodeBarang, int jumlah, String jenis, LocalDateTime tanggal)
@@ -30,6 +31,7 @@ public class StokService {
         if (barangService.cariBarang(kodeBarang) == null) {
             throw new IllegalArgumentException("Barang dengan kode '" + kodeBarang + "' tidak ditemukan.");
         }
+
         if (jumlah <= 0) {
             throw new IllegalArgumentException("Jumlah barang harus positif.");
         }
@@ -90,12 +92,7 @@ public class StokService {
             conn.setAutoCommit(false); // Mulai transaksi
 
             // Operasi 1: Kurangi dari stok (Dequeue)
-            boolean suksesDequeue = stokQueue.dequeue(conn, kodeBarang, jumlah);
-
-            if (!suksesDequeue) {
-                // Jika dequeue gagal karena alasan internal (misal, stok berubah di tengah jalan)
-                throw new SQLException("Operasi dequeue gagal di tengah proses.");
-            }
+            stokQueue.dequeue(conn, kodeBarang, jumlah);
 
             // Operasi 2: Catat log transaksi
             Transaksi transaksi = new Transaksi(kodeBarang, "Keluar", jumlah, tanggal);
@@ -108,8 +105,13 @@ public class StokService {
             throw new SQLException("Gagal mencatat barang keluar: " + e.getMessage(), e);
         } finally {
             if (conn != null) {
-                conn.setAutoCommit(true);
-                conn.close();
+                try {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                } catch (SQLException exClose) {
+                    // Sebaiknya di-log, tapi jangan lempar lagi agar tidak menimpa exception utama
+                    exClose.printStackTrace();
+                }
             }
         }
     }

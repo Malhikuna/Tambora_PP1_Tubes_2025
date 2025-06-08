@@ -1,10 +1,13 @@
 package logistik.service;
 
 import logistik.config.DatabaseConnection;
+import logistik.model.Barang;
 import logistik.model.StokBarang;
 import logistik.model.Transaksi;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransaksiService {
     /* Atribut */
@@ -19,7 +22,7 @@ public class TransaksiService {
     }
 
     // Prosedur untuk menambahkan transaksi baru ke queue
-    public void tambahTransaksi(Transaksi transaksi) {
+    public void tambahTransaksi(Connection conn, Transaksi transaksi) throws SQLException {
         String sql = "INSERT INTO transaksi (id, kode_barang, jenis, jumlah, tanggal) VALUES (?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, transaksi.getId().toString());
@@ -28,40 +31,24 @@ public class TransaksiService {
             stmt.setInt(4, transaksi.getJumlah());
             stmt.setTimestamp(5, Timestamp.valueOf(transaksi.getTanggal()));
             stmt.executeUpdate();
-            stokBarang = new StokBarang(transaksi.getKodeBarang(), transaksi.getJumlah(), transaksi.getTanggal());
-
-            if(transaksi.getJenis().equalsIgnoreCase("Masuk")) {
-                stokQueue.enqueue(stokBarang);
-            } else {
-                stokQueue.dequeue(transaksi.getKodeBarang(), transaksi.getJumlah());
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     // Prosedur untuk menampilkan semua transaksi dalam queue
-        public void tampilkanSemuaTransakasi () {
+        public List<Transaksi> tampilkanSemuaTransakasi () throws SQLException {
+            List<Transaksi> transaksi = new ArrayList<>();
             String sql = "SELECT * FROM Transaksi";
             try (Statement stmt = conn.createStatement()) {
                 ResultSet rs = stmt.executeQuery(sql);
-                int count = 1;
-                boolean addData = false;
                 while (rs.next()) {
-                    addData = true;
-                    System.out.println((count++) + ". " + rs.getString("kode_barang") +
-                            " - " + rs.getString("jenis") + " - " +
-                            rs.getInt("jumlah") + " - " +
-                            rs.getString("tanggal"));
+                    Transaksi t = new Transaksi(
+                            rs.getString("kode_barang"),
+                            rs.getString("jenis"),
+                            rs.getInt("jumlah"),
+                            rs.getTimestamp("tanggal").toLocalDateTime());
+                    transaksi.add(t);
                 }
-                if (!addData) {
-                    System.out.println("Tidak ada data transaksi yang ditemukan.");
-                }
-
-                System.out.println("===================");
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
+            return transaksi;
         }
 }
