@@ -46,8 +46,8 @@ public class UserServiceTest {
 
     @Test
     void testCreateUser() {
-        User admin = new User("Admin", "123", "Hikmal Maulana", "Admin");
-        User staf = new User("Staf", "123", "Ikhsan", "Staf");
+        User admin = new User("hikmal", "123", "Hikmal Maulana", "Admin");
+        User staf = new User("ikhsan", "123", "Ikhsan", "Staf");
 
         userService.createUser(admin);
         userService.createUser(staf);

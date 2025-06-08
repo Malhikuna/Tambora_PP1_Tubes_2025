@@ -14,7 +14,6 @@
 
 <VBox fx:id="formBarangPane" alignment="TOP_CENTER" spacing="20.0" styleClass="form-container"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="logistik.controller.stok.StokFormController"
       stylesheets="@/logistik/style/barang/barang-form.css">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>

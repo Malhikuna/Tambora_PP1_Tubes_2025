@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="logistik.controller.stok.StokTableController"
       alignment="CENTER" spacing="10.0" styleClass="table-container">
 
     <HBox alignment="CENTER_LEFT" spacing="10">
