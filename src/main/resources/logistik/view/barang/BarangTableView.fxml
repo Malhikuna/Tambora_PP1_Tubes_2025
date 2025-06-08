@@ -30,7 +30,7 @@
     </Label>
 
     <HBox alignment="CENTER_LEFT" spacing="10" styleClass="filter-box">
-        <Label text="Cari Barang:"/>
+        <Label text="Cari Nama Barang : "/>
         <TextField fx:id="searchField" promptText="Masukkan nama barang..." HBox.hgrow="ALWAYS" />
     </HBox>
 
