@@ -61,6 +61,30 @@ public class UserService {
         return userList;
     }
 
+    public User findUserById(UUID id) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id.toString());
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(UUID.fromString(rs.getString("id")));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setRole(rs.getString("role"));
+                return user;
+            } else {
+                System.out.println("User tidak ditemukan.");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public User findUserByUsername(String username) {
         String sql = "SELECT * FROM users WHERE username = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -86,9 +110,9 @@ public class UserService {
     }
 
     // Update
-    public void updatePassword(UUID id, String newPassword) {
-        System.out.println(newPassword);
-        String sql = "UPDATE users SET password = ? WHERE id = ?";
+    public void updatePassword(UUID id, String newPassword) throws SQLException {
+
+        String sql = "UPDATE users SET SET password = ? WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, newPassword);
             stmt.setString(2, id.toString());
@@ -98,8 +122,23 @@ public class UserService {
             } else {
                 System.out.println("User dengan ID tersebut tidak ditemukan.");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+    }
+
+    public void updateUserProfile(User user) throws SQLException {
+        String sql = "UPDATE users SET name = ?, username = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getUsername());
+            stmt.setString(3, user.getId().toString());
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Gagal memperbarui profil, user dengan ID " + user.getId() + " tidak ditemukan.");
+            }
         }
     }
 

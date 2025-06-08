@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -51,9 +50,9 @@ public class TransaksiServiceTest {
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
-        Transaksi transaksi = new Transaksi(barang.getKode(), "Masuk",5, LocalDateTime.now());
+        Transaksi transaksi = new Transaksi(barang.getKode(), "Masuk", 5);
         TransaksiService transaksiService = new TransaksiService();
-        transaksiService.tambahTransaksi(conn, transaksi);
+        transaksiService.tambahTransaksi(transaksi);
         assertEquals("B001", transaksi.getKodeBarang());
     }
 }

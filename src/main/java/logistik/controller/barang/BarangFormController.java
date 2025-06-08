@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-// import javafx.stage.Stage; // Tidak lagi mengontrol Stage sendiri jika di-embed
 import logistik.App;
 import logistik.model.Barang;
 import logistik.model.Kategori;
@@ -252,7 +251,6 @@ public class BarangFormController {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
-        // Jika form ini adalah bagian dari contentPane, owner alert bisa jadi Stage utama.
         // Jika App.getPrimaryStage() ada:
         if (App.getPrimaryStage() != null) {
             alert.initOwner(App.getPrimaryStage());

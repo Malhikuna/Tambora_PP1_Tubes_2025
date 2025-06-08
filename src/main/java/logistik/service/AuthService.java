@@ -6,8 +6,17 @@ import logistik.util.HashUtil;
 import java.sql.SQLException;
 
 public class AuthService {
+    public UserService userService;
+
+    public AuthService() {
+        try {
+            this.userService = new UserService();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public User login(String username, String password) throws SQLException {
-        UserService userService = new UserService();
         User user = userService.findUserByUsername(username);
 
         if (user != null && HashUtil.checkPassword(password, user.getPassword())) {
@@ -20,7 +29,13 @@ public class AuthService {
         return null;
     }
 
-    public void logout(User user) {
+    public boolean konfirmasiPassword(String username, String password) {
+        String passwordLama = userService.findUserByUsername(username).getPassword();
 
+        if (passwordLama.equals(password)) {
+            return true;
+        }
+
+        return false;
     }
 }

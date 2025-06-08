@@ -7,6 +7,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
+      fx:controller="logistik.controller.pengguna.ProfilSayaController"
       prefHeight="400.0" prefWidth="600.0">
 
     <padding>
@@ -28,7 +29,7 @@
         <Label text="Username:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
         <TextField fx:id="usernameField" promptText="Username untuk login" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-        <Button fx:id="simpanProfilButton" text="Simpan Perubahan Profil" styleClass="button-primary" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
+        <Button fx:id="simpanProfilButton" text="Simpan Perubahan Profil" styleClass="button-primary" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.halignment="RIGHT" onAction="#handleSimpanProfil"/>
     </GridPane>
 
     <Separator prefWidth="200.0"/>
@@ -45,7 +46,7 @@
         <Label text="Konfirmasi Password Baru:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
         <PasswordField fx:id="konfirmasiPasswordField" promptText="Ketik ulang password baru" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-        <Button fx:id="ubahPasswordButton" text="Ubah Password" styleClass="button-warning" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.halignment="RIGHT"/>
+        <Button fx:id="ubahPasswordButton" text="Ubah Password" styleClass="button-warning" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.halignment="RIGHT" onAction="#handleUbahPassword"/>
     </GridPane>
 </VBox>
 
