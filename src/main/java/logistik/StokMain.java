@@ -148,6 +148,78 @@ public class StokMain {
                                     if (isAdmin) {
                                         System.out.println(">>> Aksi: Edit Barang");
                                         // TODO: Implementasi Edit Barang | Dzaki
+                                        String kode = InputUtil.inputString("Masukkan Kode Barang");
+
+                                        Barang kodeDiDB = barangService.cariBarang(kode);
+
+                                        if(kode.equals(kodeDiDB.getKode() )) {
+                                            System.out.println(kodeDiDB.getKode() + " - " + kodeDiDB.getNama() + " - " + kodeDiDB.getKategoriId() + " - " + kodeDiDB.getSatuan() + " - " + kodeDiDB.getNamaKategori() + " - " + kodeDiDB.getHargaBeli() + " - " + kodeDiDB.getHargaJual());
+                                            System.out.println("Silakan pilih data yang ingin anda ubah");
+                                            System.out.println("1. Nama Barang");
+                                            System.out.println("2. Kategori Barang");
+                                            System.out.println("3. Satuan Barang");
+                                            System.out.println("4. Harga Beli");
+                                            System.out.println("5. Harga Jual");
+                                            System.out.println("0. Batal");
+
+                                            int aksi = InputUtil.inputInt("Pilih data yang ingin diubah");
+                                            switch (aksi) {
+                                                case 1:
+                                                    String namaBarang = InputUtil.inputString("Masukkan nama barang yang baru");
+                                                    kodeDiDB.setNama(namaBarang);
+                                                    barangService.updateBarang(kodeDiDB);
+                                                    if(namaBarang.equals(kodeDiDB.getNama())) {
+                                                        System.out.println("Nama barang berhasil diubah");
+                                                    } else {
+                                                        System.out.println("Nama barang gagal diubah");
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    String kategoriBarang = InputUtil.inputString("Masukkan Kategori Barang : ");
+                                                    kodeDiDB.setNamaKategori(kategoriBarang);
+                                                    barangService.updateBarang(kodeDiDB);
+                                                    if(kode.equals(kodeDiDB.getNamaKategori())) {
+                                                        System.out.println("Kategori barang berhasil diubah");
+                                                    } else {
+                                                        System.out.println("Kategori barang gagal diubah");
+                                                    }
+                                                    break;
+                                                case 3:
+                                                    String satuanBarang = InputUtil.inputString("Masukkan Satuan Barang : ");
+                                                    kodeDiDB.setSatuan(satuanBarang);
+                                                    barangService.updateBarang(kodeDiDB);
+                                                    if(kode.equals(kodeDiDB.getSatuan())) {
+                                                        System.out.println("Satuan barang berhasil diubah");
+                                                    } else {
+                                                        System.out.println("Satuan barang gagal diubah");
+                                                    }
+                                                    break;
+                                                case 4:
+                                                    double hargaJual = InputUtil.inputDouble("Masukkan Harga Jual Barang : ");
+                                                    kodeDiDB.setHargaJual(hargaJual);
+                                                    barangService.updateBarang(kodeDiDB);
+                                                    if(kode.equals(kodeDiDB.getHargaJual())) {
+                                                        System.out.println("Harga Jual barang berhasil diubah");
+                                                    } else {
+                                                        System.out.println("Harga Jual barang gagal diubah");
+                                                    }
+                                                    break;
+                                                case 5:
+                                                    double hargaBeli = InputUtil.inputDouble("Masukkan Harga Beli Barang : ");
+                                                    kodeDiDB.setHargaBeli(hargaBeli);
+                                                    barangService.updateBarang(kodeDiDB);
+                                                    if(kode.equals(kodeDiDB.getHargaBeli())) {
+                                                        System.out.println("Harga Beli barang berhasil diubah");
+                                                    } else {
+                                                        System.out.println("Harga Beli barang gagal diubah");
+                                                    }
+                                                    break;
+                                                default:
+                                                    System.out.println("Pilihan aksi tidak valid.");
+                                            }
+                                        } else {
+                                            System.out.println("Tidak ada data barang yang ditemukan.");
+                                        }
                                     } else {
                                         System.out.println("Pilihan tidak valid, coba lagi bro.");
                                     }
@@ -156,6 +228,20 @@ public class StokMain {
                                     if (isAdmin) {
                                         System.out.println(">>> Aksi: Hapus Barang");
                                         // TODO: Implementasi Hapus Barang | Dzaki
+                                        String kode = InputUtil.inputString("Masukkan Kode Barang Yang Ingin Dihapus");
+
+                                        try {
+                                            barangService.hapusBarang(kode);
+                                            System.out.println("Barang Dengan Kode " + kode + " berhasil dihapus");
+                                            String confirm = InputUtil.inputString("Yakin ingin hapus barang ini ? (y/n)");
+                                            if (confirm.equalsIgnoreCase("y")) {
+                                                barangService.hapusBarang(kode);
+                                            } else {
+                                                System.out.println("Hapus barang gagal dihapus");
+                                            }
+                                        } catch (Exception e) {
+                                            System.out.println("Tejadi Kesalahan Saat Hapus Barang: " + e.getMessage());
+                                        }
                                     } else {
                                         System.out.println("Pilihan tidak valid, coba lagi bro.");
                                     }
@@ -197,12 +283,25 @@ public class StokMain {
                                         // 4. Beri feedback gagal ke user jika ada error
                                         System.out.println("\n[GAGAL] " + e.getMessage());
                                     }
-
                                     break;
                                 case 2:
                                     System.out.println(">>> Aksi: Catat Barang Keluar");
                                     // TODO: Implementasi Catat Barang Keluar | Dzaki
+                                    try {
+                                        // 1. Ambil input dari user
+                                        String kodeBarang = InputUtil.inputString("Masukkan Kode Barang");
+                                        int jumlah = InputUtil.inputInt("Masukkan Jumlah");
+                                        LocalDateTime tanggalKeluar = InputUtil.inputLocalDateTime("Masukkan Tanggal & Waktu");
 
+                                        stokService.catatBarang(kodeBarang, jumlah, "Keluar", tanggalKeluar);
+
+                                        // 3. Beri feedback sukses ke user
+                                        System.out.println("\n[SUKSES] Barang keluar untuk kode " + kodeBarang + " berhasil dicatat.");
+
+                                    } catch (IllegalArgumentException | SQLException e) {
+                                        // 4. Beri feedback gagal ke user jika ada error
+                                        System.out.println("\n[GAGAL] " + e.getMessage());
+                                    }
                                     break;
                                 case 3:
                                     System.out.println(">>> Aksi: Stok Saat Ini");
