@@ -4,7 +4,6 @@ import logistik.util.InputUtil;
 
 public class MenuView {
     public static int displayLogin() {
-        System.out.println("\n=== Sistem Logistik Pencatatan Keluar Masuk Barang ===");
         System.out.println("1. Login");
         System.out.println("2. Keluar");
         return InputUtil.inputInt("Pilih Opsi");

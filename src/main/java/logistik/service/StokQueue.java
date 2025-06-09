@@ -69,24 +69,24 @@ public class StokQueue {
     }
 
     // Mengambil semua batch stok untuk kode barang tertentu, diurutkan berdasarkan tanggal masuk (FIFO).
-    public List<StokBarang> getAllStok(String kodeBarang) throws SQLException {
-        String sql = "SELECT * FROM stok_barang WHERE kode_barang = ? ORDER BY tanggal_masuk ASC";
-        List<StokBarang> list = new ArrayList<>();
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, kodeBarang);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    StokBarang sb = new StokBarang(
-                            rs.getString("kode_barang"),
-                            rs.getInt("jumlah"),
-                            rs.getTimestamp("tanggal_masuk").toLocalDateTime()
-                    );
-                    list.add(sb);
-                }
+    public List<StokBarang> dapatkanSemuaStok() throws SQLException {
+        Connection conn = DatabaseConnection.getConnection();
+        List<StokBarang> stok = new ArrayList<>();
+        String sql = "SELECT s.*, b.nama_barang " +
+                "FROM stok_barang s\n" + "JOIN barang b ON s.kode_barang = b.kode_barang WHERE s.jumlah > 0 \n" +
+                "ORDER BY s.tanggal_masuk ASC\n";
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                StokBarang s = new StokBarang(
+                        rs.getString("kode_barang"),
+                        rs.getInt("jumlah"),
+                        rs.getTimestamp("tanggal_masuk").toLocalDateTime());
+                s.setNamaBarang(rs.getString("nama_barang"));
+                stok.add(s);
             }
         }
-        return list;
+        return stok;
     }
 
     // Peek: Melihat (tanpa mengeluarkan) batch stok tertua untuk kode barang tertentu.
@@ -136,24 +136,5 @@ public class StokQueue {
             return stmt.executeUpdate();
             //System.out.println("Berhasil menghapus " + rows + " baris stok untuk " + kodeBarang);
         }
-    }
-
-    public List<StokBarang> dapatkanSemuaStok() throws SQLException {
-        Connection conn = DatabaseConnection.getConnection();
-        List<StokBarang> stok = new ArrayList<>();
-        String sql = "SELECT s.*, b.nama_barang " +
-                "FROM stok_barang s\n" + "JOIN barang b ON s.kode_barang = b.kode_barang\n";
-        try (Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                StokBarang s = new StokBarang(
-                        rs.getString("kode_barang"),
-                        rs.getInt("jumlah"),
-                        rs.getTimestamp("tanggal_masuk").toLocalDateTime());
-                s.setNamaBarang(rs.getString("nama_barang"));
-                stok.add(s);
-            }
-        }
-        return stok;
     }
 }
