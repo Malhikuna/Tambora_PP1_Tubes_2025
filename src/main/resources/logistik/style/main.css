@@ -61,7 +61,7 @@
 }
 
 .content-area {
-    -fx-background-color: #f6f8fc;
+    -fx-background-color: linear-gradient(to left, #007bff, #66bfff, white);
     -fx-padding: 20;
 }
 
@@ -85,6 +85,7 @@
 .button-primary {
     -fx-background-color: #4300FF; /* Biru */
     -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
 /*Button Log Out*/
@@ -154,4 +155,12 @@
 
 .button-info:hover {
     -fx-background-color: #00dcff;
+}
+
+.form-container {
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0.3, 0, 3);
 }

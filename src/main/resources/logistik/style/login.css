@@ -1,5 +1,5 @@
-.login-pane {
-    -fx-background-color: linear-gradient(to bottom, #dfe9f3, #ffffff);
+.form-container {
+    -fx-background-color: linear-gradient(to bottom, #007bff, #66bfff, white);
 }
 
 .login-title {
