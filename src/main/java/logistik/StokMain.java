@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-
 public class StokMain {
     public static void main(String[] args) throws SQLException {
         System.out.println("================================================");
@@ -32,6 +31,7 @@ public class StokMain {
             BarangService barangService = new BarangService();
             UserService userService = new UserService();
             StokService stokService = new StokService();
+            User user = new User();
 
             User userYangLogin = null;
             while (userYangLogin == null) {
@@ -84,7 +84,10 @@ public class StokMain {
                                     boolean addData = false;
                                     for (Barang b : barang) {
                                         addData = true;
-                                        System.out.println((count++) + ". " + b.getKode() + " - " + b.getNama() + " - " + b.getKategoriId() + " - " + b.getSatuan() + " - " + b.getNamaKategori() + " - " + b.getHargaBeli() + " - " + b.getHargaJual());
+                                        System.out.println((count++) + ". " + b.getKode() + " - " + b.getNama() + " - "
+                                                + b.getKategoriId() + " - " + b.getSatuan() + " - "
+                                                + b.getNamaKategori() + " - " + b.getHargaBeli() + " - "
+                                                + b.getHargaJual());
                                     }
                                     if (!addData) {
                                         System.out.println("Tidak ada data barang yang ditemukan.");
@@ -96,7 +99,12 @@ public class StokMain {
                                     String kodeBarang = InputUtil.inputString("Masukkan Kode Barang");
                                     Barang barangYangDicari = barangService.cariBarang(kodeBarang);
                                     if (barangYangDicari != null) {
-                                        System.out.println(barangYangDicari.getKode() + " - " + barangYangDicari.getNama() + " - " + barangYangDicari.getKategoriId() + " - " + barangYangDicari.getSatuan() + " - " + barangYangDicari.getNamaKategori() + " - " + barangYangDicari.getHargaBeli() + " - " + barangYangDicari.getHargaJual());
+                                        System.out.println(barangYangDicari.getKode() + " - "
+                                                + barangYangDicari.getNama() + " - " + barangYangDicari.getKategoriId()
+                                                + " - " + barangYangDicari.getSatuan() + " - "
+                                                + barangYangDicari.getNamaKategori() + " - "
+                                                + barangYangDicari.getHargaBeli() + " - "
+                                                + barangYangDicari.getHargaJual());
                                     } else {
                                         System.out.println("Tidak ada data barang yang ditemukan.");
                                     }
@@ -136,11 +144,13 @@ public class StokMain {
                                         Double hargaBeli = InputUtil.inputDouble("Masukkan Harga beli Barang");
                                         Double hargaJual = InputUtil.inputDouble("Masukkan Harga Jual Barang");
 
-                                        Barang b = new Barang(kode, nama, kategoriId, satuan, namaKategori, hargaBeli, hargaJual);
+                                        Barang b = new Barang(kode, nama, kategoriId, satuan, namaKategori, hargaBeli,
+                                                hargaJual);
                                         barangService.tambahBarang(b);
                                         System.out.println("Barang berhasil ditambahkan: " +
                                                 b.getKode() + " - " + b.getNama() + " - " + b.getKategoriId() + " - " +
-                                                b.getSatuan() + " - " + b.getNamaKategori() + " - " + b.getHargaBeli() + " - " +
+                                                b.getSatuan() + " - " + b.getNamaKategori() + " - " + b.getHargaBeli()
+                                                + " - " +
                                                 b.getHargaJual());
                                     } else {
                                         // Kembali ke Menu Utama
@@ -155,8 +165,11 @@ public class StokMain {
 
                                         Barang kodeDiDB = barangService.cariBarang(kode);
 
-                                        if(kode.equals(kodeDiDB.getKode() )) {
-                                            System.out.println(kodeDiDB.getKode() + " - " + kodeDiDB.getNama() + " - " + kodeDiDB.getKategoriId() + " - " + kodeDiDB.getSatuan() + " - " + kodeDiDB.getNamaKategori() + " - " + kodeDiDB.getHargaBeli() + " - " + kodeDiDB.getHargaJual());
+                                        if (kode.equals(kodeDiDB.getKode())) {
+                                            System.out.println(kodeDiDB.getKode() + " - " + kodeDiDB.getNama() + " - "
+                                                    + kodeDiDB.getKategoriId() + " - " + kodeDiDB.getSatuan() + " - "
+                                                    + kodeDiDB.getNamaKategori() + " - " + kodeDiDB.getHargaBeli()
+                                                    + " - " + kodeDiDB.getHargaJual());
                                             System.out.println("Silakan pilih data yang ingin anda ubah");
                                             System.out.println("1. Nama Barang");
                                             System.out.println("2. Kategori Barang");
@@ -168,50 +181,55 @@ public class StokMain {
                                             int aksi = InputUtil.inputInt("Pilih data yang ingin diubah");
                                             switch (aksi) {
                                                 case 1:
-                                                    String namaBarang = InputUtil.inputString("Masukkan nama barang yang baru");
+                                                    String namaBarang = InputUtil
+                                                            .inputString("Masukkan nama barang yang baru");
                                                     kodeDiDB.setNama(namaBarang);
                                                     barangService.updateBarang(kodeDiDB);
-                                                    if(namaBarang.equals(kodeDiDB.getNama())) {
+                                                    if (namaBarang.equals(kodeDiDB.getNama())) {
                                                         System.out.println("Nama barang berhasil diubah");
                                                     } else {
                                                         System.out.println("Nama barang gagal diubah");
                                                     }
                                                     break;
                                                 case 2:
-                                                    String kategoriBarang = InputUtil.inputString("Masukkan Kategori Barang : ");
+                                                    String kategoriBarang = InputUtil
+                                                            .inputString("Masukkan Kategori Barang : ");
                                                     kodeDiDB.setNamaKategori(kategoriBarang);
                                                     barangService.updateBarang(kodeDiDB);
-                                                    if(kode.equals(kodeDiDB.getNamaKategori())) {
+                                                    if (kode.equals(kodeDiDB.getNamaKategori())) {
                                                         System.out.println("Kategori barang berhasil diubah");
                                                     } else {
                                                         System.out.println("Kategori barang gagal diubah");
                                                     }
                                                     break;
                                                 case 3:
-                                                    String satuanBarang = InputUtil.inputString("Masukkan Satuan Barang : ");
+                                                    String satuanBarang = InputUtil
+                                                            .inputString("Masukkan Satuan Barang : ");
                                                     kodeDiDB.setSatuan(satuanBarang);
                                                     barangService.updateBarang(kodeDiDB);
-                                                    if(kode.equals(kodeDiDB.getSatuan())) {
+                                                    if (kode.equals(kodeDiDB.getSatuan())) {
                                                         System.out.println("Satuan barang berhasil diubah");
                                                     } else {
                                                         System.out.println("Satuan barang gagal diubah");
                                                     }
                                                     break;
                                                 case 4:
-                                                    double hargaJual = InputUtil.inputDouble("Masukkan Harga Jual Barang : ");
+                                                    double hargaJual = InputUtil
+                                                            .inputDouble("Masukkan Harga Jual Barang : ");
                                                     kodeDiDB.setHargaJual(hargaJual);
                                                     barangService.updateBarang(kodeDiDB);
-                                                    if(kode.equals(kodeDiDB.getHargaJual())) {
+                                                    if (kode.equals(kodeDiDB.getHargaJual())) {
                                                         System.out.println("Harga Jual barang berhasil diubah");
                                                     } else {
                                                         System.out.println("Harga Jual barang gagal diubah");
                                                     }
                                                     break;
                                                 case 5:
-                                                    double hargaBeli = InputUtil.inputDouble("Masukkan Harga Beli Barang : ");
+                                                    double hargaBeli = InputUtil
+                                                            .inputDouble("Masukkan Harga Beli Barang : ");
                                                     kodeDiDB.setHargaBeli(hargaBeli);
                                                     barangService.updateBarang(kodeDiDB);
-                                                    if(kode.equals(kodeDiDB.getHargaBeli())) {
+                                                    if (kode.equals(kodeDiDB.getHargaBeli())) {
                                                         System.out.println("Harga Beli barang berhasil diubah");
                                                     } else {
                                                         System.out.println("Harga Beli barang gagal diubah");
@@ -236,7 +254,8 @@ public class StokMain {
                                         try {
                                             barangService.hapusBarang(kode);
                                             System.out.println("Barang Dengan Kode " + kode + " berhasil dihapus");
-                                            String confirm = InputUtil.inputString("Yakin ingin hapus barang ini ? (y/n)");
+                                            String confirm = InputUtil
+                                                    .inputString("Yakin ingin hapus barang ini ? (y/n)");
                                             if (confirm.equalsIgnoreCase("y")) {
                                                 barangService.hapusBarang(kode);
                                             } else {
@@ -275,12 +294,14 @@ public class StokMain {
                                         // 1. Ambil input dari user
                                         String kodeBarang = InputUtil.inputString("Masukkan Kode Barang");
                                         int jumlah = InputUtil.inputInt("Masukkan Jumlah");
-                                        LocalDateTime tanggalMasuk = InputUtil.inputLocalDateTime("Masukkan Tanggal & Waktu");
+                                        LocalDateTime tanggalMasuk = InputUtil
+                                                .inputLocalDateTime("Masukkan Tanggal & Waktu");
 
                                         stokService.catatBarang(kodeBarang, jumlah, "Masuk", tanggalMasuk);
 
                                         // 3. Beri feedback sukses ke user
-                                        System.out.println("\n[SUKSES] Barang masuk untuk kode " + kodeBarang + " berhasil dicatat.");
+                                        System.out.println("\n[SUKSES] Barang masuk untuk kode " + kodeBarang
+                                                + " berhasil dicatat.");
 
                                     } catch (IllegalArgumentException | SQLException e) {
                                         // 4. Beri feedback gagal ke user jika ada error
@@ -294,12 +315,14 @@ public class StokMain {
                                         // 1. Ambil input dari user
                                         String kodeBarang = InputUtil.inputString("Masukkan Kode Barang");
                                         int jumlah = InputUtil.inputInt("Masukkan Jumlah");
-                                        LocalDateTime tanggalKeluar = InputUtil.inputLocalDateTime("Masukkan Tanggal & Waktu");
+                                        LocalDateTime tanggalKeluar = InputUtil
+                                                .inputLocalDateTime("Masukkan Tanggal & Waktu");
 
                                         stokService.catatBarang(kodeBarang, jumlah, "Keluar", tanggalKeluar);
 
                                         // 3. Beri feedback sukses ke user
-                                        System.out.println("\n[SUKSES] Barang keluar untuk kode " + kodeBarang + " berhasil dicatat.");
+                                        System.out.println("\n[SUKSES] Barang keluar untuk kode " + kodeBarang
+                                                + " berhasil dicatat.");
 
                                     } catch (IllegalArgumentException | SQLException e) {
                                         // 4. Beri feedback gagal ke user jika ada error
@@ -320,7 +343,9 @@ public class StokMain {
                                     boolean addData = false;
                                     for (StokBarang stokBarang : list) {
                                         addData = true;
-                                        System.out.println((count++) + ". " + stokBarang.getKodeBarang() + " - " + stokBarang.getNamaBarang() + " - " + stokBarang.getJumlah() + " - " + stokBarang.getTanggalMasuk().toLocalDate());
+                                        System.out.println((count++) + ". " + stokBarang.getKodeBarang() + " - "
+                                                + stokBarang.getNamaBarang() + " - " + stokBarang.getJumlah() + " - "
+                                                + stokBarang.getTanggalMasuk().toLocalDate());
                                     }
                                     if (!addData) {
                                         System.out.println("Tidak ada data stok yang ditemukan.");
@@ -354,7 +379,7 @@ public class StokMain {
                                         String tanggalFormatted = tanggalRaw.format(formatter);
                                         System.out.println((count++) + ". " + t.getKodeBarang() +
                                                 " - " + t.getNamaBarang()
-                                                + " - "+ t.getJenis()
+                                                + " - " + t.getJenis()
                                                 + " - " + t.getJumlah()
                                                 + " - " + tanggalFormatted);
                                     }
@@ -380,7 +405,28 @@ public class StokMain {
                             switch (pilihanPengguna) {
                                 case 1:
                                     System.out.println(">>> Aksi: Ubah Username Saya");
-                                    // TODO: Implementasi Ubah Username Saya | Haidar
+
+                                    String usernameLama = userYangLogin.getUsername();
+                                    String usernameBaru;
+
+                                    while (true) {
+                                        usernameBaru = InputUtil.inputString("Masukkan username baru: ");
+
+                                        if (usernameBaru.equals(usernameLama)) {
+                                            System.out.println(
+                                                    "Username baru tidak boleh sama dengan username lama. Silakan coba lagi.");
+                                        } else {
+                                            break; // keluar loop kalau username baru valid
+                                        }
+                                    }
+
+                                    userYangLogin.setUsername(usernameBaru);
+                                    try {
+                                        userService.updateUserProfile(userYangLogin);
+                                        System.out.println("Username berhasil diupdate.");
+                                    } catch (SQLException e) {
+                                        System.out.println("Gagal mengupdate username: " + e.getMessage());
+                                    }
                                     break;
                                 case 2:
                                     System.out.println(">>> Aksi: Ubah Password Saya");
@@ -403,7 +449,8 @@ public class StokMain {
 
                                     // Memanggil method updatePassword dari UserService
                                     if (userYangLogin == null || userYangLogin.getId() == null) {
-                                        System.out.println("Kesalahan: Data pengguna yang login tidak ditemukan atau ID tidak valid. Tidak dapat mengubah password.");
+                                        System.out.println(
+                                                "Kesalahan: Data pengguna yang login tidak ditemukan atau ID tidak valid. Tidak dapat mengubah password.");
                                         break;
                                     }
 
@@ -413,7 +460,8 @@ public class StokMain {
                                         userService.updatePassword(userSaatIni, hashedPassword);
                                         System.out.println("Proses ubah password selesai.");
                                     } catch (SQLException e) {
-                                        System.err.println("Terjadi kesalahan database saat mengubah password: " + e.getMessage());
+                                        System.err.println(
+                                                "Terjadi kesalahan database saat mengubah password: " + e.getMessage());
                                         e.printStackTrace();
                                     }
 
@@ -421,7 +469,30 @@ public class StokMain {
                                 case 3:
                                     System.out.println(">>> Aksi: Ubah Nama Akun Saya");
                                     // TODO: Implementasi Ubah Nama Akun Saya | Haidar
+
+                                    String namaAkunLama = userYangLogin.getName();
+                                    String namaAkunBaru;
+
+                                    while (true) {
+                                        namaAkunBaru = InputUtil.inputString("Masukkan nama baru: ");
+
+                                        if (namaAkunBaru.equals(namaAkunLama)) {
+                                            System.out.println(
+                                                    "Nama akun baru tidak boleh sama dengan nama akun lama. Silakan coba lagi.");
+                                        } else {
+                                            break; // keluar loop kalau username baru valid
+                                        }
+                                    }
+
+                                    userYangLogin.setName(namaAkunBaru);
+                                    try {
+                                        userService.updateUserProfile(userYangLogin);
+                                        System.out.println("Nama akun berhasil diupdate.");
+                                    } catch (SQLException e) {
+                                        System.out.println("Gagal mengupdate nama akun: " + e.getMessage());
+                                    }
                                     break;
+
                                 case 4:
                                     if (isOwner) {
                                         System.out.println(">>> Aksi: Tambah Pengguna Baru");
@@ -432,7 +503,8 @@ public class StokMain {
                                             username = InputUtil.inputString("Masukkan Username");
                                             try {
                                                 if (userService.findUserByUsername(username) != null) {
-                                                    System.out.println("Username sudah digunakan. Silakan pilih username lain.");
+                                                    System.out.println(
+                                                            "Username sudah digunakan. Silakan pilih username lain.");
                                                 } else {
                                                     break;
                                                 }
@@ -447,18 +519,21 @@ public class StokMain {
 
                                         String role = "";
                                         while (true) {
-                                            role = InputUtil.inputString("Masukkan Role (owner/staf)").trim().toLowerCase();
+                                            role = InputUtil.inputString("Masukkan Role (owner/staf)").trim()
+                                                    .toLowerCase();
                                             if (role.equals("owner") || role.equals("staf")) {
                                                 break;
                                             } else {
-                                                System.out.println("Role tidak valid. Hanya boleh 'owner' atau 'staf'.");
+                                                System.out
+                                                        .println("Role tidak valid. Hanya boleh 'owner' atau 'staf'.");
                                             }
                                         }
                                         User newUser = new User(username, password, namaLengkap, role);
                                         userService.createUser(newUser);
 
                                         System.out.println("User Berhasil Ditambahkan: " + newUser.getUsername() + " - "
-                                                + newUser.getPassword() + " - " + newUser.getName() + " - " + newUser.getRole());
+                                                + newUser.getPassword() + " - " + newUser.getName() + " - "
+                                                + newUser.getRole());
 
                                     } else {
                                         // // Kembali ke Menu Utama
@@ -480,11 +555,12 @@ public class StokMain {
                                         System.out.println("Daftar Pengguna:");
                                         for (int i = 0; i < users.size(); i++) {
                                             User us = users.get(i);
-                                            System.out.println((i + 1) + ". " + us.getUsername() + " - " + us.getName() + " - " + us.getRole());
+                                            System.out.println((i + 1) + ". " + us.getUsername() + " - " + us.getName()
+                                                    + " - " + us.getRole());
                                         }
 
-
-                                        int pilihUser = InputUtil.inputInt("Pilih nomor user untuk Edit/Hapus Pengguna (0 untuk batal:) ");
+                                        int pilihUser = InputUtil.inputInt(
+                                                "Pilih nomor user untuk Edit/Hapus Pengguna (0 untuk batal:) ");
 
                                         if (pilihUser < 1 || pilihUser > users.size()) {
                                             System.out.println("Pilihan tidak valid.");
@@ -505,7 +581,8 @@ public class StokMain {
                                                 userService.updatePassword(selectedUser.getId(), hashed);
                                                 break;
                                             case 2:
-                                                String konfirmasi = InputUtil.inputString("Yakin ingin hapus user ini? (y/n)");
+                                                String konfirmasi = InputUtil
+                                                        .inputString("Yakin ingin hapus user ini? (y/n)");
                                                 if (konfirmasi.equalsIgnoreCase("y")) {
                                                     userService.hapusUser(selectedUser.getId());
                                                 } else {
