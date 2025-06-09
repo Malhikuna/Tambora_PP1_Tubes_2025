@@ -5,12 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import logistik.App; // Untuk owner Alert
 import logistik.model.Transaksi;
@@ -19,6 +14,7 @@ import logistik.service.TransaksiService;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RiwayatTransaksiController {
 
@@ -57,6 +53,7 @@ public class RiwayatTransaksiController {
 
     @FXML
     private Button cetakLaporanButton;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     private TransaksiService transaksiService;
     private ObservableList<Transaksi> masterDataTransaksi = FXCollections.observableArrayList();
@@ -74,11 +71,27 @@ public class RiwayatTransaksiController {
 
     @FXML
     public void initialize() {
-        // 1. Setup kolom tabel untuk mapping ke properti di model Transaksi
-        tanggalColumn.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+        // 1. Setup kolom tabel untuk mapping ke properti di model Transaksi\
         kodeBarangColumn.setCellValueFactory(new PropertyValueFactory<>("kodeBarang"));
+        namaBarangColumn.setCellValueFactory(new PropertyValueFactory<>("namaBarang"));
         jenisColumn.setCellValueFactory(new PropertyValueFactory<>("jenis"));
         jumlahColumn.setCellValueFactory(new PropertyValueFactory<>("jumlah"));
+
+        tanggalColumn.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+
+        tanggalColumn.setCellFactory(column -> {
+            return new TableCell<Transaksi, LocalDateTime>() {
+                @Override
+                protected void updateItem(LocalDateTime item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(formatter.format(item));
+                    }
+                }
+            };
+        });
 
         // 2. Siapkan FilteredList untuk filter data
         filteredDataTransaksi = new FilteredList<>(masterDataTransaksi, p -> true);

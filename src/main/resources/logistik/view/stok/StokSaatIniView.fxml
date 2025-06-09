@@ -8,21 +8,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      alignment="CENTER" spacing="10.0" styleClass="table-container">
+      alignment="CENTER" spacing="10.0" styleClass="table-container"
+        fx:controller="logistik.controller.stok.StokSaatIniController">
 
     <HBox alignment="CENTER_LEFT" spacing="10">
         <Label text="Cari:"/>
         <TextField fx:id="searchField" promptText="Cari nama barang..." />
-        <Button fx:id="simpanButton" mnemonicParsing="false" text="Cari" styleClass="button-primary"/>
+        <Button fx:id="refreshButton" text="🔄 Refresh Data" onAction="#handleRefresh" styleClass="button-info"/>
     </HBox>
 
-    <TableView fx:id="barangTableView" prefWidth="800.0" prefHeight="400.0">
+
+    <TableView fx:id="stokTableView" prefWidth="800.0" prefHeight="400.0">
         <columns>
-            <TableColumn fx:id="kodeColumn" text="Kode Barang" prefWidth="150.0"/>
+            <TableColumn fx:id="kodeBarangColumn" text="Kode Barang" prefWidth="150.0"/>
+            <TableColumn fx:id="namaBarangColumn" text="Nama Barang" prefWidth="150.0"/>
             <TableColumn fx:id="jumlahColumn" text="Jumlah" prefWidth="150.0"/>
             <TableColumn fx:id="tanggalMasukColumn" text="Tanggal Masuk" prefWidth="150.0"/>
         </columns>
     </TableView>
 
+    <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="action-buttons-box">
+        <Label text="Total Stok untuk Barang Terpilih:" style="-fx-font-weight: bold;"/>
+        <Label fx:id="totalStokLabel" text="-" style="-fx-font-weight: bold; -fx-text-fill: #0056b3;"/>
+    </HBox>
 </VBox>
