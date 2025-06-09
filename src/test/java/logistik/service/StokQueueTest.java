@@ -47,11 +47,13 @@ public class StokQueueTest {
 
     @Test
     public void testEnqueue() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000,
+                2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
-        StokBarang stokBarang = new StokBarang(barang.getKode(), 10, LocalDateTime.now());
+        StokBarang stokBarang = new StokBarang(barang.getKode(), 10,
+                LocalDateTime.now());
 
         try {
             stokQueue = new StokQueue();
@@ -63,13 +65,17 @@ public class StokQueueTest {
 
     @Test
     public void testDequeue() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000,
+                2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
-        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10, LocalDateTime.now());
-        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20, LocalDateTime.now().plusHours(1));
-        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
+        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10,
+                LocalDateTime.now());
+        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20,
+                LocalDateTime.now().plusHours(1));
+        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30,
+                LocalDateTime.now().plusHours(2));
 
         stokQueue = new StokQueue();
         stokQueue.enqueue(conn, stokBarang1);
@@ -81,14 +87,18 @@ public class StokQueueTest {
 
     @Test
     public void testPeek() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000,
+                2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
-        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10, LocalDateTime.now());
-        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20, LocalDateTime.now().plusHours(1));
+        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10,
+                LocalDateTime.now());
+        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20,
+                LocalDateTime.now().plusHours(1));
 
-        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
+        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30,
+                LocalDateTime.now().plusHours(2));
 
         try {
             stokQueue = new StokQueue();
@@ -104,14 +114,18 @@ public class StokQueueTest {
 
     @Test
     public void getAllStok() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000,
+                2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
-        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10, LocalDateTime.now());
-        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20, LocalDateTime.now().plusHours(1));
+        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10,
+                LocalDateTime.now());
+        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20,
+                LocalDateTime.now().plusHours(1));
 
-        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
+        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30,
+                LocalDateTime.now().plusHours(2));
 
         try {
             stokQueue = new StokQueue();
@@ -127,14 +141,18 @@ public class StokQueueTest {
 
     @Test
     public void size() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000,
+                2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
-        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10, LocalDateTime.now());
-        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20, LocalDateTime.now().plusHours(1));
+        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10,
+                LocalDateTime.now());
+        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20,
+                LocalDateTime.now().plusHours(1));
 
-        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
+        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30,
+                LocalDateTime.now().plusHours(2));
 
         try {
             stokQueue = new StokQueue();
@@ -150,14 +168,18 @@ public class StokQueueTest {
 
     @Test
     public void clear() throws SQLException {
-        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000, 2000);
+        Barang barang = new Barang("B001", "Indomie", 1, "Pcs", "Makanan", 1000,
+                2000);
         BarangService barangService = new BarangService();
         barangService.tambahBarang(barang);
 
-        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10, LocalDateTime.now());
-        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20, LocalDateTime.now().plusHours(1));
+        StokBarang stokBarang1 = new StokBarang(barang.getKode(), 10,
+                LocalDateTime.now());
+        StokBarang stokBarang2 = new StokBarang(barang.getKode(), 20,
+                LocalDateTime.now().plusHours(1));
 
-        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30, LocalDateTime.now().plusHours(2));
+        StokBarang stokBarang3 = new StokBarang(barang.getKode(), 30,
+                LocalDateTime.now().plusHours(2));
 
         try {
             stokQueue = new StokQueue();
