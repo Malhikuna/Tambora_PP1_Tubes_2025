@@ -24,8 +24,6 @@ public class AuthService {
             return user;
         }
 
-        System.out.println("Username atau password salah");
-
         return null;
     }
 

@@ -9,9 +9,9 @@ public class StokBarang {
     private LocalDateTime tanggalMasuk;
 
     public StokBarang(String kodeBarang, int jumlah, LocalDateTime tanggalMasuk){
-    this.kodeBarang = kodeBarang;
-    this.jumlah = jumlah;
-    this.tanggalMasuk = tanggalMasuk;
+        this.kodeBarang = kodeBarang;
+        this.jumlah = jumlah;
+        this.tanggalMasuk = tanggalMasuk;
     }
 
     //setter dan getter untuk kodebarang

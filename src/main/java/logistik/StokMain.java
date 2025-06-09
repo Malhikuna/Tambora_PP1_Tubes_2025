@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 public class StokMain {
@@ -43,11 +44,10 @@ public class StokMain {
 
                         userYangLogin = authService.login(username, password);
 
-                        if (userYangLogin != null) {
-                            System.out.println("\nLogin berhasil!");
-                        } else {
+                        if (userYangLogin == null) {
                             System.out.println("\nUsername atau password salah. Silakan coba lagi.");
                         }
+
                         break;
                     case 2:
                         System.out.println("\nTerima kasih telah menggunakan aplikasi ini.");
@@ -64,8 +64,6 @@ public class StokMain {
             System.out.println("================================================");
 
             boolean isOwner = "owner".equalsIgnoreCase(userYangLogin.getRole());
-
-            System.out.println("Cek" + isOwner);
 
             while (sesiAktif) {
                 int pilihanUtama = MenuView.displayMenuUtama();
@@ -314,13 +312,15 @@ public class StokMain {
 
                                     String kodeBarang = InputUtil.inputString("Masukkan Kode Barang");
 
-                                    List<StokBarang> list = stokQueue.getAllStok(kodeBarang);
+                                    List<StokBarang> list = stokQueue.dapatkanSemuaStok().stream()
+                                            .filter(stokBarang -> stokBarang.getKodeBarang().equals(kodeBarang))
+                                            .collect(Collectors.toList());
 
                                     int count = 1;
                                     boolean addData = false;
                                     for (StokBarang stokBarang : list) {
                                         addData = true;
-                                        System.out.println((count++) + ". " + stokBarang.getKodeBarang() + " - " + stokBarang.getJumlah() + " - " + stokBarang.getTanggalMasuk().toLocalDate());
+                                        System.out.println((count++) + ". " + stokBarang.getKodeBarang() + " - " + stokBarang.getNamaBarang() + " - " + stokBarang.getJumlah() + " - " + stokBarang.getTanggalMasuk().toLocalDate());
                                     }
                                     if (!addData) {
                                         System.out.println("Tidak ada data stok yang ditemukan.");
