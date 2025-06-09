@@ -15,7 +15,7 @@
         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
     </padding>
 
-    <Label text="Pengaturan Profil Saya" styleClass="form-title">
+    <Label text="Riwayat Transaksi" styleClass="form-title">
         <font>
             <Font name="System Bold" size="24.0"/>
         </font>
