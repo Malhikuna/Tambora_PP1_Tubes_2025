@@ -12,6 +12,7 @@ import logistik.service.StokQueue; // Atau StokService jika kamu punya
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class StokSaatIniController {
 
@@ -39,6 +40,8 @@ public class StokSaatIniController {
     @FXML
     private Label totalStokLabel;
 
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
     private StokQueue stokQueue; // Menggunakan StokQueue untuk mengambil data stok
     private ObservableList<StokBarang> masterDataStok = FXCollections.observableArrayList();
     private FilteredList<StokBarang> filteredDataStok;
@@ -58,6 +61,20 @@ public class StokSaatIniController {
         namaBarangColumn.setCellValueFactory(new PropertyValueFactory<>("namaBarang")); // Asumsi StokBarang punya getNamaBarang()
         jumlahColumn.setCellValueFactory(new PropertyValueFactory<>("jumlah"));
         tanggalMasukColumn.setCellValueFactory(new PropertyValueFactory<>("tanggalMasuk"));
+
+        tanggalMasukColumn.setCellFactory(column -> {
+            return new TableCell<StokBarang, LocalDateTime>() {
+                @Override
+                protected void updateItem(LocalDateTime item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(formatter.format(item));
+                    }
+                }
+            };
+        });
 
         // 2. Setup filter dan bind ke tabel
         filteredDataStok = new FilteredList<>(masterDataStok, p -> true);
