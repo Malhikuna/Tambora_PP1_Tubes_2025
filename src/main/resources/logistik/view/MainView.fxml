@@ -15,7 +15,7 @@
             <!-- Sidebar -->
             <VBox fx:id="sidebar" prefWidth="200" styleClass="sidebar" VBox.vgrow="ALWAYS">
                 <children>
-                    <Label text="Menu" styleClass="sidebar-title" />
+                    <Label text="M E N U" styleClass="sidebar-title" />
 
                     <TitledPane text="Barang" expanded="false">
                         <content>
@@ -63,7 +63,7 @@
                         </content>
                     </TitledPane>
 
-                    <Button text="Logout" styleClass="logout-button" onAction="#handleLogout"/>
+                    <Button text="LOGOUT" styleClass="logout-button" onAction="#handleLogout"/>
                 </children>
             </VBox>
 

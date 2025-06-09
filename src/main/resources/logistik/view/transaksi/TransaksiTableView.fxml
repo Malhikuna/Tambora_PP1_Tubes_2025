@@ -9,16 +9,19 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="logistik.controller.transaksi.RiwayatTransaksiController"
       spacing="15.0"
-      styleClass="table-container">
+      styleClass="form-container">
 
     <padding>
         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
     </padding>
 
-    <Label>
+    <Label text="Riwayat Transaksi" styleClass="form-title">
         <font>
-            <Font size ="18"/>
+            <Font name="System Bold" size="24.0"/>
         </font>
+        <VBox.margin>
+            <Insets bottom="10.0"/>
+        </VBox.margin>
     </Label>
 
     <HBox alignment="CENTER_LEFT" spacing="10.0">
@@ -27,7 +30,7 @@
         <Label text="Sampai Tanggal:"/>
         <DatePicker fx:id="sampaiTanggalPicker" />
         <TextField fx:id="searchField" promptText="Cari Kode atau Nama Barang..." HBox.hgrow="ALWAYS"/>
-        <Button fx:id="filterButton" text="Filter" styleClass="button-primary" onAction="#handleFilterAction"/>
+        <Button fx:id="filterButton" text="Filter" styleClass="button-info" onAction="#handleFilterAction"/>
         <Button fx:id="resetButton" text="Reset" styleClass="button-danger" onAction="#handleResetAction"/>
     </HBox>
 
