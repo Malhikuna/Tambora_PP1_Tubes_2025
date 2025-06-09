@@ -63,7 +63,7 @@
                         </content>
                     </TitledPane>
 
-                    <Button text="Logout" styleClass="logout-button" onAction="#handleLogout"/>
+                    <Button text="LOGOUT" styleClass="logout-button" onAction="#handleLogout"/>
                 </children>
             </VBox>
 

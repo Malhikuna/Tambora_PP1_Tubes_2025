@@ -61,7 +61,7 @@
 }
 
 .content-area {
-    -fx-background-color: #f6f8fc;
+    -fx-background-color: linear-gradient(to left, #007bff, #66bfff, white);
     -fx-padding: 20;
 }
 
@@ -158,7 +158,6 @@
 }
 
 .form-container {
-    -fx-background-color: #f8f8f8;
     -fx-spacing: 15px;
     -fx-padding: 20px;
     -fx-border-radius: 10px;

@@ -1,10 +1,5 @@
 .form-container {
-    -fx-background-color: linear-gradient(to bottom, #dfe9f3, #ffffff);
-    -fx-spacing: 15px;
-    -fx-padding: 20px;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0.3, 0, 3);
+    -fx-background-color: linear-gradient(to bottom, #007bff, #66bfff, white);
 }
 
 .login-title {
