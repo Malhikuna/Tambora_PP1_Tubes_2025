@@ -10,6 +10,7 @@ public class Transaksi {
     private String namaBarang;
     private String jenis;
     private int jumlah;
+    private String namaUser;
     private LocalDateTime tanggal;
 
     /* Constructor */
@@ -69,4 +70,12 @@ public class Transaksi {
    public void setTanggal(LocalDateTime tanggal) {
         this.tanggal = tanggal;
    }
+
+    public String getNamaUser() {
+        return namaUser;
+    }
+
+    public void setNamaUser(String namaUser) {
+        this.namaUser = namaUser;
+    }
 }

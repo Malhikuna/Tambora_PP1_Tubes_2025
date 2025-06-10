@@ -4,6 +4,7 @@ import logistik.config.DatabaseConnection;
 import logistik.model.Barang;
 import logistik.model.StokBarang;
 import logistik.model.Transaksi;
+import logistik.model.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class StokService {
         transaksiService = new TransaksiService();
     }
 
-    public void catatBarang(String kodeBarang, int jumlah, String jenis, LocalDateTime tanggal)
+    public void catatBarang(String kodeBarang, int jumlah, String jenis, LocalDateTime tanggal, String userId)
             throws SQLException, IllegalArgumentException {
 
         // 1. Validasi Awal yang Berlaku untuk Semua Jenis
@@ -38,9 +39,9 @@ public class StokService {
 
         // 2. Routing berdasarkan jenis transaksi
         if ("Masuk".equalsIgnoreCase(jenis)) {
-            prosesBarangMasuk(kodeBarang, jumlah, tanggal);
+            prosesBarangMasuk(kodeBarang, jumlah, tanggal, userId);
         } else if ("Keluar".equalsIgnoreCase(jenis)) {
-            prosesBarangKeluar(kodeBarang, jumlah, tanggal);
+            prosesBarangKeluar(kodeBarang, jumlah, tanggal, userId);
         } else {
             throw new IllegalArgumentException("Jenis transaksi tidak valid: '" + jenis + "'. Harap gunakan 'Masuk' atau 'Keluar'.");
         }
@@ -49,7 +50,7 @@ public class StokService {
     /**
      * Metode privat untuk menangani logika dan transaksi BARANG MASUK.
      */
-    private void prosesBarangMasuk(String kodeBarang, int jumlah, LocalDateTime tanggal) throws SQLException {
+    private void prosesBarangMasuk(String kodeBarang, int jumlah, LocalDateTime tanggal, String userId) throws SQLException {
         Connection conn = null;
         try {
             conn = DatabaseConnection.getConnection();
@@ -61,7 +62,8 @@ public class StokService {
 
             // Operasi 2: Catat log transaksi
             Transaksi transaksi = new Transaksi(kodeBarang, "Masuk", jumlah, tanggal);
-            transaksiService.tambahTransaksi(conn, transaksi); // Asumsi metode ini sudah dimodifikasi
+            transaksiService.tambahTransaksi(conn, transaksi, userId); // Asumsi metode
+            // ini sudah dimodifikasi
 
             conn.commit(); // Jika semua berhasil, commit
 
@@ -79,7 +81,7 @@ public class StokService {
     /**
      * Metode privat untuk menangani logika dan transaksi BARANG KELUAR.
      */
-    private void prosesBarangKeluar(String kodeBarang, int jumlah, LocalDateTime tanggal) throws SQLException, IllegalArgumentException {
+    private void prosesBarangKeluar(String kodeBarang, int jumlah, LocalDateTime tanggal, String userId) throws SQLException, IllegalArgumentException {
         // Validasi KHUSUS untuk barang keluar: Cek apakah stoknya cukup!
         int stokTersedia = stokQueue.getStokCount(kodeBarang); // Asumsi ada metode ini
         if (stokTersedia < jumlah) {
@@ -96,7 +98,7 @@ public class StokService {
 
             // Operasi 2: Catat log transaksi
             Transaksi transaksi = new Transaksi(kodeBarang, "Keluar", jumlah, tanggal);
-            transaksiService.tambahTransaksi(conn, transaksi);
+            transaksiService.tambahTransaksi(conn, transaksi, userId);
 
             conn.commit();
 

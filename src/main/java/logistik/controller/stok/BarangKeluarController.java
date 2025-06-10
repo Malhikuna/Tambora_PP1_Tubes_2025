@@ -7,6 +7,7 @@ import logistik.App;
 import logistik.model.Barang;
 import logistik.service.BarangService;
 import logistik.service.StokService;
+import logistik.util.ManajemenSesi;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -115,12 +116,14 @@ public class BarangKeluarController {
         LocalDateTime tanggalKeluar = LocalDateTime.of(tanggal, LocalTime.now());
 
         // Panggil service untuk mencatat barang keluar
+        String userId = ManajemenSesi.getUserYangLogin().getId().toString();
         try {
             stokService.catatBarang(
                     barangTerpilih.getKode(),
                     jumlah,
                     "Keluar",
-                    tanggalKeluar
+                    tanggalKeluar,
+                    userId
             );
 
             showAlert(Alert.AlertType.INFORMATION, "Sukses", "Barang keluar sejumlah " + jumlah + " untuk '" + barangTerpilih.getNama() + "' berhasil dicatat.");

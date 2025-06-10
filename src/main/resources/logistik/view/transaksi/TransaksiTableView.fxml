@@ -40,7 +40,8 @@
             <TableColumn fx:id="kodeBarangColumn" text="Kode Barang" prefWidth="100.0"/>
             <TableColumn fx:id="namaBarangColumn" text="Nama Barang" prefWidth="250.0"/>
             <TableColumn fx:id="jenisColumn" text="Jenis" prefWidth="100.0"/>
-            <TableColumn fx:id="jumlahColumn" text="Jumlah" prefWidth="150.0"/>
+            <TableColumn fx:id="jumlahColumn" text="Jumlah" prefWidth="50.0"/>
+            <TableColumn fx:id="namaUserColumn" text="Yang Melakukan" prefWidth="200.0"/>
         </columns>
 
         <columnResizePolicy>

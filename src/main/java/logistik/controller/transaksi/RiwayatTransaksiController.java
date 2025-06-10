@@ -52,6 +52,9 @@ public class RiwayatTransaksiController {
     private TableColumn<Transaksi, Integer> jumlahColumn;
 
     @FXML
+    private TableColumn<Transaksi, String> namaUserColumn;
+
+    @FXML
     private Button cetakLaporanButton;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
@@ -92,6 +95,8 @@ public class RiwayatTransaksiController {
                 }
             };
         });
+
+        namaUserColumn.setCellValueFactory(new PropertyValueFactory<>("namaUser"));
 
         // 2. Siapkan FilteredList untuk filter data
         filteredDataTransaksi = new FilteredList<>(masterDataTransaksi, p -> true);
