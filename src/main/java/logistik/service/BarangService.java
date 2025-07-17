@@ -68,7 +68,7 @@ public class BarangService {
     public List<Barang> tampilkanSemuaBarang () throws SQLException {
         List<Barang> barang = new ArrayList<>();
         String sql = "SELECT b.*, k.nama_kategori " +
-                "FROM barang b\n" + "JOIN kategori_barang k ON b.kategori_id = k.id\n";
+                "FROM barang b\n" + "JOIN kategori_barang k ON b.kategori_id = k.id\n" + "ORDER BY kode_barang";
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
