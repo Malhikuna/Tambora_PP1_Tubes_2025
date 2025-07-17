@@ -61,7 +61,7 @@
 }
 
 .content-area {
-    -fx-background-color: linear-gradient(to left, #007bff, #66bfff, white);
+    -fx-background-color: #f6f8fc;
     -fx-padding: 20;
 }
 

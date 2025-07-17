@@ -297,7 +297,7 @@ public class StokMain {
                                         LocalDateTime tanggalMasuk = InputUtil
                                                 .inputLocalDateTime("Masukkan Tanggal & Waktu");
 
-                                        stokService.catatBarang(kodeBarang, jumlah, "Masuk", tanggalMasuk);
+                                        stokService.catatBarang(kodeBarang, jumlah, "Masuk", tanggalMasuk, userYangLogin.getId().toString());
 
                                         // 3. Beri feedback sukses ke user
                                         System.out.println("\n[SUKSES] Barang masuk untuk kode " + kodeBarang
@@ -318,7 +318,7 @@ public class StokMain {
                                         LocalDateTime tanggalKeluar = InputUtil
                                                 .inputLocalDateTime("Masukkan Tanggal & Waktu");
 
-                                        stokService.catatBarang(kodeBarang, jumlah, "Keluar", tanggalKeluar);
+                                        stokService.catatBarang(kodeBarang, jumlah, "Keluar", tanggalKeluar, userYangLogin.getId().toString());
 
                                         // 3. Beri feedback sukses ke user
                                         System.out.println("\n[SUKSES] Barang keluar untuk kode " + kodeBarang

@@ -3,6 +3,7 @@ package logistik.service;
 import logistik.config.DatabaseConnection;
 import logistik.model.StokBarang;
 import logistik.model.Transaksi;
+import logistik.model.User;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -22,14 +23,15 @@ public class TransaksiService {
     }
 
     // Prosedur untuk menambahkan transaksi baru ke queue
-    public void tambahTransaksi(Connection conn, Transaksi transaksi) throws SQLException {
-        String sql = "INSERT INTO transaksi (id, kode_barang, jenis, jumlah, tanggal) VALUES (?,?,?,?,?)";
+    public void tambahTransaksi(Connection conn, Transaksi transaksi, String userId) throws SQLException {
+        String sql = "INSERT INTO transaksi (id, kode_barang, jenis, jumlah, tanggal, user_id) VALUES (?,?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, transaksi.getId().toString());
             stmt.setString(2, transaksi.getKodeBarang());
             stmt.setString(3, transaksi.getJenis());
             stmt.setInt(4, transaksi.getJumlah());
             stmt.setTimestamp(5, Timestamp.valueOf(transaksi.getTanggal()));
+            stmt.setString(6, userId);
             stmt.executeUpdate();
         }
     }
@@ -37,8 +39,9 @@ public class TransaksiService {
     // Prosedur untuk menampilkan semua transaksi dalam queue
     public List<Transaksi> tampilkanSemuaTransakasi() throws SQLException {
         List<Transaksi> transaksi = new ArrayList<>();
-        String sql = "SELECT t.*, b.nama_barang " +
-                "FROM transaksi t\n" + "JOIN barang b ON t.kode_barang = b.kode_barang\n";
+        String sql = "SELECT t.*, b.nama_barang, u.name " +
+                "FROM transaksi t\n" + "JOIN barang b ON t.kode_barang = b.kode_barang\n"
+                + "JOIN users u ON t.user_id = u.id\n";
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -49,6 +52,7 @@ public class TransaksiService {
                         rs.getInt("jumlah"),
                         rawTanggal);
                 t.setNamaBarang(rs.getString("nama_barang"));
+                t.setNamaUser(rs.getString("name"));
                         transaksi.add(t);
             }
         }
